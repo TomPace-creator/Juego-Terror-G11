@@ -26,7 +26,7 @@ public class LightSwitch : InteractableObject
     void Start()
     {
         
-        interactText = isOn ? "\"Apagar [E]\"" : "\"Prender [E]\"";
+        interactText = isOn ? "\"Apagar Luz [E]\"" : "\"Prender Luz [E]\"";
         foreach (Light light in targetLights)
         {
             if (light != null)
@@ -57,7 +57,7 @@ public class LightSwitch : InteractableObject
     {
         isOn = !isOn;
 
-        interactText = isOn ? "\"Apagar [E]\"" : "\"Prender [E]\"";
+        interactText = isOn ? "\"Apagar Luz [E]\"" : "\"Prender Luz[E]\"";
 
         StopAllCoroutines();
 
