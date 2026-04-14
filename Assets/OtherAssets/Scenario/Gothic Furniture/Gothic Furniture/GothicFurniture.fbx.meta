@@ -3,7 +3,52 @@ guid: 2ae407af72fb5a54097530e9d34650ad
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bed
+    second: {fileID: 2100000, guid: cb97360d14923ad409d84dd4968b30d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bench
+    second: {fileID: 2100000, guid: c3ceb9792dbed3c4ea1fa31fb6b847f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Candle2
+    second: {fileID: 2100000, guid: d52b5817a8b83b64986032a97b06b542, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CandleStick
+    second: {fileID: 2100000, guid: 5721e6ca3b0928e41bfff49e98b9fedc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chair
+    second: {fileID: 2100000, guid: d872b09b0ab66624d8d8265c980ffa7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chest
+    second: {fileID: 2100000, guid: 5d1d7b39976d5b548888b810aca0fec9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Divider
+    second: {fileID: 2100000, guid: f234079985a699c4892e5ee3cff9d762, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drawer
+    second: {fileID: 2100000, guid: 57109b5ce5dba994eaecc4f18378974e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideTable
+    second: {fileID: 2100000, guid: 8d624c80c6faa5945a99aeb8d085145d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
