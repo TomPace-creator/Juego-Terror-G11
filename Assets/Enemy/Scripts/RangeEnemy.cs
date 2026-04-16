@@ -18,10 +18,17 @@ public class RangeEnemy : MonoBehaviour
     public float VelocidadMerodeo = 2f;
     private bool estaEsperando = false;
 
-    [Header("Animaciones")]
-    public Animation Anim;
-    public string NombreAnimacionCaminar; 
-    public string NombreAnimacionCorrer;
+    private void Start()
+    {
+        if (Target == null) {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null) Target = player.transform;
+        }
+
+        if (Enemy == null) Enemy = GetComponent<NavMeshAgent>();
+        
+        Enemy.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+    }
 
     private void Update()
     {
@@ -53,7 +60,6 @@ public class RangeEnemy : MonoBehaviour
         estaEsperando = false;
 
         Enemy.speed = Velocity;
-        Anim.CrossFade(NombreAnimacionCorrer);
         Enemy.SetDestination(Target.position);
     }
 
@@ -61,15 +67,16 @@ public class RangeEnemy : MonoBehaviour
     {
         Enemy.speed = VelocidadMerodeo;
 
+        if (Enemy.hasPath && Enemy.pathStatus == NavMeshPathStatus.PathPartial)
+        {
+            Enemy.ResetPath(); // Limpiamos el camino fallido
+        }
+
         if (!Enemy.pathPending && Enemy.remainingDistance <= Enemy.stoppingDistance && !estaEsperando)
         {
             StartCoroutine(EsperarYBuscarNuevoPunto());
         }
 
-        if (Enemy.remainingDistance > Enemy.stoppingDistance)
-        {
-            Anim.CrossFade(NombreAnimacionCaminar);
-        }
     }
 
     IEnumerator EsperarYBuscarNuevoPunto()
@@ -92,4 +99,17 @@ public class RangeEnemy : MonoBehaviour
 
         estaEsperando = false;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(Enemy.transform.position, Range);
+
+        if (Enemy != null && Enemy.hasPath)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, Enemy.destination);
+        }
+    }
 }
+
