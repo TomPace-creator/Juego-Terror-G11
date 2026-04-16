@@ -6,6 +6,7 @@ public class IntroCinematic : MonoBehaviour
 {
     [Header("Referencias de la Escena")]
     [SerializeField] private Controller playerController;
+    [SerializeField] private PlayerFootsteps playerFootsteps; // <-- El script de los pasos
     [SerializeField] private Transform cameraContainer;
     [SerializeField] private Transform clockTarget;
     [SerializeField] private Image blackScreen;
@@ -27,8 +28,20 @@ public class IntroCinematic : MonoBehaviour
 
     private void Start()
     {
-        //pa que no se mueva
-        playerController.enabled = false;
+        // 1. Apagamos el cerebro de movimiento
+        if (playerController != null) playerController.enabled = false;
+
+        // 2. Apagamos el script de pasos
+        if (playerFootsteps != null)
+        {
+            playerFootsteps.enabled = false;
+        }
+        else
+        {
+           
+            Debug.LogError("error");
+        }
+
         playerController.DisableMovement();
         playerController.DisableLook();
 
@@ -43,13 +56,10 @@ public class IntroCinematic : MonoBehaviour
 
     private IEnumerator PlayIntroSequence()
     {
-        // escena 1 grito
         if (kitchenNoiseSource != null && spookySound != null)
         {
             kitchenNoiseSource.PlayOneShot(spookySound);
         }
-
-        // abre los ojos
 
         yield return new WaitForSeconds(sleepTime);
         float alpha = 1f;
@@ -60,7 +70,6 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // mira reloj
         yield return new WaitForSeconds(ceilingStareTime);
 
         Quaternion startRotation = cameraContainer.rotation;
@@ -75,8 +84,7 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        //prende la luz
-        yield return new WaitForSeconds(0.4f); // Pausa breve en la oscuridad
+        yield return new WaitForSeconds(0.4f);
         if (bedsideLamp != null && !bedsideLamp.GetIsOn())
         {
             bedsideLamp.Interact();
@@ -84,7 +92,6 @@ public class IntroCinematic : MonoBehaviour
 
         yield return new WaitForSeconds(clockStareTime);
 
-        //se levanta
         Vector3 currentBedPos = cameraContainer.localPosition;
         Quaternion currentBedRot = cameraContainer.localRotation;
 
@@ -97,33 +104,28 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        
+        // --- RECUPERAR EL CONTROL ---
+        if (playerController != null) playerController.enabled = true;
+        if (playerFootsteps != null) playerFootsteps.enabled = true;
+
         playerController.EnableMovement();
         playerController.EnableLook();
 
+        // --- DIÁLOGOS Y MISIÓN ---
         if (GameManager.Instance != null)
         {
-            // comienzo de subs de pensamiento
             GameManager.Instance.ShowSubtitle("<i>Ruth - ¿Qué fue eso?...</i>", 4f);
-
-            
-            yield return new WaitForSeconds(5f);
-
-         
-            GameManager.Instance.ShowSubtitle("<i>Parece que vino desde afuera...</i>", 4f);
-
-    
-            yield return new WaitForSeconds(5f);
-
-            GameManager.Instance.ShowSubtitle("<i>No veo muy bien sin mis lentes...</i>", 4f);
-
             yield return new WaitForSeconds(4f);
 
-            
+            GameManager.Instance.ShowSubtitle("<i>Parece que vino desde afuera...</i>", 4f);
+            yield return new WaitForSeconds(4f);
+
+            GameManager.Instance.ShowSubtitle("<i>No veo muy bien sin mis lentes...</i>", 4f);
+            yield return new WaitForSeconds(4f);
+
             GameManager.Instance.UpdateMission("> Ponte los lentes", "Agarra los lentes en la mesita de luz");
         }
 
-       
         Destroy(gameObject);
     }
 }

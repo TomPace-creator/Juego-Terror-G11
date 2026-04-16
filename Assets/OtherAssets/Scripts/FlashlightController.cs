@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro; // <-- NUEVO: Necesario para modificar el texto de las pilas
 
 public class FlashlightController : MonoBehaviour
 {
@@ -8,19 +10,23 @@ public class FlashlightController : MonoBehaviour
     [SerializeField] private Light playerLight;
     [SerializeField] private string requiredItem = "Linterna";
 
+    [Header("HUD")]
+    [SerializeField] private GameObject flashlightIconHUD;
+    [SerializeField] private Image batteryFillImage;
+    [Tooltip("El texto en el Canvas que dirá x0, x1, x2...")]
+    [SerializeField] private TextMeshProUGUI batteryCountText; // <-- NUEVO: El contador
+
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip flickerSound;
-    [SerializeField] private AudioClip reloadSound; // Sonido de poner pilas nuevas
+    [SerializeField] private AudioClip reloadSound;
 
     [Header("Configuración de Batería")]
     [SerializeField] private float maxBattery = 100f;
-    [Tooltip("Cuánta batería gasta por segundo")]
     [SerializeField] private float drainRate = 1.5f;
-    [SerializeField] private string batteryItemName = "Pilas"; // El nombre que le pondrás al PickUpItem
+    [SerializeField] private string batteryItemName = "Pilas";
 
-    // Público para que si luego haces una barra de energía en el HUD, la pueda leer
     public float currentBattery;
 
     [Header("Configuración de Parpadeo")]
@@ -30,15 +36,21 @@ public class FlashlightController : MonoBehaviour
 
     private float defaultIntensity;
     private Coroutine flickerCoroutine;
+    private bool hasUnlockedFlashlight = false;
 
     private void Start()
     {
-        currentBattery = maxBattery; // Arrancas la noche con la batería al 100%
+        currentBattery = maxBattery;
 
         if (playerLight != null)
         {
             defaultIntensity = playerLight.intensity;
             playerLight.enabled = false;
+        }
+
+        if (flashlightIconHUD != null)
+        {
+            flashlightIconHUD.SetActive(false);
         }
     }
 
@@ -46,12 +58,18 @@ public class FlashlightController : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        // --- 1. PRENDER / APAGAR (Tecla F) ---
+        // Mostrar el icono cuando lo agarramos
+        if (!hasUnlockedFlashlight && GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
+        {
+            hasUnlockedFlashlight = true;
+            if (flashlightIconHUD != null) flashlightIconHUD.SetActive(true);
+        }
+
+        // 1. PRENDER / APAGAR
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
             if (GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
             {
-                // Si la quieres prender pero tienes 0 batería, no te deja (y hace ruido de fallo)
                 if (!playerLight.enabled && currentBattery <= 0)
                 {
                     if (audioSource != null && clickSound != null) audioSource.PlayOneShot(clickSound, 0.3f);
@@ -62,46 +80,59 @@ public class FlashlightController : MonoBehaviour
             }
         }
 
-        // --- 2. RECARGAR (Tecla R) ---
+        // 2. RECARGAR
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             TryReload();
         }
 
-        // --- 3. DRENAR BATERÍA ---
+        // 3. DRENAR BATERÍA
         if (playerLight.enabled)
         {
             currentBattery -= Time.deltaTime * drainRate;
 
-            // ¡Se acabó la luz!
             if (currentBattery <= 0)
             {
                 currentBattery = 0;
-                ToggleFlashlight(); // Forzamos el apagado
+                ToggleFlashlight();
             }
+        }
+
+        // 4. ACTUALIZAR UI CONSTANTEMENTE
+        UpdateBatteryUI();
+    }
+
+    private void UpdateBatteryUI()
+    {
+        // Actualizamos la barra que se vacía
+        if (batteryFillImage != null)
+        {
+            batteryFillImage.fillAmount = currentBattery / maxBattery;
+        }
+
+        // --- NUEVO: Actualizamos el texto con la cantidad de pilas ---
+        if (batteryCountText != null && GameManager.Instance != null)
+        {
+            int pilasEnInventario = GameManager.Instance.GetItemCount(batteryItemName);
+            batteryCountText.text = "x" + pilasEnInventario.ToString();
         }
     }
 
     private void TryReload()
     {
-        // Si ya está llena, no desperdiciamos pilas
         if (currentBattery >= maxBattery) return;
 
         if (GameManager.Instance != null && GameManager.Instance.HasItem(batteryItemName))
         {
-            // 1. Gastamos la pila de tu inventario
+            // Solo remueve UNA palabra "Pilas" de la lista
             GameManager.Instance.RemoveItemFromInventory(batteryItemName);
-
-            // 2. Llenamos la energía al máximo
             currentBattery = maxBattery;
 
-            // 3. Sonido y texto
             if (audioSource != null && reloadSound != null) audioSource.PlayOneShot(reloadSound);
             GameManager.Instance.ShowSubtitle("<i>Batería reemplazada.</i>", 2f);
         }
         else
         {
-            // Feedback si apretas R y no tienes pilas
             GameManager.Instance.ShowSubtitle("<i>Me quedé sin pilas...</i>", 2f);
         }
     }

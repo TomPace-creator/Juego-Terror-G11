@@ -53,4 +53,14 @@ public class GameManager : MonoBehaviour
         OnSubtitleTriggered?.Invoke(text, durationInSeconds);
         Debug.Log("Subtítulo mostrado: " + text);
     }
+
+    public int GetItemCount(string itemName)
+    {
+        int count = 0;
+        foreach (string item in inventory)
+        {
+            if (item == itemName) count++;
+        }
+        return count;
+    }
 }
