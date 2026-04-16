@@ -31,7 +31,15 @@ public class GameManager : MonoBehaviour
         return inventory.Contains(itemName);
     }
 
-    
+    public void RemoveItemFromInventory(string itemName)
+    {
+        if (inventory.Contains(itemName))
+        {
+            inventory.Remove(itemName);
+        }
+    }
+
+
 
     public void UpdateMission(string title, string details)
     {

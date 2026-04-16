@@ -11,7 +11,7 @@ public class IntroCinematic : MonoBehaviour
     [SerializeField] private Image blackScreen;
     [SerializeField] private Transform sleepPosition;
     [SerializeField] private LightSwitch bedsideLamp;
-    [SerializeField] private AudioSource kitchenNoiseSource; // El parlante de la cocina
+    [SerializeField] private AudioSource kitchenNoiseSource;
     [SerializeField] private AudioClip spookySound;
 
     [Header("Tiempos de la Cinemática")]
@@ -41,7 +41,15 @@ public class IntroCinematic : MonoBehaviour
 
     private IEnumerator PlayIntroSequence()
     {
-        // --- ESCENA 1 y 2: DORMIDA Y ABRIENDO LOS OJOS ---
+        // --- ESCENA 1: EL ESTRUENDO INICIAL ---
+        // ¡PUM! El sonido suena primero en plena pantalla negra para despertar a Ruth.
+        if (kitchenNoiseSource != null && spookySound != null)
+        {
+            kitchenNoiseSource.PlayOneShot(spookySound);
+        }
+
+        // --- ESCENA 2: ABRIENDO LOS OJOS ---
+        // sleepTime actúa como el tiempo de reacción entre el ruido y abrir los ojos
         yield return new WaitForSeconds(sleepTime);
         float alpha = 1f;
         while (alpha > 0)
@@ -51,10 +59,9 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // --- ESCENA 2.5: MIRANDO EL TECHO ---
+        // --- ESCENA 3: MIRANDO EL TECHO Y LUEGO AL RELOJ ---
         yield return new WaitForSeconds(ceilingStareTime);
 
-        // --- ESCENA 3: GIRANDO HACIA EL RELOJ EN LA OSCURIDAD ---
         Quaternion startRotation = cameraContainer.rotation;
         Vector3 directionToClock = clockTarget.position - cameraContainer.position;
         Quaternion targetRotation = Quaternion.LookRotation(directionToClock);
@@ -68,22 +75,14 @@ public class IntroCinematic : MonoBehaviour
         }
 
         // --- ESCENA 4: EL PERSONAJE PRENDE LA LUZ ---
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f); // Pausa breve en la oscuridad
         if (bedsideLamp != null && !bedsideLamp.GetIsOn())
         {
             bedsideLamp.Interact();
         }
 
-        // --- ESCENA 4.5: EL SUSPENSO Y EL RUIDO EN 3D ---
-        yield return new WaitForSeconds(1f);
-
-        // Usamos el parlante de la cocina para "disparar" el sonido del golpe
-        if (kitchenNoiseSource != null && spookySound != null)
-        {
-            kitchenNoiseSource.PlayOneShot(spookySound);
-        }
-
         yield return new WaitForSeconds(clockStareTime);
+
         // --- ESCENA 5: LEVANTÁNDOSE DE LA CAMA ---
         Vector3 currentBedPos = cameraContainer.localPosition;
         Quaternion currentBedRot = cameraContainer.localRotation;
@@ -96,22 +95,30 @@ public class IntroCinematic : MonoBehaviour
             cameraContainer.localRotation = Quaternion.Slerp(currentBedRot, defaultStandRot, standT);
             yield return null;
         }
-        // --- ESCENA 6: RECUPERAR EL CONTROL ---
+
+        // --- ESCENA 6: RECUPERAR EL CONTROL Y SECUENCIA DE DIÁLOGOS ---
         playerController.EnableMovement();
         playerController.EnableLook();
 
-       
-
         if (GameManager.Instance != null)
         {
-            // 1. Lanzamos el pensamiento como Subtítulo (durará 4 segundos)
-            GameManager.Instance.ShowSubtitle("<i>Ruth- ¿Qué fue eso?...</i>", 5f);
+            // 1. Primer pensamiento apenas recupere el control (dura 4 seg)
+            GameManager.Instance.ShowSubtitle("<i>Ruth - ¿Qué fue eso?...</i>", 4f);
 
-            yield return new WaitForSeconds(10f);
-            // 2. Actualizamos la misión general en la esquina
-            GameManager.Instance.UpdateMission("> Investiga la cocina", "");
+            // Esperamos 5 segundos (4 que dura el texto + 1 segundo de silencio)
+            yield return new WaitForSeconds(5f);
+
+            // 2. Segundo pensamiento deductivo (dura 4 seg)
+            GameManager.Instance.ShowSubtitle("<i>Parece que vino desde afuera...</i>", 4f);
+
+            // Esperamos otros 5 segundos antes de mandar la misión
+            yield return new WaitForSeconds(5f);
+
+            // 3. Actualizamos la misión para que vaya a la ventana
+            GameManager.Instance.UpdateMission("> Investiga por la ventana", "");
         }
 
+        // Fin de la cinemática
         Destroy(gameObject);
     }
 }
