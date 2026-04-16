@@ -24,25 +24,26 @@ public class NarrativeTriggerKitchen : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            // 
-            yield return new WaitForSeconds(5f);
+            // aca borro la mision cocina
+            GameManager.Instance.UpdateMission("", "");
+            yield return new WaitForSeconds(4f);
 
-            GameManager.Instance.ShowSubtitle("<i>gluglgulgug</i>", 5f);
+            GameManager.Instance.ShowSubtitle("<i>gluglgulgug</i>", 4f);
 
             
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(6f);
 
          
-            GameManager.Instance.ShowSubtitle("<i>el diablo</i>", 5f);
+            GameManager.Instance.ShowSubtitle("<i>el diablo</i>", 4f);
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(6f);
 
-            GameManager.Instance.ShowSubtitle("<i>asdasdasd.</i>", 5f);
+            GameManager.Instance.ShowSubtitle("<i>asdasdasd.</i>", 4f);
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(6f);
 
           
-            GameManager.Instance.UpdateMission("> chucha la wea", "");
+            GameManager.Instance.UpdateMission("> chucha la wea", "ctm");
         }
 
         // Destruimos la caja invisible para que este evento no vuelva a ocurrir nunca más

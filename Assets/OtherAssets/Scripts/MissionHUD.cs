@@ -39,10 +39,10 @@ public class MissionHUD : MonoBehaviour
         missionText.text = "<size=80%>" + title + "</size>";
 
         // 2. Esperamos 2 segundos de suspenso
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(10f);
 
         // 3. Desplegamos el detalle abajo. 
         // Mantenemos el título grande y hacemos el detalle más chico (60%) y gris.
-        missionText.text = "<size=80%>" + title + "</size>\n<color=#A0A0A0><size=80%>" + details + "</size></color>";
+        missionText.text = "<size=80%>" + title + "</size>\n<color=#A0A0A0><size=60%>" + details + "</size></color>";
     }
 }

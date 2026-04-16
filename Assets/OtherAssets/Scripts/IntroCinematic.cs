@@ -27,6 +27,8 @@ public class IntroCinematic : MonoBehaviour
 
     private void Start()
     {
+        //pa que no se mueva
+        playerController.enabled = false;
         playerController.DisableMovement();
         playerController.DisableLook();
 
@@ -41,15 +43,14 @@ public class IntroCinematic : MonoBehaviour
 
     private IEnumerator PlayIntroSequence()
     {
-        // --- ESCENA 1: EL ESTRUENDO INICIAL ---
-        // ¡PUM! El sonido suena primero en plena pantalla negra para despertar a Ruth.
+        // escena 1 grito
         if (kitchenNoiseSource != null && spookySound != null)
         {
             kitchenNoiseSource.PlayOneShot(spookySound);
         }
 
-        // --- ESCENA 2: ABRIENDO LOS OJOS ---
-        // sleepTime actúa como el tiempo de reacción entre el ruido y abrir los ojos
+        // abre los ojos
+
         yield return new WaitForSeconds(sleepTime);
         float alpha = 1f;
         while (alpha > 0)
@@ -59,7 +60,7 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // --- ESCENA 3: MIRANDO EL TECHO Y LUEGO AL RELOJ ---
+        // mira reloj
         yield return new WaitForSeconds(ceilingStareTime);
 
         Quaternion startRotation = cameraContainer.rotation;
@@ -74,7 +75,7 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // --- ESCENA 4: EL PERSONAJE PRENDE LA LUZ ---
+        //prende la luz
         yield return new WaitForSeconds(0.4f); // Pausa breve en la oscuridad
         if (bedsideLamp != null && !bedsideLamp.GetIsOn())
         {
@@ -83,7 +84,7 @@ public class IntroCinematic : MonoBehaviour
 
         yield return new WaitForSeconds(clockStareTime);
 
-        // --- ESCENA 5: LEVANTÁNDOSE DE LA CAMA ---
+        //se levanta
         Vector3 currentBedPos = cameraContainer.localPosition;
         Quaternion currentBedRot = cameraContainer.localRotation;
 
@@ -96,29 +97,33 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // --- ESCENA 6: RECUPERAR EL CONTROL Y SECUENCIA DE DIÁLOGOS ---
+        
         playerController.EnableMovement();
         playerController.EnableLook();
 
         if (GameManager.Instance != null)
         {
-            // 1. Primer pensamiento apenas recupere el control (dura 4 seg)
+            // comienzo de subs de pensamiento
             GameManager.Instance.ShowSubtitle("<i>Ruth - ¿Qué fue eso?...</i>", 4f);
 
-            // Esperamos 5 segundos (4 que dura el texto + 1 segundo de silencio)
+            
             yield return new WaitForSeconds(5f);
 
-            // 2. Segundo pensamiento deductivo (dura 4 seg)
+         
             GameManager.Instance.ShowSubtitle("<i>Parece que vino desde afuera...</i>", 4f);
 
-            // Esperamos otros 5 segundos antes de mandar la misión
+    
             yield return new WaitForSeconds(5f);
 
-            // 3. Actualizamos la misión para que vaya a la ventana
-            GameManager.Instance.UpdateMission("> Investiga por la ventana", "");
+            GameManager.Instance.ShowSubtitle("<i>No veo muy bien sin mis lentes...</i>", 4f);
+
+            yield return new WaitForSeconds(4f);
+
+            
+            GameManager.Instance.UpdateMission("> Ponte los lentes", "Agarra los lentes en la mesita de luz");
         }
 
-        // Fin de la cinemática
+       
         Destroy(gameObject);
     }
 }

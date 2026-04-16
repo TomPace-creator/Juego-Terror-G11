@@ -10,6 +10,10 @@ public class PickUpItem : InteractableObject
     [SerializeField] private AudioClip pickUpSound;
     [SerializeField] private string thoughtOnPickUp = "<i>Con esto podré ver en la oscuridad...</i>";
 
+    private void Start()
+    {
+        interactText = "\"Agarrar Linterna [E]\"";
+    }
     public override void Interact()
     {
         if (GameManager.Instance != null)
