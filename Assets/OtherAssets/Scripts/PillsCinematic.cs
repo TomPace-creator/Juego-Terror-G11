@@ -6,15 +6,12 @@ public class PillsCinematic : InteractableObject
     [Header("Referencias del Jugador")]
     [SerializeField] private Controller playerController;
     [SerializeField] private PlayerFootsteps playerFootsteps;
-    [Tooltip("La cápsula de físicas de Unity para evitar teletransportes")]
-    [SerializeField] private CharacterController characterController; // <-- ¡NUEVO!
-    [Tooltip("El Transform raíz del jugador (Player Ez) para girarlo 180 grados")]
+    [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform playerTransform;
-    [Tooltip("La cámara para hacer el cabeceo de tomar las pastillas")]
-    [SerializeField] private Transform cameraContainer;
+    [Tooltip("La cámara del jugador, para obligarla a mirar al frente")]
+    [SerializeField] private Transform cameraContainer; // <-- ¡VOLVIÓ LA CÁMARA!
 
     [Header("Referencias del Terror")]
-    [Tooltip("El modelo 3D del monstruo que está a tus espaldas")]
     [SerializeField] private GameObject scaryEntity;
 
     [Header("Audio")]
@@ -42,13 +39,11 @@ public class PillsCinematic : InteractableObject
 
     private IEnumerator CinematicRoutine()
     {
-        // --- FASE 1: CONGELAR AL JUGADOR Y APAGAR FÍSICAS ---
-
-        // APAGAMOS LA CÁPSULA DE FÍSICAS PARA EVITAR EL TELETRANSPORTE
+        // --- FASE 1: CONGELAR ---
         if (characterController != null) characterController.enabled = false;
-
         if (playerController != null) playerController.enabled = false;
         if (playerFootsteps != null) playerFootsteps.enabled = false;
+
         if (playerController != null)
         {
             playerController.DisableMovement();
@@ -61,15 +56,15 @@ public class PillsCinematic : InteractableObject
             GameManager.Instance.ShowSubtitle("<i>*Tragas las pastillas con un poco de agua*</i>", 3f);
         }
 
-        // --- FASE 2: ANIMACIÓN DE TOMAR LAS PASTILLAS ---
-        Quaternion startCamRot = cameraContainer.localRotation;
-        Quaternion lookDownRot = startCamRot * Quaternion.Euler(40f, 0, 0);
+        // --- FASE 2: 
+        Quaternion initialCamRot = cameraContainer.localRotation;
+        Quaternion lookDownRot = Quaternion.Euler(-40f, 0, 0); 
 
         float t = 0;
         while (t < 1)
         {
             t += Time.deltaTime * 3f;
-            cameraContainer.localRotation = Quaternion.Slerp(startCamRot, lookDownRot, t);
+            cameraContainer.localRotation = Quaternion.Slerp(initialCamRot, lookDownRot, t);
             yield return null;
         }
 
@@ -80,39 +75,39 @@ public class PillsCinematic : InteractableObject
 
         yield return new WaitForSeconds(1.2f);
 
-        t = 0;
-        while (t < 1)
-        {
-            t += Time.deltaTime * 2.5f;
-            cameraContainer.localRotation = Quaternion.Slerp(lookDownRot, startCamRot, t);
-            yield return null;
-        }
-
-        // --- FASE 3: EL SUSTO (GIRO Y MONSTRUO) ---
+        // --- FASE 3: EL SUSTO (GIRO Y CENTRADO DE CÁMARA) ---
         if (scaryEntity != null) scaryEntity.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
 
-        // ¡EL TRUCO ANTITELETRANSPORTE! Memorizamos la posición exacta
         Vector3 lockedPosition = playerTransform.position;
 
+        // Rotación del cuerpo (180 grados)
         Quaternion playerStartRot = playerTransform.rotation;
         Quaternion playerTargetRot = playerStartRot * Quaternion.Euler(0, 180f, 0);
+
+        // Rotación de la cabeza (0 grados, mirando perfectamente recto)
+        Quaternion cameraStartRot = cameraContainer.localRotation;
+        Quaternion cameraTargetRot = Quaternion.Euler(0f, 0f, 0f);
 
         t = 0;
         while (t < 1)
         {
             t += Time.deltaTime * 5f;
-            playerTransform.rotation = Quaternion.Slerp(playerStartRot, playerTargetRot, t);
 
-            // Clavamos los pies al piso en cada frame del giro
+            // 1. Gira el cuerpo
+            playerTransform.rotation = Quaternion.Slerp(playerStartRot, playerTargetRot, t);
             playerTransform.position = lockedPosition;
+
+            // 2. Levanta la cabeza para mirar a los ojos del monstruo
+            cameraContainer.localRotation = Quaternion.Slerp(cameraStartRot, cameraTargetRot, t);
 
             yield return null;
         }
 
-        // Nos aseguramos por última vez antes de prender las físicas
+        // Aseguramos que quede perfectamente centrado
         playerTransform.position = lockedPosition;
+        cameraContainer.localRotation = cameraTargetRot;
 
         if (audioSource != null && jumpscareSound != null)
         {
@@ -121,7 +116,7 @@ public class PillsCinematic : InteractableObject
 
         yield return new WaitForSeconds(1.5f);
 
-        // --- FASE 4: DESAPARICIÓN Y NUEVA MISIÓN ---
+        // --- FASE 4: DESAPARICIÓN ---
         if (scaryEntity != null) scaryEntity.SetActive(false);
 
         if (GameManager.Instance != null)
@@ -136,16 +131,18 @@ public class PillsCinematic : InteractableObject
             GameManager.Instance.UpdateMission("> Sobrevive hasta el amanecer", "Escapa o escóndete en el apartamento");
         }
 
-        // --- FASE 5: DEVOLVER EL CONTROL Y PRENDER FÍSICAS ---
-
-        // VOLVEMOS A PRENDER LA CÁPSULA DE FÍSICAS
+        // --- FASE 5: DEVOLVER EL CONTROL ---
         if (characterController != null) characterController.enabled = true;
-
         if (playerController != null) playerController.enabled = true;
         if (playerFootsteps != null) playerFootsteps.enabled = true;
+
         if (playerController != null)
         {
             playerController.EnableMovement();
+
+            // ¡EL ARREGLO ESTÁ AQUÍ! Sincronizamos la memoria antes de dejarlo mirar
+            playerController.SincronizarRotacionCamara();
+
             playerController.EnableLook();
         }
 
