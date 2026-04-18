@@ -1,29 +1,43 @@
 using UnityEngine;
-
-public class FollowPlayer : MonoBehaviour
+using UnityEngine.AI;
+public class FollowPlayer : MonoBehaviour    
 {
-    GameObject player;
+    private GameObject player;
+    private NavMeshAgent agent;
     [SerializeField] float speed;
     [SerializeField] float detectionRange; 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
+
+        if (player == null)
+        {
+            Debug.LogError("No se encontro ningún GameObject con el tag 'Player'");
+        }
     }
 
     void Update()
     {
+        if (player == null) return;
+
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if(distance < detectionRange) 
         {
-	        Vector3 direction = (player.transform.position - transform.position).normalized;
-            direction.y = 0;
-            transform.rotation = Quaternion.LookRotation(direction);
-
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+	        agent.SetDestination(player.transform.position);
+            if (agent.pathStatus == NavMeshPathStatus.PathInvalid || agent.pathStatus == NavMeshPathStatus.PathPartial)
+            {
+                agent.ResetPath();
+            }
         }
+        else
+        {
+            agent.ResetPath();
+        }    
+        
     }
-
 }
+
 
 
