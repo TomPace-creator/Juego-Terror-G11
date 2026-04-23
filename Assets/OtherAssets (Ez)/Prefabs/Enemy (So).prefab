@@ -113,7 +113,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.46794593
+  m_Radius: 0.16545063
   m_Height: 1.1754862
   m_Direction: 1
   m_Center: {x: 0, y: 0.5877431, z: 0}
@@ -151,20 +151,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cce25f86bc1d34418d35f233716bc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  detectionRange: 15
-  chaseSpeed: 1
-  memoryTime: 10
+  detectionRange: 20
+  chaseSpeed: 1.5
+  memoryTime: 5
+  timeToAbsoluteHunt: 60
+  killDistance: 1.8
   sanityDrainRange: 10
   sanityDrainPerSecond: 3
   eyeHeight: 1.6
   doorReach: 1.5
-  patrolSpeed: 4
+  patrolSpeed: 2
   patrolRadius: 50
   waitTimeAtDestination: 2
   spawnPointTag: EnemySpawn
   vanishDuration: 20
   audioSource: {fileID: 1118543905768275410}
   spawnSound: {fileID: 8300000, guid: 6b94c6f08bab13e4cb8e25e6b032a07a, type: 3}
+  footstepSound: {fileID: 8300000, guid: 06437c6451f9a0b4f9bdef25c06900be, type: 3}
+  absoluteHuntSound: {fileID: 8300000, guid: 80684d9010065014d9f0272d4968cf0e, type: 3}
+  footstepInterval: 1
 --- !u!82 &1118543905768275410
 AudioSource:
   m_ObjectHideFlags: 0

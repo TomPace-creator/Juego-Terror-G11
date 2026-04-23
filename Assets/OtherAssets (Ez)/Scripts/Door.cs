@@ -19,7 +19,7 @@ public class Door : InteractableObject
 
     [Header("Borrar Misión al Abrir")]
     [Tooltip("Título de la misión que se completará al abrir la puerta con éxito")]
-    [SerializeField] private string questToClearOnUnlock = "[Opcional] El Ático";
+    [SerializeField] private string questToClearOnUnlock = "[Opcional] EL ATICO";
 
     [Header("Puerta Doble (Opcional)")]
     [SerializeField] private Door twinDoor;

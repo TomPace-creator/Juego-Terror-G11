@@ -1,26 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System; 
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
     [Header("Inventario del Jugador")]
-    public List<string> inventory = new List<string>();
+    // AHORA ES PRIVADA: Solo el GameManager puede modificar la lista directamente
+    [SerializeField] private List<string> inventory = new List<string>();
 
-
+    // --- EVENTOS ---
     public event Action<string, string> OnMissionChanged;
-
-
+    public event Action<string, string> OnSecondaryMissionChanged;
+    public event Action<string, string> OnTertiaryMissionChanged; // <-- NUEVO
     public event Action<string, float> OnSubtitleTriggered;
+    public event Action OnPillsConsumed;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(this.gameObject);
-        else Instance = this;
+        if (Instance != null && Instance != this)
+            Destroy(this.gameObject);
+        else
+            Instance = this;
     }
 
+    // --- SISTEMA DE INVENTARIO ---
     public void AddItemToInventory(string itemName)
     {
         inventory.Add(itemName);
@@ -39,21 +44,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
-    public void UpdateMission(string title, string details)
-    {
-        OnMissionChanged?.Invoke(title, details);
-        Debug.Log("Misión actualizada: " + title);
-    }
-
-   
-    public void ShowSubtitle(string text, float durationInSeconds)
-    {
-        OnSubtitleTriggered?.Invoke(text, durationInSeconds);
-        Debug.Log("Subtítulo mostrado: " + text);
-    }
-
     public int GetItemCount(string itemName)
     {
         int count = 0;
@@ -63,27 +53,35 @@ public class GameManager : MonoBehaviour
         }
         return count;
     }
-    // --- NUEVO: SISTEMA DE MISIONES SECUNDARIAS ---
-    // El evento que avisa a la UI que hay una nueva misión secundaria
-    public event System.Action<string, string> OnSecondaryMissionChanged;
 
-    
+    // --- SISTEMA DE UI Y MISIONES ---
+    public void UpdateMission(string title, string details)
+    {
+        OnMissionChanged?.Invoke(title, details);
+        Debug.Log("Misión Principal actualizada: " + title);
+    }
+
     public void UpdateSecondaryMission(string title, string details)
     {
-        // ¡OJO ACÁ! Tiene que decir OnSecondaryMissionChanged, NO OnMissionChanged
-        if (OnSecondaryMissionChanged != null)
-        {
-            OnSecondaryMissionChanged(title, details);
-        }
+        OnSecondaryMissionChanged?.Invoke(title, details);
+        Debug.Log("Misión Secundaria actualizada: " + title);
     }
-    // Evento para avisarle a toda la casa que Ruth se curó
-    public event System.Action OnPillsConsumed;
 
+    public void UpdateTertiaryMission(string title, string details) // <-- NUEVO
+    {
+        OnTertiaryMissionChanged?.Invoke(title, details);
+        Debug.Log("Misión Terciaria actualizada: " + title);
+    }
+
+    public void ShowSubtitle(string text, float durationInSeconds)
+    {
+        OnSubtitleTriggered?.Invoke(text, durationInSeconds);
+        Debug.Log("Subtítulo mostrado: " + text);
+    }
+
+    // --- SISTEMA DE EVENTOS GLOBALES ---
     public void NotifyPillsConsumed()
     {
-        if (OnPillsConsumed != null)
-        {
-            OnPillsConsumed();
-        }
+        OnPillsConsumed?.Invoke();
     }
 }

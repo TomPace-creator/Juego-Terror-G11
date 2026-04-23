@@ -7,23 +7,24 @@ public class EnemyAI : MonoBehaviour
     [Header("Configuración de Persecución")]
     [SerializeField] private float detectionRange = 15f;
     [SerializeField] private float chaseSpeed = 5.5f;
-    [Tooltip("te sigue buscando después de perderte de vista")]
+    [Tooltip("Segundos que te sigue buscando después de perderte de vista")]
     [SerializeField] private float memoryTime = 5f;
 
     [Header("Modo Caza Absoluta (Sexto Sentido)")]
-    [Tooltip("si no te ve por 60 seg te encuentra igual")]
+    [Tooltip("Segundos sin ver a Ruth antes de marchar hacia ella")]
     [SerializeField] private float timeToAbsoluteHunt = 60f;
 
     [Header("Daño de Cordura")]
-    [Tooltip("Distancia máxima a la que debe estar para quitarte cordura")]
-    [SerializeField] private float sanityDrainRange = 3f;
-    [Tooltip("Cuánta cordura quita por SEGUNDO")]
+    [Tooltip("Distancia a la que te atrapa (1.8 es ideal para que los colisionadores no estorben)")]
+    [SerializeField] private float killDistance = 1.8f;
+    [Tooltip("Distancia máxima a la que debe estar para quitarte cordura gradual")]
+    [SerializeField] private float sanityDrainRange = 4f;
+    [Tooltip("Cuánta cordura quita por SEGUNDO mientras te persigue y TE VE")]
     [SerializeField] private float sanityDrainPerSecond = 5f;
     [Tooltip("Altura de los ojos del monstruo para calcular si te ve")]
     [SerializeField] private float eyeHeight = 1.6f;
 
     [Header("Interacción con Puertas")]
-    [Tooltip("Distancia a la que el enemigo detecta y empuja una puerta")]
     [SerializeField] private float doorReach = 1.5f;
 
     [Header("Configuración de Patrullaje")]
@@ -32,13 +33,17 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float waitTimeAtDestination = 0.5f;
 
     [Header("Desaparición Táctica")]
-    [Tooltip("El Tag que le pondremos a los objetos vacíos del mapa")]
     [SerializeField] private string spawnPointTag = "EnemySpawn";
     [SerializeField] private float vanishDuration = 20f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip spawnSound;
+    [Tooltip("Sonido de los pasos del monstruo")]
+    [SerializeField] private AudioClip footstepSound; 
+    [Tooltip("Sonido estridente al entrar en Modo Caza Absoluta")]
+    [SerializeField] private AudioClip absoluteHuntSound; 
+    [SerializeField] private float footstepInterval = 0.6f;
 
     private NavMeshAgent agent;
     private Transform playerTransform;
@@ -47,6 +52,9 @@ public class EnemyAI : MonoBehaviour
     private float waitTimer = 0f;
     private float timeSinceLastSeen = 10f;
     private bool isVanished = false;
+
+    private float footstepTimer = 0f;
+    private bool hasPlayedHuntSound = false; 
 
     void Start()
     {
@@ -82,26 +90,37 @@ public class EnemyAI : MonoBehaviour
 
         CheckAndOpenDoorsAhead();
 
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        bool inRange = distanceToPlayer <= detectionRange;
+        
+        HandleFootsteps();
+
+        Vector3 enemyPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 playerPosXZ = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+        float distanceToPlayerXZ = Vector3.Distance(enemyPosXZ, playerPosXZ);
+
+        bool inRange = distanceToPlayerXZ <= detectionRange;
         bool canSee = inRange && HasLineOfSight();
 
         if (canSee)
         {
-            timeSinceLastSeen = 0f; 
+            timeSinceLastSeen = 0f;
+            hasPlayedHuntSound = false; 
         }
         else
         {
             timeSinceLastSeen += Time.deltaTime;
         }
 
-     
         bool isAbsoluteHunting = timeSinceLastSeen >= timeToAbsoluteHunt;
 
-       
+        if (isAbsoluteHunting && !hasPlayedHuntSound)
+        {
+            PlayAbsoluteHuntSound();
+            hasPlayedHuntSound = true;
+        }
+
         if (timeSinceLastSeen <= memoryTime || isAbsoluteHunting)
         {
-            ChasePlayer(canSee, distanceToPlayer);
+            ChasePlayer(canSee, distanceToPlayerXZ);
         }
         else
         {
@@ -109,16 +128,47 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void ChasePlayer(bool isCurrentlySeeing, float distanceToPlayer)
+    private void HandleFootsteps()
+    {
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+
+           
+            float currentInterval = (agent.speed == chaseSpeed) ? footstepInterval * 0.7f : footstepInterval;
+
+            if (footstepTimer >= currentInterval)
+            {
+                PlayFootstepSound();
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; 
+        }
+    }
+
+    private void ChasePlayer(bool isCurrentlySeeing, float distanceToPlayerXZ)
     {
         agent.speed = chaseSpeed;
-
-     
         agent.SetDestination(playerTransform.position);
 
-        if (isCurrentlySeeing && distanceToPlayer <= sanityDrainRange && playerSanity != null)
+        if (distanceToPlayerXZ <= killDistance)
         {
-            playerSanity.LoseSanity(sanityDrainPerSecond * Time.deltaTime);
+            if (playerSanity != null)
+            {
+                playerSanity.LoseSanity(9999f);
+            }
+            return;
+        }
+
+        if (isCurrentlySeeing && distanceToPlayerXZ <= sanityDrainRange)
+        {
+            if (playerSanity != null)
+            {
+                playerSanity.LoseSanity(sanityDrainPerSecond * Time.deltaTime);
+            }
         }
     }
 
@@ -172,12 +222,21 @@ public class EnemyAI : MonoBehaviour
 
         if (Physics.SphereCast(origin, 0.5f, transform.forward, out RaycastHit hit, doorReach))
         {
-            Door door = hit.collider.GetComponent<Door>();
-            if (door == null) door = hit.collider.GetComponentInParent<Door>();
+            Door normalDoor = hit.collider.GetComponent<Door>();
+            if (normalDoor == null) normalDoor = hit.collider.GetComponentInParent<Door>();
 
-            if (door != null && !door.isOpen)
+            if (normalDoor != null && !normalDoor.isOpen)
             {
-                door.ToggleDoor(transform, false);
+                normalDoor.ToggleDoor(transform, false);
+                return;
+            }
+
+            SlideDoor slideDoor = hit.collider.GetComponent<SlideDoor>();
+            if (slideDoor == null) slideDoor = hit.collider.GetComponentInParent<SlideDoor>();
+
+            if (slideDoor != null && !slideDoor.isOpen)
+            {
+                slideDoor.Interact();
             }
         }
     }
@@ -220,9 +279,8 @@ public class EnemyAI : MonoBehaviour
         agent.enabled = true;
         isVanished = false;
 
-       
         timeSinceLastSeen = memoryTime + 0.1f;
-
+        hasPlayedHuntSound = false; 
         SetRandomPatrolDestination();
         PlaySpawnSound();
     }
@@ -233,6 +291,26 @@ public class EnemyAI : MonoBehaviour
         {
             audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(spawnSound);
+        }
+    }
+
+    private void PlayFootstepSound()
+    {
+        if (audioSource != null && footstepSound != null)
+        {
+          
+            audioSource.pitch = Random.Range(0.85f, 1.15f);
+          
+            audioSource.PlayOneShot(footstepSound, 0.5f);
+        }
+    }
+
+    private void PlayAbsoluteHuntSound()
+    {
+        if (audioSource != null && absoluteHuntSound != null)
+        {
+            audioSource.pitch = 0.5f; 
+            audioSource.PlayOneShot(absoluteHuntSound, 1f);
         }
     }
 }
