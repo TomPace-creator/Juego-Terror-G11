@@ -16,7 +16,7 @@ public class KeyPickUp : InteractableObject
     [SerializeField] private string questToClear = "[Opcional] La llave del Ático";
 
     [Tooltip("La nueva misión que aparece tras agarrar la llave")]
-    [SerializeField] private string newQuestTitle = "[Opcional] El Ático";
+    [SerializeField] private string newQuestTitle = "[Opcional] EL ATICO";
     [SerializeField] private string newQuestDetails = "Abre la puerta del ático usando la llave vieja.";
 
     private void Start()
