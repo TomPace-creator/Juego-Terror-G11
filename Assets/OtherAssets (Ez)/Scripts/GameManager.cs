@@ -76,4 +76,14 @@ public class GameManager : MonoBehaviour
             OnSecondaryMissionChanged(title, details);
         }
     }
+    // Evento para avisarle a toda la casa que Ruth se curó
+    public event System.Action OnPillsConsumed;
+
+    public void NotifyPillsConsumed()
+    {
+        if (OnPillsConsumed != null)
+        {
+            OnPillsConsumed();
+        }
+    }
 }

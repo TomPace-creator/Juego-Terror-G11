@@ -31,7 +31,7 @@ public class Door : InteractableObject
     [SerializeField] private AudioClip lockedSound;
     [SerializeField] private AudioClip unlockSound;
 
-    private bool isOpen = false;
+    public bool isOpen { get; private set; } = false;
     private Quaternion closedRotation;
 
     void Start()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // <-- NUEVO: Necesario para cambiar de escena
 
 public class PlayerSanity : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class PlayerSanity : MonoBehaviour
 
     private void Start()
     {
-        // 1. Iniciamos la cordura al 70% como pediste
+        // Iniciamos la cordura al 70% 
         currentSanity = maxSanity * 0.7f;
 
         if (sanityVignette != null)
@@ -58,8 +59,6 @@ public class PlayerSanity : MonoBehaviour
     {
         float sanityPercentage = currentSanity / maxSanity;
         float insanityFactor = 1f - sanityPercentage;
-
-        // --- LA MAGIA ESTÁ AQUÍ ---
 
         // 1. Calculamos la ESCALA BASE (se achica a medida que pierdes cordura)
         float baseScale = Mathf.Lerp(minVisionScale, maxVisionScale, sanityPercentage);
@@ -113,41 +112,42 @@ public class PlayerSanity : MonoBehaviour
 
     private void TriggerInsanityGameOver()
     {
-        Debug.Log("¡CORDURA AL CERO! El jugador ha perdido la cabeza.");
-        if (GetComponent<Controller>() != null)
-        {
-            GetComponent<Controller>().enabled = false;
-        }
+        Debug.Log("¡CORDURA AL CERO! Cargando escena Lose...");
+
+        // ¡CAMBIO AQUÍ! Cargamos la escena de derrota
+        SceneManager.LoadScene("Lose");
     }
+
     // Llamamos a esta función desde las pastillas
     public void RestoreSanityGradual(float amount, float duration)
     {
         StartCoroutine(GradualRestoreRoutine(amount, duration));
+
+        // ¡NUEVO! Le avisamos al GameManager para que el enemigo lo escuche y desaparezca
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.NotifyPillsConsumed();
+        }
     }
 
     private System.Collections.IEnumerator GradualRestoreRoutine(float amount, float duration)
     {
         float timePassed = 0;
-
-        // Calculamos cuánta cordura se recupera por segundo
         float sanityPerSecond = amount / duration;
 
         while (timePassed < duration)
         {
-            // Curamos un poquito en cada frame
             currentSanity += sanityPerSecond * Time.deltaTime;
 
-            // Nos aseguramos de no pasarnos del límite máximo
             if (currentSanity > maxSanity)
             {
                 currentSanity = maxSanity;
             }
 
-            // Actualizamos la viñeta roja para que se abra poco a poco
             UpdateSanityUI();
 
             timePassed += Time.deltaTime;
-            yield return null; // Esperamos al siguiente frame
+            yield return null;
         }
     }
 }

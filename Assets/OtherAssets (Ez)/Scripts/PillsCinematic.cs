@@ -12,19 +12,27 @@ public class PillsCinematic : InteractableObject
     [Tooltip("El script PlayerSanity del jugador para curarlo")]
     [SerializeField] private PlayerSanity playerSanity;
 
-    [Header("Referencias del Terror")]
+    [Header("Referencias del Terror (Cinemática)")]
     [SerializeField] private GameObject scaryEntity;
 
     [Header("Configuración de Curación")]
     [Tooltip("Cuánta cordura recupera este frasco especial")]
     [SerializeField] private float sanityToRestore = 30f;
     [Tooltip("Cuántos segundos tarda en hacer efecto gradualmente")]
-    [SerializeField] private float restoreDuration = 10f; 
+    [SerializeField] private float restoreDuration = 10f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip drinkWaterSound;
     [SerializeField] private AudioClip jumpscareSound;
+
+    [Header("Spawn de Enemigo (Post-Cinemática)")]
+    [Tooltip("El prefab del enemigo real que va a perseguir a Ruth")]
+    [SerializeField] private GameObject enemyPrefab;
+    [Tooltip("Puntos vacíos en el mapa donde el enemigo puede aparecer")]
+    [SerializeField] private Transform[] spawnPoints;
+    [Tooltip("Segundos a esperar antes de que aparezca")]
+    [SerializeField] private float timeToSpawnEnemy = 10f;
 
     private void Start()
     {
@@ -38,6 +46,7 @@ public class PillsCinematic : InteractableObject
 
     public override void Interact()
     {
+        // Ocultamos el frasco física y visualmente
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
 
@@ -80,7 +89,6 @@ public class PillsCinematic : InteractableObject
             audioSource.PlayOneShot(drinkWaterSound);
         }
 
-        // ¡AQUÍ TE CURAS! Usamos las variables que ahora están en el Inspector
         if (playerSanity != null)
         {
             playerSanity.RestoreSanityGradual(sanityToRestore, restoreDuration);
@@ -148,6 +156,32 @@ public class PillsCinematic : InteractableObject
             playerController.EnableLook();
         }
 
+        // --- FASE 6: INICIAR EL SPAWN DEL ENEMIGO ---
+        // En lugar de destruir el objeto, iniciamos el temporizador en silencio
+        StartCoroutine(SpawnEnemyRoutine());
+    }
+
+    private IEnumerator SpawnEnemyRoutine()
+    {
+        // 1. Esperamos los 10 segundos (o el tiempo configurado en el Inspector)
+        yield return new WaitForSeconds(timeToSpawnEnemy);
+
+        // 2. Verificamos que tengamos un prefab y al menos un punto de aparición
+        if (enemyPrefab != null && spawnPoints != null && spawnPoints.Length > 0)
+        {
+            // 3. Elegimos un número aleatorio entre 0 y la cantidad de puntos que asignaste
+            int randomIndex = Random.Range(0, spawnPoints.Length);
+            Transform selectedSpawn = spawnPoints[randomIndex];
+
+            // 4. Instanciamos al enemigo en esa posición y rotación
+            Instantiate(enemyPrefab, selectedSpawn.position, selectedSpawn.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("PillsCinematic: Falta asignar el EnemyPrefab o los SpawnPoints en el Inspector.");
+        }
+
+        // 5. Ahora sí, el frasco ya cumplió su trabajo y lo destruimos
         Destroy(gameObject);
     }
 }
