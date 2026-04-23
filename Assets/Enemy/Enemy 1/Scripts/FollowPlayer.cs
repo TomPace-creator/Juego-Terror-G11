@@ -4,12 +4,19 @@ public class FollowPlayer : MonoBehaviour
 {
     private GameObject player;
     private NavMeshAgent agent;
+    private PlayerSanity playerSanity;
     [SerializeField] float speed;
-    [SerializeField] float detectionRange; 
+    [SerializeField] float detectionRange;
+    [SerializeField] float sanityLossPerSecond; 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
+
+        if (player != null)
+        {
+            playerSanity = player.GetComponent<PlayerSanity>();
+        }
     }
 
     void Update()
@@ -25,6 +32,11 @@ public class FollowPlayer : MonoBehaviour
             if (agent.pathStatus == NavMeshPathStatus.PathInvalid || agent.pathStatus == NavMeshPathStatus.PathPartial)
             {
                 agent.ResetPath();
+            }
+
+            if (playerSanity != null)
+            {
+                playerSanity.LoseSanity(sanityLossPerSecond * Time.deltaTime);
             }
         }
         else
