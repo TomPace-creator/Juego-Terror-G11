@@ -13,7 +13,7 @@ public class SlideDoor : MonoBehaviour, IInteractable
 
     private Vector3 closedPosition;
     private Vector3 openPosition;
-    private bool isOpen = false;
+    public bool isOpen { get; private set; } = false;
     private bool isMoving = false;
 
     private void Start()

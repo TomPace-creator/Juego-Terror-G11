@@ -12,7 +12,7 @@ public class GlassesItem : InteractableObject
 
     [Header("Narrativa y Misión")]
     [SerializeField] private string thoughtOnPickUp = "<i>Mucho mejor...</i>";
-    [SerializeField] private string newMissionTitle = "Investigar el sonido";
+    [SerializeField] private string newMissionTitle = "INVESTIGAR EL SONIDO";
     [SerializeField] private string newMissionDetails = "Asómate por la ventana";
 
     private void Start()

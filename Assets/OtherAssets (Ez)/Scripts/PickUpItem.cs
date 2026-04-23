@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections; // <-- Necesario para el IEnumerator (las pausas de tiempo)
+using System.Collections;
 
 public class PickUpItem : InteractableObject
 {
@@ -10,29 +10,38 @@ public class PickUpItem : InteractableObject
     [SerializeField] private AudioClip pickUpSound;
     [SerializeField] private string thoughtOnPickUp = "<i>Con esto podré ver en la oscuridad...</i>";
 
-    [Header("Secuencia de Baterías")]
+    [Header("Secuencia de Pensamientos")]
     [SerializeField] private string secondThought = "<i>Debería buscar baterías de repuesto... por si acaso.</i>";
-    [SerializeField] private string newMissionTitle = "> Busca Baterías";
-    [SerializeField] private string newMissionDetails = "Encuentra baterías en la casa";
+
+    [Header("Misiones Secundarias y Terciarias")]
+    [Tooltip("Activa esto si recoger el objeto da una misión secundaria")]
+    [SerializeField] private bool updateSecondaryMission = true;
+    [SerializeField] private string secondaryMissionTitle = "[Opcional] BUSCA PILAS";
+    [SerializeField] private string secondaryMissionDetails = "Encuentra pilas por la casa";
+
+    [Tooltip("Activa esto si además da una misión terciaria")]
+    [SerializeField] private bool updateTertiaryMission = false;
+    [SerializeField] private string tertiaryMissionTitle = "> Tarea extra";
+    [SerializeField] private string tertiaryMissionDetails = "Detalles opcionales";
 
     private void Start()
     {
-        interactText = "\"Agarrar Linterna [E]\"";
+        interactText = "\"Agarrar " + itemName + " [E]\""; // Escala automáticamente con el nombre
     }
 
     public override void Interact()
     {
-        // 1. Apagamos los gráficos y colisiones de la linterna para que "desaparezca" de la mesa al instante
+        // 1. Apagamos los gráficos y colisiones
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
 
-        // 2. Reproducimos el sonido de agarrar
+        // 2. Reproducimos el sonido
         if (pickUpSound != null)
         {
             AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
         }
 
-        // 3. Iniciamos la película mental de Ruth
+        // 3. Iniciamos la secuencia
         StartCoroutine(PickUpSequence());
     }
 
@@ -40,28 +49,35 @@ public class PickUpItem : InteractableObject
     {
         if (GameManager.Instance != null)
         {
-            // Agregamos al inventario y lanzamos el primer pensamiento
             GameManager.Instance.AddItemToInventory(itemName);
 
             if (!string.IsNullOrEmpty(thoughtOnPickUp))
             {
                 GameManager.Instance.ShowSubtitle(thoughtOnPickUp, 4f);
+                yield return new WaitForSeconds(4.5f);
             }
 
-            // Esperamos 4.5 segundos (4 que dura el texto + medio segundo para respirar)
-            yield return new WaitForSeconds(4.5f);
+            if (!string.IsNullOrEmpty(secondThought))
+            {
+                GameManager.Instance.ShowSubtitle(secondThought, 4f);
+                yield return new WaitForSeconds(4f);
+            }
 
-            // Lanzamos el segundo pensamiento
-            GameManager.Instance.ShowSubtitle(secondThought, 4f);
+            // --- ACTUALIZACIÓN DE MISIONES ESCALABLE ---
 
-            // Esperamos otros 4 segundos a que termine de leer eso
-            yield return new WaitForSeconds(4f);
+            // Solo actualiza la secundaria si el diseñador (tú) lo marcó en el Inspector
+            if (updateSecondaryMission)
+            {
+                GameManager.Instance.UpdateSecondaryMission(secondaryMissionTitle, secondaryMissionDetails);
+            }
 
-            // ¡Actualizamos el HUD con la nueva misión!
-            GameManager.Instance.UpdateMission(newMissionTitle, newMissionDetails);
+            // Solo actualiza la terciaria si está marcada
+            if (updateTertiaryMission)
+            {
+                GameManager.Instance.UpdateTertiaryMission(tertiaryMissionTitle, tertiaryMissionDetails);
+            }
         }
 
-        // Ahora sí, destruimos el objeto vacío para limpiar la memoria
         Destroy(gameObject);
     }
 }
