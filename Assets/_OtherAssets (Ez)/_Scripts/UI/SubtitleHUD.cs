@@ -8,7 +8,7 @@ public class SubtitleHUD : MonoBehaviour
 
     private void Start()
     {
-        subtitleText.text = ""; // Arranca invisible
+        subtitleText.text = ""; 
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnSubtitleTriggered += DisplaySubtitle;
@@ -25,14 +25,14 @@ public class SubtitleHUD : MonoBehaviour
 
     private void DisplaySubtitle(string text, float duration)
     {
-        StopAllCoroutines(); // Si había otro subtítulo, lo cortamos
+        StopAllCoroutines(); // corta el sub anterior
         StartCoroutine(SubtitleRoutine(text, duration));
     }
 
     private IEnumerator SubtitleRoutine(string text, float duration)
     {
-        subtitleText.text = text; // Mostramos el pensamiento
-        yield return new WaitForSeconds(duration); // Esperamos el tiempo que le digamos
-        subtitleText.text = ""; // Lo borramos
+        subtitleText.text = text;
+        yield return new WaitForSeconds(duration); 
+        subtitleText.text = ""; 
     }
 }

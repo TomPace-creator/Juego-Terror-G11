@@ -4,7 +4,7 @@ public class BatteryPickUp : InteractableObject
 {
     [Header("Configuración")]
     [SerializeField] private string itemName = "Pilas";
-    [SerializeField] private int amountToGive = 2; // ¡Agrega 2 al inventario!
+    [SerializeField] private int amountToGive = 1;
     [SerializeField] private AudioClip pickUpSound;
 
     private void Start()
@@ -16,7 +16,6 @@ public class BatteryPickUp : InteractableObject
     {
         if (GameManager.Instance != null)
         {
-            // Hacemos un bucle para agregar la cantidad exacta
             for (int i = 0; i < amountToGive; i++)
             {
                 GameManager.Instance.AddItemToInventory(itemName);

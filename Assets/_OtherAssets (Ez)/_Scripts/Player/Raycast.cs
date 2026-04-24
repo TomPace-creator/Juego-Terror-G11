@@ -93,7 +93,7 @@ public class Raycast : MonoBehaviour
   
     public void OnInteractAction(InputAction.CallbackContext context)
     {
-        // "context.started" significa que reacciona justo al presionar el btn
+      
         if (context.started)
         {
             TryInteract();

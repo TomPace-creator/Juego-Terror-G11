@@ -55,7 +55,7 @@ public class PillsCinematic : InteractableObject
 
     private IEnumerator CinematicRoutine()
     {
-        // --- FASE 1: CONGELAR ---
+        //quita contrl
         if (characterController != null) characterController.enabled = false;
         if (playerController != null) playerController.enabled = false;
         if (playerFootsteps != null) playerFootsteps.enabled = false;
@@ -72,7 +72,7 @@ public class PillsCinematic : InteractableObject
             GameManager.Instance.ShowSubtitle("<i>*Tragas las pastillas con un poco de agua*</i>", 3f);
         }
 
-        // --- FASE 2: SUBIR LA CABEZA Y CURARSE ---
+        //tomar pantilla
         Quaternion initialCamRot = cameraContainer.localRotation;
         Quaternion lookUpRot = Quaternion.Euler(-40f, 0, 0);
 
@@ -96,7 +96,7 @@ public class PillsCinematic : InteractableObject
 
         yield return new WaitForSeconds(1.2f);
 
-        // --- FASE 3: EL SUSTO (GIRO Y CENTRADO DE CÁMARA) ---
+        //susto
         if (scaryEntity != null) scaryEntity.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
@@ -129,7 +129,7 @@ public class PillsCinematic : InteractableObject
 
         yield return new WaitForSeconds(1.5f);
 
-        // --- FASE 4: DESAPARICIÓN ---
+        // desaparece
         if (scaryEntity != null) scaryEntity.SetActive(false);
 
         if (GameManager.Instance != null)
@@ -144,7 +144,7 @@ public class PillsCinematic : InteractableObject
             GameManager.Instance.UpdateMission("Sobrevive la noche", "Escapa o escóndete por la casa algo no esta bien");
         }
 
-        // --- FASE 5: DEVOLVER EL CONTROL ---
+        // devuelvecontrl
         if (characterController != null) characterController.enabled = true;
         if (playerController != null) playerController.enabled = true;
         if (playerFootsteps != null) playerFootsteps.enabled = true;
@@ -156,24 +156,21 @@ public class PillsCinematic : InteractableObject
             playerController.EnableLook();
         }
 
-        // --- FASE 6: INICIAR EL SPAWN DEL ENEMIGO ---
-        // En lugar de destruir el objeto, iniciamos el temporizador en silencio
+        // spawn
         StartCoroutine(SpawnEnemyRoutine());
     }
 
     private IEnumerator SpawnEnemyRoutine()
     {
-        // 1. Esperamos los 10 segundos (o el tiempo configurado en el Inspector)
         yield return new WaitForSeconds(timeToSpawnEnemy);
 
-        // 2. Verificamos que tengamos un prefab y al menos un punto de aparición
+      
         if (enemyPrefab != null && spawnPoints != null && spawnPoints.Length > 0)
         {
-            // 3. Elegimos un número aleatorio entre 0 y la cantidad de puntos que asignaste
+           
             int randomIndex = Random.Range(0, spawnPoints.Length);
             Transform selectedSpawn = spawnPoints[randomIndex];
 
-            // 4. Instanciamos al enemigo en esa posición y rotación
             Instantiate(enemyPrefab, selectedSpawn.position, selectedSpawn.rotation);
         }
         else
@@ -181,7 +178,6 @@ public class PillsCinematic : InteractableObject
             Debug.LogWarning("PillsCinematic: Falta asignar el EnemyPrefab o los SpawnPoints en el Inspector.");
         }
 
-        // 5. Ahora sí, el frasco ya cumplió su trabajo y lo destruimos
         Destroy(gameObject);
     }
 }

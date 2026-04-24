@@ -56,8 +56,7 @@ public class Door : InteractableObject
                 if (audioSource != null && unlockSound != null) audioSource.PlayOneShot(unlockSound);
                 GameManager.Instance.ShowSubtitle("<i>*Click* Puerta desbloqueada.</i>", 3f);
 
-                // ¡EL CAMBIO ESTÁ ACÁ! 
-                // Borramos la misión de "Fase 2" usando el nuevo título.
+              
                 if (!string.IsNullOrEmpty(questToClearOnUnlock))
                 {
                     GameManager.Instance.UpdateSecondaryMission(questToClearOnUnlock, "");

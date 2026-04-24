@@ -51,8 +51,6 @@ public class LightSwitch : InteractableObject
         return isOn;
     }
 
-    // 2. EL CONTRATO: Renombramos ToggleLight a Interact y usamos "override"
-    // "override" le dice a Unity: "Estoy reescribiendo la función vacía que me dio mi padre"
     public override void Interact()
     {
         isOn = !isOn;

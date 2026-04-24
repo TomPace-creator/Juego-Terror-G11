@@ -28,10 +28,10 @@ public class IntroCinematic : MonoBehaviour
 
     private void Start()
     {
-        // 1. Apagamos el cerebro de movimiento
+        // apaga al player
         if (playerController != null) playerController.enabled = false;
 
-        // 2. Apagamos el script de pasos
+        // 
         if (playerFootsteps != null)
         {
             playerFootsteps.enabled = false;
@@ -104,14 +104,14 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-        // --- RECUPERAR EL CONTROL ---
+       
         if (playerController != null) playerController.enabled = true;
         if (playerFootsteps != null) playerFootsteps.enabled = true;
 
         playerController.EnableMovement();
         playerController.EnableLook();
 
-        // --- DIÁLOGOS Y MISIÓN ---
+       
         if (GameManager.Instance != null)
         {
             GameManager.Instance.ShowSubtitle("<i>Ruth - ¿Qué fue eso?...</i>", 4f);

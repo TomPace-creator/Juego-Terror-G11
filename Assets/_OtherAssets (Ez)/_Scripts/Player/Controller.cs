@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Indispensable para que esto funcione
+using UnityEngine.InputSystem; 
 
 [RequireComponent(typeof(CharacterController))]
 public class Controller : MonoBehaviour
@@ -147,15 +147,12 @@ public class Controller : MonoBehaviour
     public void EnableLook() => canLook = true;
     public void DisableLook() => canLook = false;
 
-    // --- NUEVO: Función para arreglar el latigazo de cámara ---
     public void SincronizarRotacionCamara()
     {
-        // Esto le dice a rotationX que adopte el ángulo actual de la cámara
-        // Si la cabeza miraba al frente, rotationX pasará a ser 0.
-        // Si miraba al piso 40 grados, rotationX pasará a ser 40.
+        
         rotationX = cameraContainer.localEulerAngles.x;
 
-        // Unity a veces guarda ángulos como 350 en lugar de -10, esto lo corrige
+       
         if (rotationX > 180f)
         {
             rotationX -= 360f;
