@@ -5,7 +5,7 @@ public class DigitalClock : MonoBehaviour
 {
     [Header("Referencias del HUD")]
     [SerializeField] private TextMeshProUGUI clockText;
-    [SerializeField] private GameObject victoryScreen; // Casillero para tu pantalla de victoria
+    [SerializeField] private GameObject victoryScreen;
 
     [Header("Configuración Inicial (Inicio)")]
     [SerializeField] private int startHour = 3;
@@ -21,19 +21,19 @@ public class DigitalClock : MonoBehaviour
 
     private float currentInGameMinutes;
     private float targetInGameMinutes;
-    private float timeMultiplier; // Ahora el script calcula esto solo
+    private float timeMultiplier; 
     private bool gameEnded = false;
 
     private void Start()
     {
-        // Nos aseguramos de que la victoria empiece invisible
+      
         if (victoryScreen != null) victoryScreen.SetActive(false);
 
-        // Convertimos todo a minutos
+ 
         currentInGameMinutes = (startHour * 60) + startMinute;
         targetInGameMinutes = (endHour * 60) + endMinute;
 
-        // Calculamos a qué velocidad tiene que pasar el tiempo del juego para que dure exactamente 10 min reales
+       
         float inGameMinutesToPass = targetInGameMinutes - currentInGameMinutes;
         float totalRealSeconds = realLifeDurationMinutes * 60f;
 
@@ -44,12 +44,12 @@ public class DigitalClock : MonoBehaviour
 
     private void Update()
     {
-        if (gameEnded) return; // Si ya ganamos, el reloj se detiene
+        if (gameEnded) return; 
 
-        // Hacemos avanzar el tiempo
+
         currentInGameMinutes += Time.deltaTime * timeMultiplier;
 
-        // Revisamos si ya es el amanecer
+
         if (currentInGameMinutes >= targetInGameMinutes)
         {
             TriggerVictory();
@@ -62,11 +62,11 @@ public class DigitalClock : MonoBehaviour
     {
         if (clockText == null) return;
 
-        // Extraemos las horas y minutos exactos
+     
         int displayHours = Mathf.FloorToInt(currentInGameMinutes / 60f);
         int displayMins = Mathf.FloorToInt(currentInGameMinutes % 60f);
 
-        // Formateamos el texto y le agregamos el " AM" al final
+
         clockText.text = string.Format("{0:00}:{1:00} AM", displayHours, displayMins);
     }
 
@@ -74,7 +74,7 @@ public class DigitalClock : MonoBehaviour
     {
         gameEnded = true;
 
-        // Clavamos el tiempo justo en 06:00 AM para que no se pase a 06:01
+        
         currentInGameMinutes = targetInGameMinutes;
         UpdateClockHUD();
 
@@ -84,7 +84,6 @@ public class DigitalClock : MonoBehaviour
             victoryScreen.SetActive(true);
         }
 
-        // Pausamos el mundo y liberamos el mouse
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

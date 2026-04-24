@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 5809625773700779354}
   - component: {fileID: 4271761462891824655}
   - component: {fileID: 2675158441009149058}
-  - component: {fileID: 6222566878563894494}
   - component: {fileID: 1118543905768275410}
+  - component: {fileID: 8174244719455686474}
+  - component: {fileID: 213338567837909000}
+  - component: {fileID: 6267675283441072500}
   m_Layer: 0
   m_Name: Enemy (So)
   m_TagString: Untagged
@@ -139,37 +141,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6222566878563894494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8990431340297795750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cce25f86bc1d34418d35f233716bc97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  detectionRange: 20
-  chaseSpeed: 1.5
-  memoryTime: 5
-  timeToAbsoluteHunt: 60
-  killDistance: 1.8
-  sanityDrainRange: 10
-  sanityDrainPerSecond: 3
-  eyeHeight: 1.6
-  doorReach: 1.5
-  patrolSpeed: 2
-  patrolRadius: 50
-  waitTimeAtDestination: 2
-  spawnPointTag: EnemySpawn
-  vanishDuration: 20
-  audioSource: {fileID: 1118543905768275410}
-  spawnSound: {fileID: 8300000, guid: 6b94c6f08bab13e4cb8e25e6b032a07a, type: 3}
-  footstepSound: {fileID: 8300000, guid: 06437c6451f9a0b4f9bdef25c06900be, type: 3}
-  absoluteHuntSound: {fileID: 8300000, guid: 80684d9010065014d9f0272d4968cf0e, type: 3}
-  footstepInterval: 1
 --- !u!82 &1118543905768275410
 AudioSource:
   m_ObjectHideFlags: 0
@@ -267,3 +238,53 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8174244719455686474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990431340297795750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2a44361ee0f174e963e8e52aa0447b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
+  rutine: 0
+  chronometer: 0
+  angle: {x: 0, y: 0, z: 0, w: 0}
+  degree: 0
+--- !u!114 &213338567837909000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990431340297795750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff06bafb00073845a1b90e73197979d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
+  speed: 1
+  detectionRange: 15
+  killDistance: 1.8
+  sanityDrainRange: 15
+  sanityDrainPerSecond: 5
+  eyeHeight: 1.6
+  doorReach: 1.5
+--- !u!114 &6267675283441072500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990431340297795750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b38c455884280b4b8cdf518e874275a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAudio
+  spawnSound: {fileID: 8300000, guid: 6b94c6f08bab13e4cb8e25e6b032a07a, type: 3}
+  footstepSound: {fileID: 8300000, guid: 06437c6451f9a0b4f9bdef25c06900be, type: 3}
+  baseFootstepInterval: 0.5
