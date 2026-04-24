@@ -17,7 +17,7 @@ public class EnemyMovement : MonoBehaviour
     public void EnemyBehaviour()
         {
         chronometer += 1 * Time.deltaTime;
-        if (chronometer >=4)
+        if (chronometer >=0.1f)
         {
             rutine = Random.Range(0, 2);
             chronometer = 0;
@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
         switch (rutine)
         {
             case 1: 
-                degree = Random.Range(0, 360);
+                degree = Random.Range(0, 75);
                 angle = Quaternion.Euler(0, degree, 0);
                 rutine++;
                 break;
