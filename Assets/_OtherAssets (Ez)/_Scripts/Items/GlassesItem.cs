@@ -24,23 +24,23 @@ public class GlassesItem : InteractableObject
     {
         if (GameManager.Instance != null)
         {
-            // 1. Guardamos en el inventario
+            
             GameManager.Instance.AddItemToInventory(itemName);
 
-            // 2. Mostramos el pensamiento
+          
             GameManager.Instance.ShowSubtitle(thoughtOnPickUp, 4f);
 
             
             GameManager.Instance.UpdateMission(newMissionTitle, newMissionDetails);
         }
 
-        // 4. ¡Tu magia visual! Apagamos la miopía
+        // apaga miopia
         if (globalVolume != null)
         {
             globalVolume.enabled = false;
         }
 
-        // 5. Destruimos el objeto de la mesita
+        // rompe lente
         Destroy(gameObject);
     }
 }

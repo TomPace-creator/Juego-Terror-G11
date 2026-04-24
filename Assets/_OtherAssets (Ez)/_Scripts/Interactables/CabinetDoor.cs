@@ -1,11 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-// Hereda de InteractableObject igual que tu puerta normal
 public class CabinetDoor : InteractableObject
 {
     [Header("Configuración de Alacena")]
-    // IMPORTANTE: Si la puerta abre hacia adentro del mueble, simplemente ponle un signo menos (ej: -90) en el Inspector.
+   
     [SerializeField] private float openAngle = 90f;
     [SerializeField] private float smoothSpeed = 3f;
 
@@ -24,7 +23,7 @@ public class CabinetDoor : InteractableObject
     {
         closedRotation = transform.rotation;
 
-        // Asignamos el texto inicial
+        
         interactText = isOpen ? "\"Cerrar Puerta [E]\"" : "\"Abrir Puerta [E]\"";
     }
 
@@ -35,7 +34,7 @@ public class CabinetDoor : InteractableObject
 
     public override void Interact()
     {
-        // Ya no le pasamos la posición del jugador, porque la alacena no lo necesita
+    
         ToggleDoor(false);
     }
 
@@ -55,7 +54,7 @@ public class CabinetDoor : InteractableObject
 
         if (isOpen)
         {
-            // Aplicamos el ángulo directo. Siempre abrirá hacia donde le diga la variable openAngle.
+           
             Quaternion openRotation = Quaternion.Euler(closedRotation.eulerAngles + Vector3.up * openAngle);
             StartCoroutine(AnimateDoor(openRotation));
         }
@@ -64,7 +63,6 @@ public class CabinetDoor : InteractableObject
             StartCoroutine(AnimateDoor(closedRotation));
         }
 
-        // Magia de puerta gemela
         if (twinDoor != null && !isTriggeredByTwin)
         {
             twinDoor.ToggleDoor(true);

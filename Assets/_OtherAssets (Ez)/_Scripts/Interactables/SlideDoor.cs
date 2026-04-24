@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class DrawerInteraction : MonoBehaviour, IInteractable
+public class SlideDoor : MonoBehaviour, IInteractable
 {
     [Header("Configuración del Movimiento")]
-    [SerializeField] private Vector3 openOffset = new Vector3(0, 0, 0.5f);
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private Vector3 openOffset = new Vector3(4, 0, 0f);
+    [SerializeField] private float speed = 1f;
 
     [Header("Sonidos")]
     [SerializeField] private AudioClip openSound;
@@ -13,7 +13,7 @@ public class DrawerInteraction : MonoBehaviour, IInteractable
 
     private Vector3 closedPosition;
     private Vector3 openPosition;
-    private bool isOpen = false;
+    public bool isOpen { get; private set; } = false;
     private bool isMoving = false;
 
     private void Start()
@@ -37,14 +37,14 @@ public class DrawerInteraction : MonoBehaviour, IInteractable
         StartCoroutine(SlideDrawer());
     }
 
-    // --- ¡AQUÍ ESTÁ LA FUNCIÓN QUE FALTABA PARA CUMPLIR EL CONTRATO! ---
+    
     public string GetInteractText()
     {
-        // Si se está moviendo, no mostramos texto para no confundir
+        
         if (isMoving) return "";
 
-        // Si está abierto devuelve "Cerrar", si está cerrado devuelve "Abrir"
-        return isOpen ? "Cerrar Cajón [E]" : "Abrir Cajón [E]";
+       
+        return isOpen ? "Cerrar Puerta [E]" : "Abrir Puerta [E]";
     }
 
     private IEnumerator SlideDrawer()

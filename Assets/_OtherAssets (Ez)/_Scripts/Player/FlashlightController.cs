@@ -62,14 +62,14 @@ public class FlashlightController : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        // Mostrar el icono cuando lo agarramos
+        // muestra en hud
         if (!hasUnlockedFlashlight && GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
         {
             hasUnlockedFlashlight = true;
             if (flashlightIconHUD != null) flashlightIconHUD.SetActive(true);
         }
 
-        // 1. PRENDER / APAGAR
+        // prender
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
             if (GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
@@ -78,7 +78,7 @@ public class FlashlightController : MonoBehaviour
                 {
                     if (audioSource != null && clickSound != null) audioSource.PlayOneShot(clickSound, 0.3f);
 
-                    // Si intentamos prenderla y no tiene batería ni tenemos repuestos, lanzamos la misión
+                    // sinbateria
                     CheckAndTriggerBatteryQuest();
                     return;
                 }
@@ -87,13 +87,13 @@ public class FlashlightController : MonoBehaviour
             }
         }
 
-        // 2. RECARGAR
+        // recargar
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             TryReload();
         }
 
-        // 3. DRENAR BATERÍA
+        // drenar
         if (playerLight.enabled)
         {
             currentBattery -= Time.deltaTime * drainRate;
@@ -103,12 +103,12 @@ public class FlashlightController : MonoBehaviour
                 currentBattery = 0;
                 ToggleFlashlight();
 
-                // Se nos murió la linterna en la mano. Revisamos si hay que lanzar la misión.
+                // mission baterias
                 CheckAndTriggerBatteryQuest();
             }
         }
 
-        // 4. ACTUALIZAR UI CONSTANTEMENTE
+        
         UpdateBatteryUI();
     }
 
@@ -132,14 +132,14 @@ public class FlashlightController : MonoBehaviour
 
         if (GameManager.Instance != null && GameManager.Instance.HasItem(batteryItemName))
         {
-            // ¡Recarga exitosa!
+            // recargado
             GameManager.Instance.RemoveItemFromInventory(batteryItemName);
             currentBattery = maxBattery;
 
             if (audioSource != null && reloadSound != null) audioSource.PlayOneShot(reloadSound);
-            GameManager.Instance.ShowSubtitle("<i>Batería reemplazada.</i>", 2f);
+            GameManager.Instance.ShowSubtitle("<i>Pilas reemplazadas.</i>", 2f);
 
-            // Borramos la misión secundaria porque ya logramos recargar
+            // Borra missi
             if (!string.IsNullOrEmpty(batteryQuestTitle))
             {
                 GameManager.Instance.UpdateSecondaryMission(batteryQuestTitle, "");
@@ -147,7 +147,7 @@ public class FlashlightController : MonoBehaviour
         }
         else
         {
-            // Intentó recargar pero no tiene pilas
+            // no se recarga
             GameManager.Instance.ShowSubtitle("<i>Me quedé sin pilas...</i>", 2f);
             CheckAndTriggerBatteryQuest();
         }

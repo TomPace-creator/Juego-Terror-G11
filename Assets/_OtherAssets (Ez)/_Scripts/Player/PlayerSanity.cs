@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // <-- NUEVO: Necesario para cambiar de escena
+using UnityEngine.SceneManagement; 
 
 public class PlayerSanity : MonoBehaviour
 {
@@ -28,7 +28,7 @@ public class PlayerSanity : MonoBehaviour
 
     private void Start()
     {
-        // Iniciamos la cordura al 70% 
+        //cordura al 70
         currentSanity = maxSanity * 0.7f;
 
         if (sanityVignette != null)
@@ -49,7 +49,7 @@ public class PlayerSanity : MonoBehaviour
             }
             else if (vignetteRect != null)
             {
-                // Si la cordura está al 100%, la visión se queda en su tamaño máximo sin latir
+                // latido efecto hud
                 vignetteRect.localScale = new Vector3(maxVisionScale, maxVisionScale, 1f);
             }
         }
@@ -60,19 +60,17 @@ public class PlayerSanity : MonoBehaviour
         float sanityPercentage = currentSanity / maxSanity;
         float insanityFactor = 1f - sanityPercentage;
 
-        // 1. Calculamos la ESCALA BASE (se achica a medida que pierdes cordura)
+       
         float baseScale = Mathf.Lerp(minVisionScale, maxVisionScale, sanityPercentage);
 
-        // 2. Aceleramos la velocidad del corazón mientras más loco estés
+       
         float currentBeatSpeed = Mathf.Lerp(minBeatSpeed, maxBeatSpeed, insanityFactor);
 
-        // 3. Generamos la onda matemática del latido (va de 0 a 1)
+       
         float wave = (Mathf.Sin(Time.time * currentBeatSpeed) + 1f) / 2f;
 
-        // 4. Sumamos el "pulso" a tu escala base
         float finalScale = baseScale + (wave * pulseExpansion);
 
-        // Aplicamos el tamaño final a la imagen
         vignetteRect.localScale = new Vector3(finalScale, finalScale, 1f);
     }
 
@@ -114,16 +112,15 @@ public class PlayerSanity : MonoBehaviour
     {
         Debug.Log("¡CORDURA AL CERO! Cargando escena Lose...");
 
-        // ¡CAMBIO AQUÍ! Cargamos la escena de derrota
+       
         SceneManager.LoadScene("Lose");
     }
 
-    // Llamamos a esta función desde las pastillas
+   
     public void RestoreSanityGradual(float amount, float duration)
     {
         StartCoroutine(GradualRestoreRoutine(amount, duration));
 
-        // ¡NUEVO! Le avisamos al GameManager para que el enemigo lo escuche y desaparezca
         if (GameManager.Instance != null)
         {
             GameManager.Instance.NotifyPillsConsumed();

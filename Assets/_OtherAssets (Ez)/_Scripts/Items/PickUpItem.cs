@@ -26,22 +26,22 @@ public class PickUpItem : InteractableObject
 
     private void Start()
     {
-        interactText = "\"Agarrar " + itemName + " [E]\""; // Escala automáticamente con el nombre
+        interactText = "\"Agarrar " + itemName + " [E]\""; 
     }
 
     public override void Interact()
     {
-        // 1. Apagamos los gráficos y colisiones
+        // apag collis
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
 
-        // 2. Reproducimos el sonido
+        
         if (pickUpSound != null)
         {
             AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
         }
 
-        // 3. Iniciamos la secuencia
+    
         StartCoroutine(PickUpSequence());
     }
 
@@ -63,15 +63,15 @@ public class PickUpItem : InteractableObject
                 yield return new WaitForSeconds(4f);
             }
 
-            // --- ACTUALIZACIÓN DE MISIONES ESCALABLE ---
+            
 
-            // Solo actualiza la secundaria si el diseñador (tú) lo marcó en el Inspector
+            
             if (updateSecondaryMission)
             {
                 GameManager.Instance.UpdateSecondaryMission(secondaryMissionTitle, secondaryMissionDetails);
             }
 
-            // Solo actualiza la terciaria si está marcada
+            
             if (updateTertiaryMission)
             {
                 GameManager.Instance.UpdateTertiaryMission(tertiaryMissionTitle, tertiaryMissionDetails);

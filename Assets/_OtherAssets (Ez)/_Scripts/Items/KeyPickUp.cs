@@ -49,13 +49,12 @@ public class KeyPickUp : InteractableObject
                 yield return new WaitForSeconds(4.5f);
             }
 
-            // 1. Borramos la misión vieja mandando detalles vacíos ""
             if (!string.IsNullOrEmpty(questToClear))
             {
                 GameManager.Instance.UpdateSecondaryMission(questToClear, "");
             }
 
-            // 2. Agregamos la misión nueva
+         
             if (!string.IsNullOrEmpty(newQuestTitle))
             {
                 GameManager.Instance.UpdateSecondaryMission(newQuestTitle, newQuestDetails);

@@ -7,12 +7,12 @@ public class NarrativeTrigger : MonoBehaviour
     [Tooltip("La etiqueta del objeto que puede activar esto (casi siempre 'Player')")]
     [SerializeField] private string targetTag = "Player";
 
-    // Para asegurarnos de que no se dispare dos veces si el jugador entra y sale rápido
+    
     private bool hasTriggered = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Si el que entró en la caja invisible tiene la etiqueta correcta y no se ha activado antes...
+        
         if (!hasTriggered && other.CompareTag(targetTag))
         {
             hasTriggered = true;
@@ -24,15 +24,15 @@ public class NarrativeTrigger : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            // 1. Primer pensamiento al asomarse
+            
             yield return new WaitForSeconds(4f);
 
             GameManager.Instance.ShowSubtitle("<i>Mmmm... no hay nada.</i>", 4f);
 
-            // Esperamos 5 segundos (4 del texto + 1 de silencio)
+            
             yield return new WaitForSeconds(6f);
 
-            // 2. Segundo pensamiento relajándose
+            
             GameManager.Instance.ShowSubtitle("<i>Otra vez imaginándome cosas raras...</i>", 4f);
 
             yield return new WaitForSeconds(6f);
@@ -41,11 +41,10 @@ public class NarrativeTrigger : MonoBehaviour
 
     
 
-            // 3. Actualizamos la misión para hacerla volver a la cama o ir a otro lado
+        
             GameManager.Instance.UpdateMission("Toma tus pastillas", "Encuentra y toma las pastillas en la cocina");
         }
 
-        // Destruimos la caja invisible para que este evento no vuelva a ocurrir nunca más
         Destroy(gameObject);
     }
 }

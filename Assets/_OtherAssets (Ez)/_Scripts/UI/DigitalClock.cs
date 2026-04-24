@@ -1,11 +1,11 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DigitalClock : MonoBehaviour
 {
     [Header("Referencias del HUD")]
     [SerializeField] private TextMeshProUGUI clockText;
-    [SerializeField] private GameObject victoryScreen;
 
     [Header("Configuración Inicial (Inicio)")]
     [SerializeField] private int startHour = 3;
@@ -26,9 +26,6 @@ public class DigitalClock : MonoBehaviour
 
     private void Start()
     {
-      
-        if (victoryScreen != null) victoryScreen.SetActive(false);
-
  
         currentInGameMinutes = (startHour * 60) + startMinute;
         targetInGameMinutes = (endHour * 60) + endMinute;
@@ -74,18 +71,12 @@ public class DigitalClock : MonoBehaviour
     {
         gameEnded = true;
 
-        
         currentInGameMinutes = targetInGameMinutes;
         UpdateClockHUD();
-
-        // cambiar
-        if (victoryScreen != null)
-        {
-            victoryScreen.SetActive(true);
-        }
 
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        SceneManager.LoadScene("Win");
     }
 }

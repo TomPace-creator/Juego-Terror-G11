@@ -7,13 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Inventario del Jugador")]
-    // AHORA ES PRIVADA: Solo el GameManager puede modificar la lista directamente
     [SerializeField] private List<string> inventory = new List<string>();
 
-    // --- EVENTOS ---
+  
     public event Action<string, string> OnMissionChanged;
     public event Action<string, string> OnSecondaryMissionChanged;
-    public event Action<string, string> OnTertiaryMissionChanged; // <-- NUEVO
+    public event Action<string, string> OnTertiaryMissionChanged;
     public event Action<string, float> OnSubtitleTriggered;
     public event Action OnPillsConsumed;
 
@@ -25,7 +24,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
     }
 
-    // --- SISTEMA DE INVENTARIO ---
+    // inventario
     public void AddItemToInventory(string itemName)
     {
         inventory.Add(itemName);
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
         return count;
     }
 
-    // --- SISTEMA DE UI Y MISIONES ---
+    //ui y misiones
     public void UpdateMission(string title, string details)
     {
         OnMissionChanged?.Invoke(title, details);
@@ -67,7 +66,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Misión Secundaria actualizada: " + title);
     }
 
-    public void UpdateTertiaryMission(string title, string details) // <-- NUEVO
+    public void UpdateTertiaryMission(string title, string details) 
     {
         OnTertiaryMissionChanged?.Invoke(title, details);
         Debug.Log("Misión Terciaria actualizada: " + title);
@@ -79,7 +78,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Subtítulo mostrado: " + text);
     }
 
-    // --- SISTEMA DE EVENTOS GLOBALES ---
+    // eventos glob
     public void NotifyPillsConsumed()
     {
         OnPillsConsumed?.Invoke();
