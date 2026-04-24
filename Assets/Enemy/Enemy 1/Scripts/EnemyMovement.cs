@@ -25,14 +25,14 @@ public class EnemyMovement : MonoBehaviour
         switch (rutine)
         {
             case 1: 
-                degree = Random.Range(0, 25);
+                degree = Random.Range(0, 360);
                 angle = Quaternion.Euler(0, degree, 0);
                 rutine++;
                 break;
             
             case 2:
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, angle, 0.5f);
-                transform.Translate(Vector3.forward * 5 * Time.deltaTime);
+                transform.Translate(Vector3.forward * 1 * Time.deltaTime);
                 break;
         }
     }
