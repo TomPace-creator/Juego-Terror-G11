@@ -1,21 +1,32 @@
 using UnityEngine;
 using UnityEngine.AI;
+
 public class FollowPlayer : MonoBehaviour    
 {
     private GameObject player;
     private NavMeshAgent agent;
     private PlayerSanity playerSanity;
-    [SerializeField] float speed;
-    [SerializeField] float detectionRange;
-    [SerializeField] float sanityLossPerSecond; 
+
+    [SerializeField] float speed = 3.5f;
+    [SerializeField] float detectionRange = 10f;
+    [SerializeField] float sanityLossPerSecond = 10f;
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
 
-        if (player != null)
+        if (player == null)
         {
-            playerSanity = player.GetComponent<PlayerSanity>();
+            Debug.LogError("No se encontró ningún GameObject con el tag 'Player'");
+            return;
+        }
+
+        playerSanity = player.GetComponent<PlayerSanity>();
+
+        if (playerSanity == null)
+        {
+            Debug.LogError("El jugador no tiene el componente PlayerSanity");
         }
     }
 
@@ -26,9 +37,10 @@ public class FollowPlayer : MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        if(distance < detectionRange) 
+        if (distance < detectionRange) 
         {
-	        agent.SetDestination(player.transform.position);
+            agent.SetDestination(player.transform.position);
+
             if (agent.pathStatus == NavMeshPathStatus.PathInvalid || agent.pathStatus == NavMeshPathStatus.PathPartial)
             {
                 agent.ResetPath();
@@ -37,15 +49,14 @@ public class FollowPlayer : MonoBehaviour
             if (playerSanity != null)
             {
                 playerSanity.LoseSanity(sanityLossPerSecond * Time.deltaTime);
+                Debug.Log("Quitando cordura. Cordura actual: " + playerSanity.currentSanity);
             }
         }
         else
         {
             agent.ResetPath();
         }    
-        
     }
 }
-
 
 

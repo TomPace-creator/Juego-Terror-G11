@@ -266,13 +266,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff06bafb00073845a1b90e73197979d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
-  speed: 1
+  speed: 0.8
   detectionRange: 15
-  killDistance: 1.8
-  sanityDrainRange: 15
-  sanityDrainPerSecond: 5
-  eyeHeight: 1.6
-  doorReach: 1.5
+  sanityLossPerSecond: 2
 --- !u!114 &6267675283441072500
 MonoBehaviour:
   m_ObjectHideFlags: 0
