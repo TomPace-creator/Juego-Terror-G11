@@ -10,10 +10,17 @@ public class FlashlightController : MonoBehaviour
     [SerializeField] private Light playerLight;
     [SerializeField] private string requiredItem = "Linterna";
 
+    [Header("Detección de Enemigo")]
+    [Tooltip("Distancia a la que la luz puede frenar al enemigo")]
+    [SerializeField] private float flashlightRange = 25f;
+    [Tooltip("Grosor del raycast linterna")] 
+    [SerializeField] private float flashlightRadius = 2.5f; 
+    [Tooltip("Multiplicador de gasto de batería al iluminar al monstruo (Ej: 1.5 gasta un 50% más rápido)")]
+    [SerializeField] private float stunDrainMultiplier = 1.5f;
+
     [Header("HUD")]
     [SerializeField] private GameObject flashlightIconHUD;
     [SerializeField] private Image batteryFillImage;
-    [Tooltip("El texto en el Canvas que dirá x0, x1, x2...")]
     [SerializeField] private TextMeshProUGUI batteryCountText;
 
     [Header("Misión Secundaria (Falta de Energía)")]
@@ -52,24 +59,19 @@ public class FlashlightController : MonoBehaviour
             playerLight.enabled = false;
         }
 
-        if (flashlightIconHUD != null)
-        {
-            flashlightIconHUD.SetActive(false);
-        }
+        if (flashlightIconHUD != null) flashlightIconHUD.SetActive(false);
     }
 
     private void Update()
     {
         if (Keyboard.current == null) return;
 
-        // muestra en hud
         if (!hasUnlockedFlashlight && GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
         {
             hasUnlockedFlashlight = true;
             if (flashlightIconHUD != null) flashlightIconHUD.SetActive(true);
         }
 
-        // prender
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
             if (GameManager.Instance != null && GameManager.Instance.HasItem(requiredItem))
@@ -77,48 +79,56 @@ public class FlashlightController : MonoBehaviour
                 if (!playerLight.enabled && currentBattery <= 0)
                 {
                     if (audioSource != null && clickSound != null) audioSource.PlayOneShot(clickSound, 0.3f);
-
-                    // sinbateria
                     CheckAndTriggerBatteryQuest();
                     return;
                 }
-
                 ToggleFlashlight();
             }
         }
 
-        // recargar
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            TryReload();
-        }
+        if (Keyboard.current.rKey.wasPressedThisFrame) TryReload();
 
-        // drenar
-        if (playerLight.enabled)
+        if (playerLight != null && playerLight.enabled)
         {
-            currentBattery -= Time.deltaTime * drainRate;
+            // Evaluamos si estamos aturdiendo al enemigo en este frame
+            bool isStunningEnemy = StunEnemyIfLooking();
+
+            // Calculamos el drenaje: si lo miramos, se gasta más rápido
+            float currentDrain = isStunningEnemy ? (drainRate * stunDrainMultiplier) : drainRate;
+            currentBattery -= Time.deltaTime * currentDrain;
 
             if (currentBattery <= 0)
             {
                 currentBattery = 0;
                 ToggleFlashlight();
-
-                // mission baterias
                 CheckAndTriggerBatteryQuest();
             }
         }
 
-        
         UpdateBatteryUI();
+    }
+
+    // Ahora devuelve un BOOL para saber si acertamos
+    private bool StunEnemyIfLooking()
+    {
+        // Cambiamos Physics.Raycast por Physics.SphereCast y le pasamos el flashlightRadius
+        if (Physics.SphereCast(transform.position, flashlightRadius, transform.forward, out RaycastHit hit, flashlightRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        {
+            EnemyAI enemy = hit.collider.GetComponent<EnemyAI>();
+            if (enemy == null) enemy = hit.collider.GetComponentInParent<EnemyAI>();
+
+            if (enemy != null)
+            {
+                enemy.StunByFlashlight();
+                return true; // Acertamos al monstruo
+            }
+        }
+        return false; // No le estamos dando a nada
     }
 
     private void UpdateBatteryUI()
     {
-        if (batteryFillImage != null)
-        {
-            batteryFillImage.fillAmount = currentBattery / maxBattery;
-        }
-
+        if (batteryFillImage != null) batteryFillImage.fillAmount = currentBattery / maxBattery;
         if (batteryCountText != null && GameManager.Instance != null)
         {
             int pilasEnInventario = GameManager.Instance.GetItemCount(batteryItemName);
@@ -132,54 +142,34 @@ public class FlashlightController : MonoBehaviour
 
         if (GameManager.Instance != null && GameManager.Instance.HasItem(batteryItemName))
         {
-            // recargado
             GameManager.Instance.RemoveItemFromInventory(batteryItemName);
             currentBattery = maxBattery;
-
             if (audioSource != null && reloadSound != null) audioSource.PlayOneShot(reloadSound);
             GameManager.Instance.ShowSubtitle("<i>Pilas reemplazadas.</i>", 2f);
-
-            // Borra missi
-            if (!string.IsNullOrEmpty(batteryQuestTitle))
-            {
-                GameManager.Instance.UpdateSecondaryMission(batteryQuestTitle, "");
-            }
+            if (!string.IsNullOrEmpty(batteryQuestTitle)) GameManager.Instance.UpdateSecondaryMission(batteryQuestTitle, "");
         }
         else
         {
-            // no se recarga
             GameManager.Instance.ShowSubtitle("<i>Me quedé sin pilas...</i>", 2f);
             CheckAndTriggerBatteryQuest();
         }
     }
 
-    // Nueva función para no repetir código. Evalúa si debe lanzar la misión.
     private void CheckAndTriggerBatteryQuest()
     {
         if (GameManager.Instance != null && GameManager.Instance.GetItemCount(batteryItemName) == 0)
         {
-            if (!string.IsNullOrEmpty(batteryQuestTitle))
-            {
-                GameManager.Instance.UpdateSecondaryMission(batteryQuestTitle, batteryQuestDetails);
-            }
+            if (!string.IsNullOrEmpty(batteryQuestTitle)) GameManager.Instance.UpdateSecondaryMission(batteryQuestTitle, batteryQuestDetails);
         }
     }
 
     private void ToggleFlashlight()
     {
         if (playerLight == null) return;
-
         playerLight.enabled = !playerLight.enabled;
+        if (audioSource != null && clickSound != null) audioSource.PlayOneShot(clickSound);
 
-        if (audioSource != null && clickSound != null)
-        {
-            audioSource.PlayOneShot(clickSound);
-        }
-
-        if (playerLight.enabled && enableFlicker)
-        {
-            flickerCoroutine = StartCoroutine(FlickerRoutine());
-        }
+        if (playerLight.enabled && enableFlicker) flickerCoroutine = StartCoroutine(FlickerRoutine());
         else
         {
             if (flickerCoroutine != null) StopCoroutine(flickerCoroutine);
@@ -193,19 +183,12 @@ public class FlashlightController : MonoBehaviour
         {
             float waitTime = Random.Range(minFlickerWait, maxFlickerWait);
             yield return new WaitForSeconds(waitTime);
-
             int flickerCount = Random.Range(2, 6);
             for (int i = 0; i < flickerCount; i++)
             {
                 playerLight.intensity = Random.Range(0.1f, defaultIntensity * 0.3f);
-
-                if (audioSource != null && flickerSound != null)
-                {
-                    audioSource.PlayOneShot(flickerSound, 0.4f);
-                }
-
+                if (audioSource != null && flickerSound != null) audioSource.PlayOneShot(flickerSound, 0.4f);
                 yield return new WaitForSeconds(Random.Range(0.05f, 0.15f));
-
                 playerLight.intensity = defaultIntensity;
                 yield return new WaitForSeconds(Random.Range(0.05f, 0.15f));
             }

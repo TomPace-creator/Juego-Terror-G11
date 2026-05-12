@@ -7,6 +7,7 @@ TagManager:
   - Linterna
   - EnemySpawnTag
   - EnemySpawn
+  - Enemy
   layers:
   - Default
   - TransparentFX
