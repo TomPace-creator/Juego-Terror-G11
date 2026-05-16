@@ -5,7 +5,7 @@ public class Door : InteractableObject
 {
     [Header("Door Config")]
     [SerializeField] private float openAngle = 90f;
-    [SerializeField] private float smoothSpeed = 2f;
+    [SerializeField] private float smoothSpeed = 2.5f;
 
     [Header("Sistema de Llaves")]
     [SerializeField] private bool isLocked = false;
@@ -20,6 +20,12 @@ public class Door : InteractableObject
     [Header("Borrar Misión al Abrir")]
     [Tooltip("Título de la misión que se completará al abrir la puerta con éxito")]
     [SerializeField] private string questToClearOnUnlock = "[Opcional] EL ATICO";
+
+    [Header("Nueva Misión al Abrir (Fase 3)")]
+    [Tooltip("La nueva misión que se activa al desbloquear la puerta")]
+    [SerializeField] private string newQuestTitleOnUnlock = "[Opcional] Investigar el ático";
+    [Tooltip("Detalles de la nueva misión")]
+    [SerializeField] private string newQuestDetailsOnUnlock = "Entra al ático y descubre qué esconde.";
 
     [Header("Puerta Doble (Opcional)")]
     [SerializeField] private Door twinDoor;
@@ -56,10 +62,16 @@ public class Door : InteractableObject
                 if (audioSource != null && unlockSound != null) audioSource.PlayOneShot(unlockSound);
                 GameManager.Instance.ShowSubtitle("<i>*Click* Puerta desbloqueada.</i>", 3f);
 
-              
+                // 1. Borramos la misión anterior (la de usar la llave)
                 if (!string.IsNullOrEmpty(questToClearOnUnlock))
                 {
                     GameManager.Instance.UpdateSecondaryMission(questToClearOnUnlock, "");
+                }
+
+                // 2. Activamos la nueva fase (Investigar el ático)
+                if (!string.IsNullOrEmpty(newQuestTitleOnUnlock))
+                {
+                    GameManager.Instance.UpdateSecondaryMission(newQuestTitleOnUnlock, newQuestDetailsOnUnlock);
                 }
             }
             else

@@ -25,17 +25,17 @@ public class NarrativeTrigger : MonoBehaviour
         if (GameManager.Instance != null)
         {
             
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(0f);
 
             GameManager.Instance.ShowSubtitle("<i>Mmmm... no hay nada.</i>", 4f);
 
             
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(4f);
 
             
             GameManager.Instance.ShowSubtitle("<i>Otra vez imaginándome cosas raras...</i>", 4f);
 
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(4f);
 
             GameManager.Instance.ShowSubtitle("<i>Debería tomar mis pastillas...</i>", 4f);
 
