@@ -5,7 +5,7 @@ public class PillUrgencyManager : MonoBehaviour
 {
     [Header("Activación")]
     [Tooltip("El título EXACTO de la misión que activa este temporizador (Ej: 'Encuentra las pastillas')")]
-    [SerializeField] private string triggerMissionTitle = "Encuentra las pastillas"; // <- CAMBIA ESTO AL NOMBRE DE TU MISIÓN
+    [SerializeField] private string triggerMissionTitle = "Encuentra las pastillas";
 
     [Header("Configuración de Tiempo")]
     [Tooltip("Segundos que el jugador puede estar sin tomar las pastillas antes de que empiecen los síntomas")]
@@ -19,6 +19,10 @@ public class PillUrgencyManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float maxWhisperVolume = 0.8f;
     [SerializeField] private float volumeIncreaseSpeed = 0.05f;
 
+    [Header("Efectos Visuales (Alucinaciones)")]
+    [Tooltip("El contenedor o la imagen de la sombra en el Canvas de la UI")]
+    [SerializeField] private GameObject uiShadowsContainer;
+
     [Header("Narrativa")]
     [SerializeField] private string warningSubtitle = "<i>No me siento muy bien... realmente debería tomar mis pastillas...</i>";
     [SerializeField] private float subtitleDuration = 5f;
@@ -26,7 +30,7 @@ public class PillUrgencyManager : MonoBehaviour
     private PlayerSanity playerSanity;
     private float timer = 0f;
 
-    private bool isUrgencyActive = false; // El script empieza dormido
+    private bool isUrgencyActive = false;
     private bool symptomsActive = false;
     private bool pillsConsumed = false;
 
@@ -42,11 +46,15 @@ public class PillUrgencyManager : MonoBehaviour
             whisperAudioSource.Stop();
         }
 
+        // Nos aseguramos de que las sombras visuales empiecen apagadas
+        if (uiShadowsContainer != null)
+        {
+            uiShadowsContainer.SetActive(false);
+        }
+
         if (GameManager.Instance != null)
         {
-            // Escuchamos cuando se completa la misión
             GameManager.Instance.OnPillsConsumed += HandlePillsConsumed;
-            // Escuchamos cuando cambia una misión principal
             GameManager.Instance.OnMissionChanged += CheckMissionStart;
         }
     }
@@ -62,7 +70,6 @@ public class PillUrgencyManager : MonoBehaviour
 
     private void CheckMissionStart(string title, string details)
     {
-        // Si el título de la nueva misión contiene el texto que configuramos, activamos el reloj
         if (!string.IsNullOrEmpty(title) && title.Contains(triggerMissionTitle))
         {
             isUrgencyActive = true;
@@ -71,7 +78,6 @@ public class PillUrgencyManager : MonoBehaviour
 
     private void Update()
     {
-        // Si no se ha activado la misión de las pastillas, o ya se las tomó, no hacemos nada
         if (!isUrgencyActive || pillsConsumed) return;
 
         if (!symptomsActive)
@@ -97,9 +103,16 @@ public class PillUrgencyManager : MonoBehaviour
             GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
         }
 
+        // Inicia el audio de los susurros
         if (whisperAudioSource != null && !whisperAudioSource.isPlaying)
         {
             whisperAudioSource.Play();
+        }
+
+        // Inicia el efecto visual de las sombras en pantalla
+        if (uiShadowsContainer != null)
+        {
+            uiShadowsContainer.SetActive(true);
         }
     }
 
@@ -120,7 +133,14 @@ public class PillUrgencyManager : MonoBehaviour
     {
         pillsConsumed = true;
         symptomsActive = false;
+
         StartCoroutine(FadeOutWhispers());
+
+        // Apaga las sombras en pantalla inmediatamente
+        if (uiShadowsContainer != null)
+        {
+            uiShadowsContainer.SetActive(false);
+        }
     }
 
     private IEnumerator FadeOutWhispers()
