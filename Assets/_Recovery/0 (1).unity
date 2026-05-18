@@ -329,11 +329,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.07651034, y: 0.036312845, z: 0.028981969}
   m_Center: {x: 0.0015598331, y: 0.0000000018626449, z: -0.005266414}
---- !u!1 &36649866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
-  m_PrefabInstance: {fileID: 5272446199794481245}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &37639895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19948,11 +19943,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350707623}
   m_Mesh: {fileID: -4830837996198903585, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!1 &361339861 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
-  m_PrefabInstance: {fileID: 1884204164}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &363178432
 Mesh:
   m_ObjectHideFlags: 0
@@ -45770,7 +45760,6 @@ GameObject:
   - component: {fileID: 708414862}
   - component: {fileID: 708414864}
   - component: {fileID: 708414863}
-  - component: {fileID: 708414865}
   m_Layer: 0
   m_Name: Estanteria.008 (1)
   m_TagString: Untagged
@@ -45850,22 +45839,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708414861}
   m_Mesh: {fileID: -8418779947108815528, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!208 &708414865
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 708414861}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.3690001, y: 0.365, z: 1.046}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: -0.062000003}
-  m_TimeToStationary: 0.5
 --- !u!1 &709531085
 GameObject:
   m_ObjectHideFlags: 0
@@ -50952,22 +50925,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5171286579428497483, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
   m_PrefabInstance: {fileID: 1884204164}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &774681080
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 361339861}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.605, y: 19.866001, z: 2.752}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.254, y: 4.004, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!43 &778067920
 Mesh:
   m_ObjectHideFlags: 0
@@ -55774,7 +55731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PillUrgencyManager
   triggerMissionTitle: Toma tus pastillas
-  timeBeforeSymptoms: 120
+  timeBeforeSymptoms: 10
   sanityDrainPerSecond: 0.5
   whisperAudioSource: {fileID: 279215900}
   maxWhisperVolume: 1
@@ -55795,7 +55752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GlassesUrgencyManager
   glassesMissionTitle: Ponte lentes
-  timeBeforeVisionFails: 120
+  timeBeforeVisionFails: 5
   visionDegradationDuration: 60
   sanityDrainPerSecond: 0.5
   postProcessVolume: {fileID: 2000559037}
@@ -55817,15 +55774,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowUrgencyManager
   windowMissionTitle: Investigar el sonido
-  timeBeforePanic: 120
+  timeBeforePanic: 2
   sanityDrainPerSecond: 1
   uiShadowsContainer: {fileID: 546257650}
-  whisperAudioSource: {fileID: 279215900}
-  maxWhisperVolume: 1
+  whisperAudioSource: {fileID: 0}
+  maxWhisperVolume: 0.8
   volumeIncreaseSpeed: 0.05
-  windowAudioSource: {fileID: 789760698}
+  windowAudioSource: {fileID: 0}
   scaryWindowSound: {fileID: 8300000, guid: fc210847ce9aa3a4aacabf5540aff712, type: 3}
-  warningSubtitle: <i>Que esta pasando ahi afuera?</i>
+  warningSubtitle: <i>Que esta pasando ahi afuera</i>
   subtitleDuration: 4
 --- !u!1 &849803263
 GameObject:
@@ -60752,10 +60709,6 @@ PrefabInstance:
       propertyPath: sanityVignette
       value: 
       objectReference: {fileID: 420345595}
-    - target: {fileID: 5926655009619822634, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: minFlickerWait
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5926655009619822634, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: batteryCountText
       value: 
@@ -113661,10 +113614,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 774681080}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
 --- !u!4 &1888267014 stripped
 Transform:
@@ -117803,7 +117753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3576483987891419955, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
       propertyPath: smoothSpeed
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3576483987891419955, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
       propertyPath: unlockSound
@@ -117811,8 +117761,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 868b2e2406e945e4ca37b60b270bed40, type: 3}
     - target: {fileID: 3576483987891419955, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
       propertyPath: lockedMessage
-      value: "Cerrada... El \xE1tico lleva a\xF1os sellado. A saber d\xF3nde qued\xF3
-        esa vieja llave."
+      value: Cerrada.. la llave del atico se encuentra perdida
       objectReference: {fileID: 0}
     - target: {fileID: 3576483987891419955, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
       propertyPath: sideQuestTitle
@@ -122194,7 +122143,6 @@ GameObject:
   - component: {fileID: 2034235492}
   - component: {fileID: 2034235494}
   - component: {fileID: 2034235493}
-  - component: {fileID: 2034235495}
   m_Layer: 0
   m_Name: Estanteria.008 (2)
   m_TagString: Untagged
@@ -122274,22 +122222,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034235491}
   m_Mesh: {fileID: -8418779947108815528, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!208 &2034235495
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034235491}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.3690001, y: 0.365, z: 1.046}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: -0.062000003}
-  m_TimeToStationary: 0.5
 --- !u!1001 &2034393542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123214,10 +123146,6 @@ PrefabInstance:
     - target: {fileID: 7977084878937027207, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
       propertyPath: m_Name
       value: DoorFinal (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7977084878937027207, guid: f68af8a2fc19194469bbf89bae8eb183, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -133310,7 +133238,6 @@ GameObject:
   - component: {fileID: 7324087968744816050}
   - component: {fileID: 1561527411342051911}
   - component: {fileID: 7077734826939851670}
-  - component: {fileID: 7324087968744816051}
   m_Layer: 0
   m_Name: Basura.011
   m_TagString: Untagged
@@ -134248,7 +134175,6 @@ GameObject:
   - component: {fileID: 6687401478148110465}
   - component: {fileID: 7669105051187268934}
   - component: {fileID: 3918565419848902079}
-  - component: {fileID: 7669105051187268935}
   m_Layer: 0
   m_Name: Escalera
   m_TagString: Untagged
@@ -135200,7 +135126,6 @@ GameObject:
   - component: {fileID: 3432556464520823660}
   - component: {fileID: 8178656945257045123}
   - component: {fileID: 861605489910823497}
-  - component: {fileID: 8178656945257045124}
   m_Layer: 0
   m_Name: Caja.008
   m_TagString: Untagged
@@ -136697,22 +136622,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5171286579428497483, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
   m_PrefabInstance: {fileID: 5272446199794481245}
   m_PrefabAsset: {fileID: 0}
---- !u!208 &3025478913923277401
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36649866}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.605, y: 19.866001, z: 2.752}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.254, y: 4.004, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &3037720364723228859
 GameObject:
   m_ObjectHideFlags: 0
@@ -136936,7 +136845,6 @@ GameObject:
   - component: {fileID: 6330564945036867808}
   - component: {fileID: 5186839581482905833}
   - component: {fileID: 6330564945036867809}
-  - component: {fileID: 6330564945036867810}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Untagged
@@ -139321,7 +139229,6 @@ GameObject:
   - component: {fileID: 1499111066612304553}
   - component: {fileID: 6463634302461320161}
   - component: {fileID: 6463634302461320162}
-  - component: {fileID: 6463634302461320163}
   m_Layer: 0
   m_Name: bed_02
   m_TagString: Untagged
@@ -141842,7 +141749,6 @@ GameObject:
   - component: {fileID: 4301803290513182235}
   - component: {fileID: 6447995741330248439}
   - component: {fileID: 336364719}
-  - component: {fileID: 6447995741330248440}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -142363,10 +142269,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3025478913923277401}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
 --- !u!33 &5302542354805227002
 MeshFilter:
@@ -145164,22 +145067,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.2466495, y: 1.4063134, z: 4.034469}
   m_Center: {x: 0.0000019132356, y: 0.6992431, z: -0.003105917}
---- !u!208 &6330564945036867810
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176239110230693004}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.623, y: 1.2590001, z: 2.0170002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.2550001, z: -0.003}
-  m_TimeToStationary: 0.5
 --- !u!1 &6331616438149948422
 GameObject:
   m_ObjectHideFlags: 0
@@ -145512,22 +145399,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!208 &6447995741330248440
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118853317572599398}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.263, y: 1.9420002, z: 1.263}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -1.0350001, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!23 &6463634302461320161
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -145598,22 +145469,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.017328165, y: 0.025825962, z: 0.013426842}
   m_Center: {x: -0.000000033993274, y: 0.000114201546, z: 0.0017864985}
---- !u!208 &6463634302461320163
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200133879808751966}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.009000001, y: 0.013, z: 0.007}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0.002}
-  m_TimeToStationary: 0.5
 --- !u!23 &6503150967140010427
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -146741,7 +146596,6 @@ GameObject:
   - component: {fileID: 7795365830721864617}
   - component: {fileID: 8421088538720211141}
   - component: {fileID: 522191252645172194}
-  - component: {fileID: 8421088538720211142}
   m_Layer: 0
   m_Name: Caja.023
   m_TagString: Untagged
@@ -147314,7 +147168,6 @@ GameObject:
   - component: {fileID: 2775707351444345595}
   - component: {fileID: 1116944328837102735}
   - component: {fileID: 4555520766839552868}
-  - component: {fileID: 7097329787044615997}
   m_Layer: 0
   m_Name: Basura.003
   m_TagString: Untagged
@@ -147322,22 +147175,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!208 &7097329787044615997
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7097329787044615996}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 1, z: 0.128}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0.179}
-  m_TimeToStationary: 0.5
 --- !u!4 &7113026156367373363
 Transform:
   m_ObjectHideFlags: 0
@@ -148052,22 +147889,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 547309429}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &7324087968744816051
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394652569082587497}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 1, z: 0.128}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0.179}
-  m_TimeToStationary: 0.5
 --- !u!1 &7333732437188076586
 GameObject:
   m_ObjectHideFlags: 0
@@ -149067,22 +148888,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792962644229759293}
   m_Mesh: {fileID: -8757087134715015575, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!208 &7669105051187268935
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792962644229759293}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.289, y: 0.22200002, z: 0.78400004}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.009000001, z: -0.009000001}
-  m_TimeToStationary: 0.5
 --- !u!1 &7670033215729111433
 GameObject:
   m_ObjectHideFlags: 0
@@ -150398,22 +150203,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2220235029635817358}
   m_Mesh: {fileID: 6995754702892031472, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!208 &8178656945257045124
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2220235029635817358}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 3.8590002, y: 2.6130002, z: 2.1550002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 1.7620001, y: 1.5320001, z: 1.1550001}
-  m_TimeToStationary: 0.5
 --- !u!4 &8211295262287731829
 Transform:
   m_ObjectHideFlags: 0
@@ -151159,22 +150948,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6817004043487049575}
   m_Mesh: {fileID: 1778658055995740793, guid: 72b08e93403346f41973c955f6fb320a, type: 3}
---- !u!208 &8421088538720211142
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6817004043487049575}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 2.4480002, y: 3.6160002, z: 2.019}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.13800001, y: -0.14, z: 0.179}
-  m_TimeToStationary: 0.5
 --- !u!1001 &8435076991099648194
 PrefabInstance:
   m_ObjectHideFlags: 0

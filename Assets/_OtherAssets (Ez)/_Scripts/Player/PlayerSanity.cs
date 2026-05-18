@@ -28,8 +28,8 @@ public class PlayerSanity : MonoBehaviour
 
     private void Start()
     {
-        //cordura al 70
-        currentSanity = maxSanity * 0.7f;
+        //cordura al 90
+        currentSanity = maxSanity * 0.9f;
 
         if (sanityVignette != null)
         {
