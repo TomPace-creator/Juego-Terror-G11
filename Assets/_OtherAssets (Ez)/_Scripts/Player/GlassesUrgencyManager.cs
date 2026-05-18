@@ -40,6 +40,10 @@ public class GlassesUrgencyManager : MonoBehaviour
     private bool effectsActive = false;
     private bool glassesEquipped = false;
 
+    // Variables para recordar la misión y volver a mostrarla
+    private string activeMissionTitle = "";
+    private string activeMissionDetails = "";
+
     private void Start()
     {
         playerSanity = GetComponent<PlayerSanity>();
@@ -77,6 +81,9 @@ public class GlassesUrgencyManager : MonoBehaviour
         if (!string.IsNullOrEmpty(title) && title.Contains(glassesMissionTitle))
         {
             isTracking = true;
+            // Guardamos los datos de la misión para usarlos como recordatorio después
+            activeMissionTitle = title;
+            activeMissionDetails = details;
         }
         else
         {
@@ -110,7 +117,14 @@ public class GlassesUrgencyManager : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.ShowSubtitle("<i>Me está empezando a doler la cabeza... Veo siluetas extrañas...</i>", 4f);
+            // 1. Mostrar el subtítulo
+            GameManager.Instance.ShowSubtitle("<i>Necesito mis lentes...</i>", 4f);
+
+            // 2. Volver a disparar la misión principal para que aparezca en el HUD
+            if (!string.IsNullOrEmpty(activeMissionTitle))
+            {
+                GameManager.Instance.UpdateMission(activeMissionTitle, activeMissionDetails);
+            }
         }
 
         if (shadowsContainer != null)

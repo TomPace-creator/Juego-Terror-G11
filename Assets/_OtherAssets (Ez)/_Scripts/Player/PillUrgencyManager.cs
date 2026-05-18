@@ -34,6 +34,10 @@ public class PillUrgencyManager : MonoBehaviour
     private bool symptomsActive = false;
     private bool pillsConsumed = false;
 
+    // Variables internas para recordar la misión y refrescar el HUD
+    private string activeMissionTitle = "";
+    private string activeMissionDetails = "";
+
     private void Start()
     {
         playerSanity = GetComponent<PlayerSanity>();
@@ -46,7 +50,6 @@ public class PillUrgencyManager : MonoBehaviour
             whisperAudioSource.Stop();
         }
 
-        // Nos aseguramos de que las sombras visuales empiecen apagadas
         if (uiShadowsContainer != null)
         {
             uiShadowsContainer.SetActive(false);
@@ -73,6 +76,10 @@ public class PillUrgencyManager : MonoBehaviour
         if (!string.IsNullOrEmpty(title) && title.Contains(triggerMissionTitle))
         {
             isUrgencyActive = true;
+
+            // Guardamos el título y los detalles exactos de la misión de las pastillas
+            activeMissionTitle = title;
+            activeMissionDetails = details;
         }
     }
 
@@ -98,18 +105,26 @@ public class PillUrgencyManager : MonoBehaviour
     {
         symptomsActive = true;
 
-        if (GameManager.Instance != null && !string.IsNullOrEmpty(warningSubtitle))
+        if (GameManager.Instance != null)
         {
-            GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
+            // 1. Mostramos el subtítulo de Ruth
+            if (!string.IsNullOrEmpty(warningSubtitle))
+            {
+                GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
+            }
+
+            // 2. Refrescamos la misión en pantalla para recordar al jugador su objetivo
+            if (!string.IsNullOrEmpty(activeMissionTitle))
+            {
+                GameManager.Instance.UpdateMission(activeMissionTitle, activeMissionDetails);
+            }
         }
 
-        // Inicia el audio de los susurros
         if (whisperAudioSource != null && !whisperAudioSource.isPlaying)
         {
             whisperAudioSource.Play();
         }
 
-        // Inicia el efecto visual de las sombras en pantalla
         if (uiShadowsContainer != null)
         {
             uiShadowsContainer.SetActive(true);
@@ -136,7 +151,6 @@ public class PillUrgencyManager : MonoBehaviour
 
         StartCoroutine(FadeOutWhispers());
 
-        // Apaga las sombras en pantalla inmediatamente
         if (uiShadowsContainer != null)
         {
             uiShadowsContainer.SetActive(false);
