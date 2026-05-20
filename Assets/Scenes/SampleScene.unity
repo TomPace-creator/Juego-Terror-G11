@@ -56616,7 +56616,7 @@ GameObject:
   - component: {fileID: 863306175}
   - component: {fileID: 863306174}
   - component: {fileID: 863306173}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AL (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56898,6 +56898,10 @@ PrefabInstance:
     - target: {fileID: 7592556246468592196, guid: c01d907e86171a74aa40484d78edc187, type: 3}
       propertyPath: m_Name
       value: StandLamp (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592556246468592196, guid: c01d907e86171a74aa40484d78edc187, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61569,6 +61573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9218086203629164607, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -61667,6 +61675,10 @@ PrefabInstance:
     - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_Name
       value: Sofa (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5171286579428497483, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_LocalScale.x
@@ -72842,7 +72854,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -87207,6 +87219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: brownWoodTable
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 28f8f3ad57ca7a50dab5d12a42a0ef75, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -96949,7 +96965,7 @@ GameObject:
   - component: {fileID: 1501539156}
   - component: {fileID: 1501539158}
   - component: {fileID: 1501539157}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111485,7 +111501,7 @@ GameObject:
   - component: {fileID: 1795371261}
   - component: {fileID: 1795371260}
   - component: {fileID: 1795371259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AL (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116446,6 +116462,10 @@ PrefabInstance:
     - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_Name
       value: Sofa
+      objectReference: {fileID: 0}
+    - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5171286579428497483, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_LocalPosition.x
@@ -122113,6 +122133,10 @@ PrefabInstance:
     - target: {fileID: 2408868842157404689, guid: be081bd066c474247b5477c53ea8c586, type: 3}
       propertyPath: m_Name
       value: Wardrobe_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408868842157404689, guid: be081bd066c474247b5477c53ea8c586, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4585613956760025078, guid: be081bd066c474247b5477c53ea8c586, type: 3}
       propertyPath: m_LocalPosition.x
@@ -133529,7 +133553,7 @@ GameObject:
   - component: {fileID: 3882613185230380713}
   - component: {fileID: 5068168840637039083}
   - component: {fileID: 5473008563375673073}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AL (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133677,7 +133701,7 @@ GameObject:
   - component: {fileID: 7194015649318910968}
   - component: {fileID: 1206999064}
   - component: {fileID: 7194015649318910969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: piano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141073,7 +141097,7 @@ GameObject:
   - component: {fileID: 5229657122676954431}
   - component: {fileID: 1011959394336716626}
   - component: {fileID: 5229657122676954432}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesa.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154331,21 +154355,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &863585959890140445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558775686786462520}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.009590905, y: 0.796837, z: -0.012658916, w: 0.60398555}
-  m_LocalPosition: {x: -5.469539, y: 1.39483, z: 0.6381831}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8036109619447907007}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &864057586134781061
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -157543,7 +157552,7 @@ GameObject:
   - component: {fileID: 5144409780316421520}
   - component: {fileID: 5144409780316421521}
   - component: {fileID: 5144409780316421522}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Table_box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158948,57 +158957,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!20 &1028858745573523966
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558775686786462520}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 2
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 9.999999
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 10
-  far clip plane: 99999.99
-  field of view: 26.991467
-  orthographic: 0
-  orthographic size: 0.24
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!23 &1028884262448955816
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -166847,50 +166805,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1311222311033535381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7558775686786462520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!23 &1313962479346173077
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -171626,7 +171540,7 @@ GameObject:
   - component: {fileID: 3340926022584993999}
   - component: {fileID: 8143969001342713092}
   - component: {fileID: 8143969001342713093}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173884,7 +173798,7 @@ GameObject:
   - component: {fileID: 3423716464826822868}
   - component: {fileID: 3275566424578707107}
   - component: {fileID: 3423716464826822869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trash_can_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189278,7 +189192,7 @@ GameObject:
   - component: {fileID: 1513493236592581500}
   - component: {fileID: 8774083547717379710}
   - component: {fileID: 8774083547717379711}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189772,7 +189686,7 @@ GameObject:
   - component: {fileID: 7794271678279637177}
   - component: {fileID: 5919119748645188779}
   - component: {fileID: 7794271678279637178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208726,7 +208640,7 @@ GameObject:
   - component: {fileID: 1844810889531202256}
   - component: {fileID: 5909565804766161953}
   - component: {fileID: 8211295262287731830}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211978,7 +211892,7 @@ GameObject:
   - component: {fileID: 6330564945036867808}
   - component: {fileID: 5186839581482905833}
   - component: {fileID: 6330564945036867809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213665,7 +213579,7 @@ GameObject:
   - component: {fileID: 5402861054779708966}
   - component: {fileID: 5170864490545777410}
   - component: {fileID: 5402861054779708967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Armchair_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225401,24 +225315,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7088257786366366268}
   m_Mesh: {fileID: 392607217770241737, guid: 675ebaf07a5d31745bbb8ee9e96da50e, type: 3}
---- !u!1 &3766624868962733735
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6696614498945232415}
-  - component: {fileID: 7663707466011074706}
-  - component: {fileID: 8508302079038783863}
-  m_Layer: 0
-  m_Name: Camera.001
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &3768668052351379634
 Transform:
   m_ObjectHideFlags: 0
@@ -229995,7 +229891,7 @@ GameObject:
   - component: {fileID: 3452522315152193640}
   - component: {fileID: 5828900219662117842}
   - component: {fileID: 5828900219662117843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Phone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236950,7 +236846,7 @@ GameObject:
   - component: {fileID: 1499111066612304553}
   - component: {fileID: 6463634302461320161}
   - component: {fileID: 6463634302461320162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bed_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252071,6 +251967,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4075254085348702323, guid: 0e0d304cbb64a9643ba948744ae32f62, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -253379,6 +253279,10 @@ PrefabInstance:
     - target: {fileID: 2408868842157404689, guid: be081bd066c474247b5477c53ea8c586, type: 3}
       propertyPath: m_Name
       value: Wardrobe_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408868842157404689, guid: be081bd066c474247b5477c53ea8c586, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4585613956760025078, guid: be081bd066c474247b5477c53ea8c586, type: 3}
       propertyPath: m_LocalPosition.x
@@ -256079,7 +255983,7 @@ GameObject:
   - component: {fileID: 2586053873586269790}
   - component: {fileID: 1160609684764158825}
   - component: {fileID: 6025760120074016557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259615,7 +259519,7 @@ GameObject:
   - component: {fileID: 4301803290513182235}
   - component: {fileID: 6447995741330248439}
   - component: {fileID: 336364719}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263128,6 +263032,10 @@ PrefabInstance:
     - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_Name
       value: Sofa
+      objectReference: {fileID: 0}
+    - target: {fileID: 739394014596479635, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5171286579428497483, guid: 95275ca75675b4144b56ea252bc4e136, type: 3}
       propertyPath: m_LocalPosition.x
@@ -268870,7 +268778,7 @@ GameObject:
   - component: {fileID: 773502606847023611}
   - component: {fileID: 881538771727836246}
   - component: {fileID: 5536287854335141829}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesa.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297100,21 +297008,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &6696614498945232415
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766624868962733735}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.0066041653, y: 0.84902483, z: 0.010599184, w: 0.52820534}
-  m_LocalPosition: {x: -7.7677617, y: 1.4798352, z: -16.296867}
-  m_LocalScale: {x: 1, y: 1, z: 0.99999994}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8036109619447907007}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6697621763024053998
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -313584,7 +313477,7 @@ GameObject:
   - component: {fileID: 8771183003273899317}
   - component: {fileID: 8294847931640770509}
   - component: {fileID: 618843631794853728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Books_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318792,24 +318685,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673020190916990495}
   m_Mesh: {fileID: 4069992360499143024, guid: f790bb775ec229a4eb005f6fb55d0821, type: 3}
---- !u!1 &7558775686786462520
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 863585959890140445}
-  - component: {fileID: 1028858745573523966}
-  - component: {fileID: 1311222311033535381}
-  m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &7559651771734101412
 GameObject:
   m_ObjectHideFlags: 0
@@ -320500,57 +320375,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!20 &7663707466011074706
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766624868962733735}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 2
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 9.999999
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 10
-  far clip plane: 99999.99
-  field of view: 26.991467
-  orthographic: 0
-  orthographic size: 0.24000014
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!23 &7663890939967172787
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -320912,7 +320736,7 @@ GameObject:
   - component: {fileID: 4696109115406423491}
   - component: {fileID: 5690390098705192706}
   - component: {fileID: 8812489751151027335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329476,8 +329300,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 863585959890140445}
-  - {fileID: 6696614498945232415}
   - {fileID: 491681790591310564}
   - {fileID: 8399123339426390506}
   - {fileID: 2627637340217198179}
@@ -340344,50 +340166,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8508302079038783863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766624868962733735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
-  m_Version: 2
 --- !u!33 &8509147792908265929
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -351627,7 +351405,7 @@ GameObject:
   - component: {fileID: 8133309326943169805}
   - component: {fileID: 8663302874607741358}
   - component: {fileID: 1105574652863655525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Books_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
