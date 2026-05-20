@@ -3819,11 +3819,6 @@ Light:
   m_CorrespondingSourceObject: {fileID: 6411226161959097832, guid: f43b5e11ab77afc4d872fc96eb660cc2, type: 3}
   m_PrefabInstance: {fileID: 1447230485}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &78601903 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-  m_PrefabInstance: {fileID: 960586793}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &79445679
 Mesh:
   m_ObjectHideFlags: 0
@@ -14636,135 +14631,6 @@ Transform:
   m_Children:
   - {fileID: 844299525}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &279215899
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 279215901}
-  - component: {fileID: 279215900}
-  m_Layer: 0
-  m_Name: WhispersAudio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &279215900
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279215899}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 0e8e7b323536c3a4ba6e174677492cd5, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &279215901
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279215899}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 844299525}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &286238572
 Mesh:
@@ -55723,7 +55589,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3793483850059111430, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe08d25cd889799489bf7e4bc04d1586, type: 3}
@@ -55739,7 +55605,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 105681460232832791, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d465383c3bc976438b20633659d2c8a, type: 3}
@@ -55755,78 +55621,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3616098919934521137, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 787bb4d9d5fd1e642a3d80d5419a793f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSanity
---- !u!114 &844299539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e5a4fe8552e72a4a854b6b62765b9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PillUrgencyManager
-  triggerMissionTitle: Toma tus pastillas
-  timeBeforeSymptoms: 120
-  sanityDrainPerSecond: 0.5
-  whisperAudioSource: {fileID: 279215900}
-  maxWhisperVolume: 1
-  volumeIncreaseSpeed: 0.05
-  uiShadowsContainer: {fileID: 546257650}
-  warningSubtitle: "<i>No me siento muy bien... realmente deber\xEDa tomar mis pastillas...</i>"
-  subtitleDuration: 4
---- !u!114 &844299543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e24ae11ebf32b31479c9162ea0cc7dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GlassesUrgencyManager
-  glassesMissionTitle: Ponte lentes
-  timeBeforeVisionFails: 120
-  visionDegradationDuration: 60
-  sanityDrainPerSecond: 0.5
-  postProcessVolume: {fileID: 2000559037}
-  maxVolumeWeight: 1
-  shadowsContainer: {fileID: 546257650}
-  whisperAudioSource: {fileID: 279215900}
-  maxWhisperVolume: 1
-  volumeIncreaseSpeed: 0.05
---- !u!114 &844299544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 78601903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde6ac8751c4b99449ba1abbcf0ce982, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WindowUrgencyManager
-  windowMissionTitle: Investigar el sonido
-  timeBeforePanic: 120
-  sanityDrainPerSecond: 1
-  uiShadowsContainer: {fileID: 546257650}
-  whisperAudioSource: {fileID: 279215900}
-  maxWhisperVolume: 1
-  volumeIncreaseSpeed: 0.05
-  windowAudioSource: {fileID: 789760698}
-  scaryWindowSound: {fileID: 8300000, guid: fc210847ce9aa3a4aacabf5540aff712, type: 3}
-  warningSubtitle: <i>Que esta pasando ahi afuera?</i>
-  subtitleDuration: 4
 --- !u!1 &849803263
 GameObject:
   m_ObjectHideFlags: 0
@@ -60704,10 +60504,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 270406304}
     m_Modifications:
-    - target: {fileID: 105681460232832791, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: lookSensitivity
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 1710095853362088611, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60748,14 +60544,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2089566473846288398, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: uiShadowsContainer
+      value: 
+      objectReference: {fileID: 546257650}
+    - target: {fileID: 3173713523177218605, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: windowAudioSource
+      value: 
+      objectReference: {fileID: 789760698}
+    - target: {fileID: 3173713523177218605, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: uiShadowsContainer
+      value: 
+      objectReference: {fileID: 546257650}
     - target: {fileID: 3616098919934521137, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: sanityVignette
       value: 
       objectReference: {fileID: 420345595}
-    - target: {fileID: 5926655009619822634, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: minFlickerWait
-      value: 3
-      objectReference: {fileID: 0}
+    - target: {fileID: 4960937433640737051, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: shadowsContainer
+      value: 
+      objectReference: {fileID: 546257650}
+    - target: {fileID: 4960937433640737051, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      propertyPath: postProcessVolume
+      value: 
+      objectReference: {fileID: 2000559037}
     - target: {fileID: 5926655009619822634, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: batteryCountText
       value: 
@@ -60794,20 +60606,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1710095853362088611, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 279215901}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 844299539}
-    - targetCorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 844299543}
-    - targetCorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 844299544}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
 --- !u!1001 &963403447
 PrefabInstance:

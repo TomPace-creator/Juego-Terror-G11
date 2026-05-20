@@ -578,6 +578,135 @@ MonoBehaviour:
   interactTextObject: {fileID: 0}
   interactTextComponent: {fileID: 0}
   interactionVisualDuration: 0.5
+--- !u!1 &6727481923054193499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2783731113302722497}
+  - component: {fileID: 7346154640086862927}
+  m_Layer: 0
+  m_Name: WhispersAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2783731113302722497
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727481923054193499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710095853362088611}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7346154640086862927
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6727481923054193499}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 0e8e7b323536c3a4ba6e174677492cd5, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6965904091379294267
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +723,9 @@ GameObject:
   - component: {fileID: 8726346835296923261}
   - component: {fileID: 5926655009619822634}
   - component: {fileID: 3616098919934521137}
+  - component: {fileID: 2089566473846288398}
+  - component: {fileID: 4960937433640737051}
+  - component: {fileID: 3173713523177218605}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -615,6 +747,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3655887514740803815}
+  - {fileID: 2783731113302722497}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &105681460232832791
@@ -633,7 +766,7 @@ MonoBehaviour:
   walkingSpeed: 2.5
   runningSpeed: 4
   canLook: 1
-  lookSensitivity: 1
+  lookSensitivity: 0.3
   canJump: 0
   jumpForce: 0
   gravityMultiplier: 2
@@ -940,6 +1073,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FlashlightController
   playerLight: {fileID: 7956153048841378245}
   requiredItem: Linterna
+  flashlightRange: 25
+  flashlightRadius: 2.5
+  stunDrainMultiplier: 1.5
   flashlightIconHUD: {fileID: 0}
   batteryFillImage: {fileID: 0}
   batteryCountText: {fileID: 0}
@@ -954,7 +1090,7 @@ MonoBehaviour:
   batteryItemName: Pilas
   currentBattery: 0
   enableFlicker: 1
-  minFlickerWait: 5
+  minFlickerWait: 3
   maxFlickerWait: 10
 --- !u!114 &3616098919934521137
 MonoBehaviour:
@@ -977,3 +1113,69 @@ MonoBehaviour:
   minBeatSpeed: 3
   maxBeatSpeed: 10
   pulseExpansion: 0.1
+--- !u!114 &2089566473846288398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965904091379294267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5a4fe8552e72a4a854b6b62765b9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PillUrgencyManager
+  triggerMissionTitle: Toma tus pastillas
+  timeBeforeSymptoms: 120
+  sanityDrainPerSecond: 0.5
+  whisperAudioSource: {fileID: 7346154640086862927}
+  maxWhisperVolume: 1
+  volumeIncreaseSpeed: 0.05
+  uiShadowsContainer: {fileID: 0}
+  warningSubtitle: "<i>No me siento muy bien... realmente deber\xEDa tomar mis pastillas...</i>"
+  subtitleDuration: 4
+--- !u!114 &4960937433640737051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965904091379294267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24ae11ebf32b31479c9162ea0cc7dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlassesUrgencyManager
+  glassesMissionTitle: Ponte lentes
+  timeBeforeVisionFails: 120
+  visionDegradationDuration: 60
+  sanityDrainPerSecond: 0.5
+  postProcessVolume: {fileID: 0}
+  maxVolumeWeight: 1
+  shadowsContainer: {fileID: 0}
+  whisperAudioSource: {fileID: 7346154640086862927}
+  maxWhisperVolume: 1
+  volumeIncreaseSpeed: 0.05
+--- !u!114 &3173713523177218605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965904091379294267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde6ac8751c4b99449ba1abbcf0ce982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WindowUrgencyManager
+  windowMissionTitle: Investigar el sonido
+  timeBeforePanic: 120
+  sanityDrainPerSecond: 1
+  uiShadowsContainer: {fileID: 0}
+  whisperAudioSource: {fileID: 7346154640086862927}
+  maxWhisperVolume: 1
+  volumeIncreaseSpeed: 0.05
+  windowAudioSource: {fileID: 0}
+  scaryWindowSound: {fileID: 8300000, guid: fc210847ce9aa3a4aacabf5540aff712, type: 3}
+  warningSubtitle: <i>Que esta pasando ahi afuera?</i>
+  subtitleDuration: 4
