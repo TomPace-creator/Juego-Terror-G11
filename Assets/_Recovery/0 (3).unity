@@ -5952,6 +5952,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &78601903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+  m_PrefabInstance: {fileID: 960586793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &79445679
 Mesh:
   m_ObjectHideFlags: 0
@@ -76033,7 +76038,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3793483850059111430, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 78601903}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe08d25cd889799489bf7e4bc04d1586, type: 3}
@@ -76049,7 +76054,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 105681460232832791, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 78601903}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d465383c3bc976438b20633659d2c8a, type: 3}
@@ -76065,12 +76070,33 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3616098919934521137, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
   m_PrefabInstance: {fileID: 960586793}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 78601903}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 787bb4d9d5fd1e642a3d80d5419a793f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSanity
+--- !u!114 &844299539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78601903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5a4fe8552e72a4a854b6b62765b9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PillUrgencyManager
+  triggerMissionTitle: Toma tus pastillas
+  timeBeforeSymptoms: 1
+  sanityDrainPerSecond: 1.5
+  whisperAudioSource: {fileID: 279215900}
+  maxWhisperVolume: 0.8
+  volumeIncreaseSpeed: 0.05
+  uiShadowsContainer: {fileID: 324505280}
+  warningSubtitle: "<i>No me siento muy bien... realmente deber\xEDa tomar mis pastillas...</i>"
+  subtitleDuration: 5
 --- !u!1001 &847039018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -82862,7 +82888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2089566473846288398, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: timeBeforeSymptoms
-      value: 120
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2089566473846288398, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: uiShadowsContainer
@@ -82870,20 +82896,16 @@ PrefabInstance:
       objectReference: {fileID: 324505280}
     - target: {fileID: 2089566473846288398, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: sanityDrainPerSecond
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3173713523177218605, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: timeBeforePanic
-      value: 120
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3173713523177218605, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: uiShadowsContainer
       value: 
       objectReference: {fileID: 324505280}
-    - target: {fileID: 3173713523177218605, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: sanityDrainPerSecond
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3616098919934521137, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: sanityVignette
       value: 
@@ -82894,11 +82916,11 @@ PrefabInstance:
       objectReference: {fileID: 324505280}
     - target: {fileID: 4960937433640737051, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: sanityDrainPerSecond
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4960937433640737051, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: timeBeforeVisionFails
-      value: 120
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5926655009619822634, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: batteryCountText
@@ -82936,14 +82958,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8726346835296923261, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: MaxDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726346835296923261, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
-      propertyPath: MinDistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 9218086203629164607, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 4294967295
@@ -82954,7 +82968,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1710095853362088611, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 279215901}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6965904091379294267, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 844299539}
   m_SourcePrefab: {fileID: 100100000, guid: 21c9a50f023884a4d8a82b6823f41abb, type: 3}
 --- !u!1001 &963403447
 PrefabInstance:
@@ -120582,12 +120599,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 839054039}
     m_Modifications:
     - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
+      propertyPath: maxScale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
       propertyPath: maxSpeed
       value: 12000
       objectReference: {fileID: 0}
     - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
+      propertyPath: minScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
       propertyPath: minSpeed
       value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
+      propertyPath: approachDuration
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3259694625623138684, guid: 93ab810a0b4578d4085c8839db0d5e0a, type: 3}
       propertyPath: approachFrequency
@@ -135455,10 +135484,6 @@ PrefabInstance:
     - target: {fileID: 706911835277064685, guid: 41d2ca40dc350ba4b84f830e559d5c3b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6372810043209663193, guid: 41d2ca40dc350ba4b84f830e559d5c3b, type: 3}
-      propertyPath: itemName
-      value: Lentes
       objectReference: {fileID: 0}
     - target: {fileID: 6372810043209663193, guid: 41d2ca40dc350ba4b84f830e559d5c3b, type: 3}
       propertyPath: globalVolume
@@ -226541,7 +226566,6 @@ GameObject:
   - component: {fileID: 6330564945036867808}
   - component: {fileID: 5186839581482905833}
   - component: {fileID: 6330564945036867809}
-  - component: {fileID: 6330564945036867810}
   m_Layer: 6
   m_Name: Bed
   m_TagString: Untagged
@@ -271417,22 +271441,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.2466495, y: 1.4063134, z: 4.034469}
   m_Center: {x: 0.0000019132356, y: 0.6992431, z: -0.003105917}
---- !u!208 &6330564945036867810
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176239110230693004}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1.623, y: 1.2590001, z: 2.0170002}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.2550001, z: -0.003}
-  m_TimeToStationary: 0.5
 --- !u!1 &6331616438149948422
 GameObject:
   m_ObjectHideFlags: 0
