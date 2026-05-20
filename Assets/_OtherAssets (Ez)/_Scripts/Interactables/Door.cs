@@ -38,10 +38,6 @@ public class Door : InteractableObject
     [SerializeField] private AudioClip unlockSound;
 
     public bool isOpen { get; private set; } = false;
-
-    // Propiedad pública para que la IA sepa si está con llave (Encapsulamiento)
-    public bool IsLocked { get { return isLocked; } }
-
     private Quaternion closedRotation;
 
     void Start()
@@ -66,11 +62,13 @@ public class Door : InteractableObject
                 if (audioSource != null && unlockSound != null) audioSource.PlayOneShot(unlockSound);
                 GameManager.Instance.ShowSubtitle("<i>*Click* Puerta desbloqueada.</i>", 3f);
 
+                // 1. Borramos la misión anterior (la de usar la llave)
                 if (!string.IsNullOrEmpty(questToClearOnUnlock))
                 {
                     GameManager.Instance.UpdateSecondaryMission(questToClearOnUnlock, "");
                 }
 
+                // 2. Activamos la nueva fase (Investigar el ático)
                 if (!string.IsNullOrEmpty(newQuestTitleOnUnlock))
                 {
                     GameManager.Instance.UpdateSecondaryMission(newQuestTitleOnUnlock, newQuestDetailsOnUnlock);
@@ -115,32 +113,6 @@ public class Door : InteractableObject
         }
 
         if (twinDoor != null && !isTriggeredByTwin) twinDoor.ToggleDoor(playerTransform, true);
-    }
-
-    // --- NUEVO: Función exclusiva para que la IA abra puertas sin romper misiones ---
-    public void ToggleDoorByEnemy(Transform enemyTransform)
-    {
-        if (isLocked || isOpen) return;
-
-        isOpen = true;
-        interactText = "\"Cerrar Puerta [E]\"";
-        StopAllCoroutines();
-
-        if (audioSource != null && openSound != null)
-        {
-            audioSource.PlayOneShot(openSound);
-        }
-
-        Vector3 localEnemyPosition = transform.InverseTransformPoint(enemyTransform.position);
-        float angleToApply = (localEnemyPosition.z > 0) ? -openAngle : openAngle;
-        Quaternion openRotation = Quaternion.Euler(closedRotation.eulerAngles + Vector3.up * angleToApply);
-
-        StartCoroutine(AnimateDoor(openRotation));
-
-        if (twinDoor != null && twinDoor.isOpen == false)
-        {
-            twinDoor.ToggleDoorByEnemy(enemyTransform);
-        }
     }
 
     private IEnumerator AnimateDoor(Quaternion targetRotation)

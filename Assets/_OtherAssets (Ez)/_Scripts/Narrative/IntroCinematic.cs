@@ -38,6 +38,7 @@ public class IntroCinematic : MonoBehaviour
         }
         else
         {
+           
             Debug.LogError("error");
         }
 
@@ -103,14 +104,14 @@ public class IntroCinematic : MonoBehaviour
             yield return null;
         }
 
-
+       
         if (playerController != null) playerController.enabled = true;
         if (playerFootsteps != null) playerFootsteps.enabled = true;
 
         playerController.EnableMovement();
         playerController.EnableLook();
 
-
+       
         if (GameManager.Instance != null)
         {
             GameManager.Instance.ShowSubtitle("<i>Ruth - ¿Qué fue eso?...</i>", 4f);
@@ -122,13 +123,7 @@ public class IntroCinematic : MonoBehaviour
             GameManager.Instance.ShowSubtitle("<i>No veo muy bien sin mis lentes...</i>", 4f);
             yield return new WaitForSeconds(4f);
 
-            // AQUÍ ESTÁ EL CAMBIO CLAVE:
-            // Solo muestra la misión si el jugador AÚN NO tiene los lentes en su inventario.
-            // Asegúrate de que "Lentes" esté escrito exactamente igual que en tu script del ítem.
-            if (!GameManager.Instance.HasItem("Lentes"))
-            {
-                GameManager.Instance.UpdateMission("Ponte lentes", "Agarra los lentes en la mesita de luz");
-            }
+            GameManager.Instance.UpdateMission("Ponte lentes", "Agarra los lentes en la mesita de luz");
         }
 
         Destroy(gameObject);

@@ -4,6 +4,7 @@ using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
+
 {
     [Header("Configuración de Persecución")]
     [SerializeField] private float detectionRange = 15f;
@@ -44,7 +45,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private AudioClip absoluteHuntSound;
     [SerializeField] private float footstepInterval = 0.6f;
-
     [Header("Audio de Pasos")]
     [Tooltip("Segundos entre cada paso cuando patrulla (Lento)")]
     [SerializeField] private float patrolFootstepInterval = 1.2f;
@@ -58,6 +58,7 @@ public class EnemyAI : MonoBehaviour
     private float waitTimer = 0f;
     private float timeSinceLastSeen = 10f;
 
+    // Control de tiempos de Aturdimiento
     private float timeSinceLastIlluminated = 999f;
     private float continuousIlluminationTime = 0f;
 
@@ -92,7 +93,10 @@ public class EnemyAI : MonoBehaviour
     {
         if (playerTransform == null || !agent.isOnNavMesh || isVanished || isInteractingWithDoor) return;
 
+        // --- SISTEMA DE ATURDIMIENTO EN TIEMPO REAL ---
         timeSinceLastIlluminated += Time.deltaTime;
+
+        // Si fue iluminado hace menos de 0.1 segundos, se considera aturdido
         bool isStunned = timeSinceLastIlluminated < 0.1f;
 
         if (isStunned)
@@ -100,18 +104,26 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = true;
             continuousIlluminationTime += Time.deltaTime;
 
+            // Si llegamos a los 5 segundos mirándolo fijamente...
             if (continuousIlluminationTime >= timeToDrainSanityWhenStunned)
             {
                 if (playerSanity != null) playerSanity.LoseSanity(stunSanityDamage);
-                continuousIlluminationTime = 0f;
+
+                // Aquí en el futuro puedes disparar el trigger del Animator:
+                // animator.SetTrigger("TwitchHead");
+
+                continuousIlluminationTime = 0f; // Reiniciamos el reloj para el próximo golpe de cordura
             }
-            return;
+            return; // Cortamos el Update para que no persiga ni patrulle
         }
         else
         {
+            // Si dejamos de mirarlo, reseteamos el tiempo continuo y le devolvemos el movimiento
             continuousIlluminationTime = 0f;
             agent.isStopped = false;
         }
+
+        // --- FIN SISTEMA DE ATURDIMIENTO ---
 
         CheckAndOpenDoorsAhead();
         if (isInteractingWithDoor) return;
@@ -147,6 +159,7 @@ public class EnemyAI : MonoBehaviour
         else Patrol();
     }
 
+    // La linterna llama a esta función cada frame que le apunta
     public void StunByFlashlight()
     {
         timeSinceLastIlluminated = 0f;
@@ -163,9 +176,6 @@ public class EnemyAI : MonoBehaviour
 
             if (normalDoor != null && !normalDoor.isOpen)
             {
-                // CAMBIO CLAVE: Si la puerta tiene llave, la IA simplemente se rinde y la ignora.
-                if (normalDoor.IsLocked) return;
-
                 StartCoroutine(DoorHesitationRoutine(normalDoor, null));
                 return;
             }
@@ -186,8 +196,7 @@ public class EnemyAI : MonoBehaviour
         agent.isStopped = true;
         yield return new WaitForSeconds(doorHesitationTime);
 
-        // CAMBIO CLAVE: Usa la función exclusiva para IA
-        if (normalDoor != null) normalDoor.ToggleDoorByEnemy(transform);
+        if (normalDoor != null) normalDoor.ToggleDoor(transform, false);
         if (slideDoor != null) slideDoor.Interact();
 
         agent.isStopped = false;
@@ -196,15 +205,18 @@ public class EnemyAI : MonoBehaviour
 
     private void HandleFootsteps()
     {
+        // Solo cuenta pasos si el monstruo se está moviendo físicamente
         if (agent.velocity.magnitude > 0.1f)
         {
             footstepTimer += Time.deltaTime;
+
+            // Determina qué intervalo usar dependiendo de la velocidad actual del NavMeshAgent
             float currentInterval = (agent.speed == chaseSpeed) ? chaseFootstepInterval : patrolFootstepInterval;
 
             if (footstepTimer >= currentInterval)
             {
                 PlayFootstepSound();
-                footstepTimer = 0f;
+                footstepTimer = 0f; // Reinicia el temporizador
             }
         }
         else
@@ -334,17 +346,25 @@ public class EnemyAI : MonoBehaviour
             audioSource.PlayOneShot(absoluteHuntSound, 1f);
         }
     }
-
+    // --- GIZMOS PARA DEBUG VISUAL ---
     private void OnDrawGizmosSelected()
     {
+        // 1. Elegimos el color de la línea (Rojo para detección)
         Gizmos.color = Color.red;
+
+        // 2. Calculamos la altura exacta desde donde el monstruo "ve"
+        // (Usamos la variable eyeHeight que ya tienes en tu script)
         Vector3 eyePosition = transform.position + Vector3.up * eyeHeight;
+
+        // 3. Dibujamos una esfera de alambre usando el rango de detección
         Gizmos.DrawWireSphere(eyePosition, detectionRange);
 
+        // Opcional: Dibujar también el rango de drenaje de cordura en amarillo
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(eyePosition, sanityDrainRange);
 
-        Gizmos.color = new Color(0.5f, 0f, 0f);
+        // Opcional: Dibujar el radio de muerte en un rojo más oscuro
+        Gizmos.color = new Color(0.5f, 0f, 0f); // Rojo oscuro
         Gizmos.DrawWireSphere(transform.position, killDistance);
     }
 }

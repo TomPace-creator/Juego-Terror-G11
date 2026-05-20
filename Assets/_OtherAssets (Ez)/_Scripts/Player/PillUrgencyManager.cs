@@ -5,7 +5,7 @@ public class PillUrgencyManager : MonoBehaviour
 {
     [Header("Activación")]
     [Tooltip("El título EXACTO de la misión que activa este temporizador (Ej: 'Encuentra las pastillas')")]
-    [SerializeField] private string triggerMissionTitle = "Encuentra las pastillas";
+    [SerializeField] private string triggerMissionTitle = "Encuentra las pastillas"; // <- CAMBIA ESTO AL NOMBRE DE TU MISIÓN
 
     [Header("Configuración de Tiempo")]
     [Tooltip("Segundos que el jugador puede estar sin tomar las pastillas antes de que empiecen los síntomas")]
@@ -19,10 +19,6 @@ public class PillUrgencyManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float maxWhisperVolume = 0.8f;
     [SerializeField] private float volumeIncreaseSpeed = 0.05f;
 
-    [Header("Efectos Visuales (Alucinaciones)")]
-    [Tooltip("El contenedor o la imagen de la sombra en el Canvas de la UI")]
-    [SerializeField] private GameObject uiShadowsContainer;
-
     [Header("Narrativa")]
     [SerializeField] private string warningSubtitle = "<i>No me siento muy bien... realmente debería tomar mis pastillas...</i>";
     [SerializeField] private float subtitleDuration = 5f;
@@ -30,13 +26,9 @@ public class PillUrgencyManager : MonoBehaviour
     private PlayerSanity playerSanity;
     private float timer = 0f;
 
-    private bool isUrgencyActive = false;
+    private bool isUrgencyActive = false; // El script empieza dormido
     private bool symptomsActive = false;
     private bool pillsConsumed = false;
-
-    // Variables internas para recordar la misión y refrescar el HUD
-    private string activeMissionTitle = "";
-    private string activeMissionDetails = "";
 
     private void Start()
     {
@@ -50,14 +42,11 @@ public class PillUrgencyManager : MonoBehaviour
             whisperAudioSource.Stop();
         }
 
-        if (uiShadowsContainer != null)
-        {
-            uiShadowsContainer.SetActive(false);
-        }
-
         if (GameManager.Instance != null)
         {
+            // Escuchamos cuando se completa la misión
             GameManager.Instance.OnPillsConsumed += HandlePillsConsumed;
+            // Escuchamos cuando cambia una misión principal
             GameManager.Instance.OnMissionChanged += CheckMissionStart;
         }
     }
@@ -73,18 +62,16 @@ public class PillUrgencyManager : MonoBehaviour
 
     private void CheckMissionStart(string title, string details)
     {
+        // Si el título de la nueva misión contiene el texto que configuramos, activamos el reloj
         if (!string.IsNullOrEmpty(title) && title.Contains(triggerMissionTitle))
         {
             isUrgencyActive = true;
-
-            // Guardamos el título y los detalles exactos de la misión de las pastillas
-            activeMissionTitle = title;
-            activeMissionDetails = details;
         }
     }
 
     private void Update()
     {
+        // Si no se ha activado la misión de las pastillas, o ya se las tomó, no hacemos nada
         if (!isUrgencyActive || pillsConsumed) return;
 
         if (!symptomsActive)
@@ -105,29 +92,14 @@ public class PillUrgencyManager : MonoBehaviour
     {
         symptomsActive = true;
 
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && !string.IsNullOrEmpty(warningSubtitle))
         {
-            // 1. Mostramos el subtítulo de Ruth
-            if (!string.IsNullOrEmpty(warningSubtitle))
-            {
-                GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
-            }
-
-            // 2. Refrescamos la misión en pantalla para recordar al jugador su objetivo
-            if (!string.IsNullOrEmpty(activeMissionTitle))
-            {
-                GameManager.Instance.UpdateMission(activeMissionTitle, activeMissionDetails);
-            }
+            GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
         }
 
         if (whisperAudioSource != null && !whisperAudioSource.isPlaying)
         {
             whisperAudioSource.Play();
-        }
-
-        if (uiShadowsContainer != null)
-        {
-            uiShadowsContainer.SetActive(true);
         }
     }
 
@@ -148,13 +120,7 @@ public class PillUrgencyManager : MonoBehaviour
     {
         pillsConsumed = true;
         symptomsActive = false;
-
         StartCoroutine(FadeOutWhispers());
-
-        if (uiShadowsContainer != null)
-        {
-            uiShadowsContainer.SetActive(false);
-        }
     }
 
     private IEnumerator FadeOutWhispers()
