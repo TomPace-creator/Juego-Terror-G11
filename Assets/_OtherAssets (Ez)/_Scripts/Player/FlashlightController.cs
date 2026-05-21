@@ -51,7 +51,7 @@ public class FlashlightController : MonoBehaviour
 
     private void Start()
     {
-        currentBattery = maxBattery;
+        currentBattery = maxBattery * 0.1f;
 
         if (playerLight != null)
         {
