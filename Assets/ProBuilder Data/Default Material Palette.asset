@@ -14,12 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.ProBuilder.Editor::UnityEditor.ProBuilder.MaterialPalette
   array:
   - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
-  - {fileID: 2100000, guid: 84a00f7537621844bb448cf76f405a49, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 127378b7c79a8f54ea16b1029066da75, type: 2}
+  - {fileID: 2100000, guid: 9da5097dc0363014bb09d8e76c83702d, type: 2}
+  - {fileID: 2100000, guid: 261154afb390a4e408ed19c587ecd179, type: 2}
+  - {fileID: 2100000, guid: 1e946ebecce453f4f837dc7ec9d6cc49, type: 2}
+  - {fileID: 2100000, guid: 77abfd6b25119364f9be67138be4f062, type: 2}
+  - {fileID: 2100000, guid: 2c116fdc838fd9740812885dc55747a6, type: 2}
+  - {fileID: 2100000, guid: 003e91725bb2a404aa78a502e7493c2f, type: 2}
+  - {fileID: 2100000, guid: b164757912f6c134cb85d1867f3568b1, type: 2}
+  - {fileID: 2100000, guid: a3c153fa8e16da643a9ae1329866e7d1, type: 2}
+  - {fileID: 2100000, guid: 2197bc2a1834a1a4884f3a744ee3272e, type: 2}
+  - {fileID: 2100000, guid: b5a94dc16dea26740998d8653927ba2c, type: 2}
+  - {fileID: 2100000, guid: adec8fc99f6fc2742afef7d500cff69a, type: 2}
+  - {fileID: 2100000, guid: 205f6f1293b72cd4a95821bf3782a408, type: 2}
+  - {fileID: 2100000, guid: 4e45af7e71a784344a2d4080b5333fa7, type: 2}
+  - {fileID: 2100000, guid: 7f110502af8de2044b1eaac6084a5a3d, type: 2}
+  - {fileID: 2100000, guid: 7138bc72ed486394e86d559b61ebcb17, type: 2}
+  - {fileID: 2100000, guid: f93da5a65e1f9fe4ab48264f23d7bf7a, type: 2}
+  - {fileID: 2100000, guid: 8fbc92a7bb578c2499f22b6438269532, type: 2}
+  - {fileID: 2100000, guid: d4bcf5d4758ade1489fca0b0c611c4c8, type: 2}
+  - {fileID: 2100000, guid: 3c59b8c7517295044a672cdd41bfaaae, type: 2}
+  - {fileID: 2100000, guid: 295925f3bc54f1243b43ea08298c3e92, type: 2}
+  - {fileID: 2100000, guid: 2b68b6f6180d24f428afea968cd780d7, type: 2}
+  - {fileID: 2100000, guid: d1990f414de3b2b4a925d16e43dd3b61, type: 2}
   - {fileID: 0}
