@@ -5,11 +5,11 @@ using UnityEngine.Rendering;
 //herencia de interactable
 public class LightSwitch : InteractableObject
 {
-    [Header("Configuración de Luz")]
+    [Header("Configuraciï¿½n de Luz")]
     [SerializeField] private Light[] targetLights;
     [SerializeField] private bool isOn = false;
 
-    [Header("Animación de la Tecla")]
+    [Header("Animaciï¿½n de la Tecla")]
     [SerializeField] private Transform switchModel;
     [SerializeField] private Vector3 rotationAxis = Vector3.right;
     [SerializeField] private float flipAngle = 30f;
