@@ -23,6 +23,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float doorReach = 1.5f;
     [SerializeField] private float doorHesitationTime = 1.5f;
 
+    [Header("Sabotaje de Luces (Mecánica de Terror)")]
+    [Tooltip("A qué distancia apaga las luces al pasar")]
+    [SerializeField] private float lightSabotageRadius = 5f;
+    [Tooltip("Cuántos segundos dejará la luz apagada (Ej: 60 = 1 minuto)")]
+    [SerializeField] private float sabotageDuration = 60f;
+
     [Header("Mecánica de Aturdimiento (Linterna)")]
     [Tooltip("Segundos que debes mirarlo fijamente para que te reste cordura de golpe")]
     [SerializeField] private float timeToDrainSanityWhenStunned = 5f;
@@ -65,6 +71,9 @@ public class EnemyAI : MonoBehaviour
     private bool isInteractingWithDoor = false;
     private float footstepTimer = 0f;
     private bool hasPlayedHuntSound = false;
+
+    // Temporizador para no escanear las luces 60 veces por segundo (Optimización)
+    private float sabotageCheckTimer = 0f;
 
     void Start()
     {
@@ -113,6 +122,9 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = false;
         }
 
+        // NUEVO: El monstruo escanea y rompe luces a su paso
+        CheckAndSabotageLights();
+
         CheckAndOpenDoorsAhead();
         if (isInteractingWithDoor) return;
 
@@ -147,6 +159,32 @@ public class EnemyAI : MonoBehaviour
         else Patrol();
     }
 
+    // --- NUEVO SISTEMA DE SABOTAJE ---
+    private void CheckAndSabotageLights()
+    {
+        sabotageCheckTimer += Time.deltaTime;
+
+        // El radar pulsa una vez por segundo para optimizar
+        if (sabotageCheckTimer >= 1f)
+        {
+            sabotageCheckTimer = 0f;
+
+            // Crea una esfera invisible alrededor del monstruo
+            Collider[] colliders = Physics.OverlapSphere(transform.position, lightSabotageRadius);
+            foreach (Collider col in colliders)
+            {
+                LightSwitch lightSwitch = col.GetComponent<LightSwitch>();
+                if (lightSwitch == null) lightSwitch = col.GetComponentInParent<LightSwitch>();
+
+                // Si hay un switch y está encendido, el monstruo lo sabotea
+                if (lightSwitch != null && lightSwitch.GetIsOn())
+                {
+                    lightSwitch.SabotageByEnemy(sabotageDuration);
+                }
+            }
+        }
+    }
+
     public void StunByFlashlight()
     {
         timeSinceLastIlluminated = 0f;
@@ -163,7 +201,6 @@ public class EnemyAI : MonoBehaviour
 
             if (normalDoor != null && !normalDoor.isOpen)
             {
-                // CAMBIO CLAVE: Si la puerta tiene llave, la IA simplemente se rinde y la ignora.
                 if (normalDoor.IsLocked) return;
 
                 StartCoroutine(DoorHesitationRoutine(normalDoor, null));
@@ -186,7 +223,6 @@ public class EnemyAI : MonoBehaviour
         agent.isStopped = true;
         yield return new WaitForSeconds(doorHesitationTime);
 
-        // CAMBIO CLAVE: Usa la función exclusiva para IA
         if (normalDoor != null) normalDoor.ToggleDoorByEnemy(transform);
         if (slideDoor != null) slideDoor.Interact();
 
@@ -346,5 +382,9 @@ public class EnemyAI : MonoBehaviour
 
         Gizmos.color = new Color(0.5f, 0f, 0f);
         Gizmos.DrawWireSphere(transform.position, killDistance);
+
+        // NUEVO: Dibujamos el área de sabotaje de luz en cyan
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, lightSabotageRadius);
     }
 }

@@ -3467,6 +3467,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   turnOnSound: {fileID: 0}
   turnOffSound: {fileID: 0}
+  sparkSound: {fileID: 0}
 --- !u!1 &61980867
 GameObject:
   m_ObjectHideFlags: 0
@@ -12609,6 +12610,7 @@ MonoBehaviour:
   audioSource: {fileID: 153948424}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!1 &154089057
 GameObject:
   m_ObjectHideFlags: 0
@@ -27061,6 +27063,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   turnOnSound: {fileID: 0}
   turnOffSound: {fileID: 0}
+  sparkSound: {fileID: 0}
 --- !u!1 &346438376
 GameObject:
   m_ObjectHideFlags: 0
@@ -36187,6 +36190,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   turnOnSound: {fileID: 0}
   turnOffSound: {fileID: 0}
+  sparkSound: {fileID: 0}
 --- !u!1001 &396949091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53537,6 +53541,7 @@ MonoBehaviour:
   audioSource: {fileID: 569345577}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!43 &569809335
 Mesh:
   m_ObjectHideFlags: 0
@@ -57010,8 +57015,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
+      propertyPath: eyeHeight
+      value: 1.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
       propertyPath: chaseSpeed
-      value: 2.5
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
+      propertyPath: memoryTime
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
       propertyPath: detectionRange
@@ -57022,8 +57035,16 @@ PrefabInstance:
       value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
+      propertyPath: sanityDrainRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
       propertyPath: doorHesitationTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
+      propertyPath: lightSabotageRadius
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 108822116703355386, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
       propertyPath: chaseFootstepInterval
@@ -69404,6 +69425,7 @@ MonoBehaviour:
   audioSource: {fileID: 729880355}
   turnOnSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
   turnOffSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!43 &730058229
 Mesh:
   m_ObjectHideFlags: 0
@@ -143542,6 +143564,7 @@ MonoBehaviour:
   audioSource: {fileID: 1630776830}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!1 &1633292159
 GameObject:
   m_ObjectHideFlags: 0
@@ -306783,6 +306806,7 @@ MonoBehaviour:
   audioSource: {fileID: 6760255661107070009}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!114 &8677923647958020978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306807,6 +306831,7 @@ MonoBehaviour:
   audioSource: {fileID: 6760255661139860148}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!114 &8677923649365082589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306831,6 +306856,7 @@ MonoBehaviour:
   audioSource: {fileID: 6760255659866941467}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!114 &8677923649660720166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306861,6 +306887,7 @@ MonoBehaviour:
   audioSource: {fileID: 6760255660661833184}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 0}
 --- !u!23 &8678586826369143673
 MeshRenderer:
   m_ObjectHideFlags: 0
