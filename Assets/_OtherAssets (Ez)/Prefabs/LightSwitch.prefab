@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f8abd8aa775bc4b97ce7a06e355d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactText: 'Agarra Linterna [E]'
   targetLights: []
   isOn: 0
   switchModel: {fileID: 7287640031791000226}
@@ -177,6 +178,7 @@ MonoBehaviour:
   audioSource: {fileID: 6760255660187640238}
   turnOnSound: {fileID: 8300000, guid: 60d4c65129831e448b90a62d8fde846d, type: 3}
   turnOffSound: {fileID: 8300000, guid: 07be4dd805bdbbf4f8d0887be4e16158, type: 3}
+  sparkSound: {fileID: 8300000, guid: 0e8db27be63542247ad4a47f77fb5f54, type: 3}
 --- !u!65 &2073984245593462054
 BoxCollider:
   m_ObjectHideFlags: 0

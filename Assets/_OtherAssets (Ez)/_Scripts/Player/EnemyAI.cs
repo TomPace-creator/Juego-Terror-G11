@@ -28,6 +28,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float lightSabotageRadius = 5f;
     [Tooltip("Cuántos segundos dejará la luz apagada (Ej: 60 = 1 minuto)")]
     [SerializeField] private float sabotageDuration = 60f;
+    // --- NUEVO: Capas que bloquean la visión ---
+    [Tooltip("Selecciona las capas que representan Paredes, Pisos y Techos (ej: 'Environment' o 'Default')")]
+    [SerializeField] private LayerMask occlusionLayers;
 
     [Header("Mecánica de Aturdimiento (Linterna)")]
     [Tooltip("Segundos que debes mirarlo fijamente para que te reste cordura de golpe")]
@@ -72,7 +75,6 @@ public class EnemyAI : MonoBehaviour
     private float footstepTimer = 0f;
     private bool hasPlayedHuntSound = false;
 
-    // Temporizador para no escanear las luces 60 veces por segundo (Optimización)
     private float sabotageCheckTimer = 0f;
 
     void Start()
@@ -122,7 +124,6 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = false;
         }
 
-        // NUEVO: El monstruo escanea y rompe luces a su paso
         CheckAndSabotageLights();
 
         CheckAndOpenDoorsAhead();
@@ -159,26 +160,46 @@ public class EnemyAI : MonoBehaviour
         else Patrol();
     }
 
-    // --- NUEVO SISTEMA DE SABOTAJE ---
+    // --- SISTEMA DE SABOTAJE ACTUALIZADO (Evita traspasar paredes/techos) ---
     private void CheckAndSabotageLights()
     {
         sabotageCheckTimer += Time.deltaTime;
 
-        // El radar pulsa una vez por segundo para optimizar
         if (sabotageCheckTimer >= 1f)
         {
             sabotageCheckTimer = 0f;
 
-            // Crea una esfera invisible alrededor del monstruo
             Collider[] colliders = Physics.OverlapSphere(transform.position, lightSabotageRadius);
             foreach (Collider col in colliders)
             {
                 LightSwitch lightSwitch = col.GetComponent<LightSwitch>();
                 if (lightSwitch == null) lightSwitch = col.GetComponentInParent<LightSwitch>();
 
-                // Si hay un switch y está encendido, el monstruo lo sabotea
                 if (lightSwitch != null && lightSwitch.GetIsOn())
                 {
+                    // --- NUEVO: Chequeo de Oclusión (Línea de visión) ---
+
+                    // Calculamos el origen (centro del monstruo) y destino (interruptor)
+                    Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Levantamos el rayo 1 metro del piso
+                    Vector3 targetPos = lightSwitch.transform.position;
+                    Vector3 direction = targetPos - rayOrigin;
+                    float distance = direction.magnitude;
+
+                    // Tiramos un rayo invisible desde el monstruo al interruptor.
+                    // Si choca contra algo en las 'occlusionLayers' ANTES de llegar al interruptor, está tapado.
+                    if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, distance, occlusionLayers))
+                    {
+                        // Debug visual (solo visible en el editor si la escena está pausada)
+                        Debug.DrawLine(rayOrigin, hit.point, Color.red, 1f);
+
+                        // Algo tapa la vista (una pared, el techo), ignoramos este interruptor
+                        continue;
+                    }
+
+                    // Debug visual: Línea verde si hay visión directa
+                    Debug.DrawLine(rayOrigin, targetPos, Color.green, 1f);
+
+                    // Si pasamos el chequeo del Raycast, saboteamos
                     lightSwitch.SabotageByEnemy(sabotageDuration);
                 }
             }
@@ -383,7 +404,6 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = new Color(0.5f, 0f, 0f);
         Gizmos.DrawWireSphere(transform.position, killDistance);
 
-        // NUEVO: Dibujamos el área de sabotaje de luz en cyan
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, lightSabotageRadius);
     }
