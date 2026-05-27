@@ -3,18 +3,18 @@ using System.Collections;
 
 public class CabinetDoor : InteractableObject
 {
-    [Header("Configuración de Alacena")]
+    [Header("configuracion alacena")]
     [SerializeField] private float openAngle = 90f;
     [SerializeField] private float smoothSpeed = 3f;
 
-    [Header("Puerta Doble (Opcional)")]
+    [Header("puerta doble")]
     [SerializeField] private CabinetDoor twinDoor;
 
-    [Header("Luz Interna (Opcional - Ej: Heladera)")]
-    [Tooltip("Arrastra aquí la luz que quieras que se encienda al abrir la puerta.")]
+    [Header("luz interna")]
+    [Tooltip("luz que prende al abrir la puerta")]
     [SerializeField] private Light internalLight;
 
-    [Header("Audio (Opcional)")]
+    [Header("audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
@@ -27,7 +27,7 @@ public class CabinetDoor : InteractableObject
         closedRotation = transform.rotation;
         interactText = isOpen ? "\"Cerrar Puerta [E]\"" : "\"Abrir Puerta [E]\"";
 
-        // Nos aseguramos de que la luz empiece apagada si la puerta está cerrada
+        // apago luz si arranca cerrada
         if (internalLight != null)
         {
             internalLight.enabled = isOpen;
@@ -52,20 +52,20 @@ public class CabinetDoor : InteractableObject
 
         StopAllCoroutines();
 
-        // Controlamos el Audio
+        // audio
         if (audioSource != null)
         {
             if (isOpen && openSound != null) audioSource.PlayOneShot(openSound);
             else if (!isOpen && closeSound != null) audioSource.PlayOneShot(closeSound);
         }
 
-        // --- NUEVO: Controlamos la Luz Interna ---
+        // luz interna
         if (internalLight != null)
         {
             internalLight.enabled = isOpen;
         }
 
-        // Animación de la puerta
+        // animacion
         if (isOpen)
         {
             Quaternion openRotation = Quaternion.Euler(closedRotation.eulerAngles + Vector3.up * openAngle);
@@ -76,7 +76,7 @@ public class CabinetDoor : InteractableObject
             StartCoroutine(AnimateDoor(closedRotation));
         }
 
-        // Puerta doble
+        // abre la otra puerta si es doble
         if (twinDoor != null && !isTriggeredByTwin)
         {
             twinDoor.ToggleDoor(true);

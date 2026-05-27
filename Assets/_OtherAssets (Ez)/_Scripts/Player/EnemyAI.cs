@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioClip spawnSound;
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private AudioClip absoluteHuntSound;
-    [SerializeField] private float footstepInterval = 0.6f;
+  
 
     [Header("Audio de Pasos")]
     [Tooltip("Segundos entre cada paso cuando patrulla (Lento)")]
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // Solo busca el Animator si olvidaste conectarlo a mano en el Inspector
+        
         if (animator == null)
         {
             animator = GetComponentInChildren<Animator>();
@@ -163,14 +163,14 @@ public class EnemyAI : MonoBehaviour
         if (timeSinceLastSeen <= memoryTime || isAbsoluteHunting) ChasePlayer(canSee, distanceToPlayerXZ);
         else Patrol();
 
-        // --- LA MAGIA ESTÁ AQUÍ: FORZAMOS LA VELOCIDAD ---
+       
         if (animator != null)
         {
             float currentSpeed = 0f;
-            // Si el monstruo NO está detenido y le falta camino por recorrer...
+          
             if (!agent.isStopped && agent.remainingDistance > 0.1f)
             {
-                // ¡Le metemos la velocidad MÁXIMA que dice el agente (4 o 5.5) a la fuerza!
+             
                 currentSpeed = agent.speed;
             }
 
@@ -178,7 +178,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // --- (El resto de tus funciones exactas están aquí abajo) ---
+  
 
     private void CheckAndSabotageLights()
     {

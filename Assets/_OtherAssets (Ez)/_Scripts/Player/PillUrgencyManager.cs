@@ -3,28 +3,28 @@ using System.Collections;
 
 public class PillUrgencyManager : MonoBehaviour
 {
-    [Header("Activación")]
-    [Tooltip("El título EXACTO de la misión que activa este temporizador (Ej: 'Encuentra las pastillas')")]
+    [Header("activacion")]
+    [Tooltip("titulo exacto de la mision que activa el timer")]
     [SerializeField] private string triggerMissionTitle = "Encuentra las pastillas";
 
-    [Header("Configuración de Tiempo")]
-    [Tooltip("Segundos que el jugador puede estar sin tomar las pastillas antes de que empiecen los síntomas")]
+    [Header("tiempo")]
+    [Tooltip("segundos sin pastillas antes de los sintomas")]
     [SerializeField] private float timeBeforeSymptoms = 120f;
 
-    [Header("Castigo (Sanidad)")]
+    [Header("castigo")]
     [SerializeField] private float sanityDrainPerSecond = 1.5f;
 
-    [Header("Audio (Susurros)")]
+    [Header("audio")]
     [SerializeField] private AudioSource whisperAudioSource;
     [SerializeField, Range(0f, 1f)] private float maxWhisperVolume = 0.8f;
     [SerializeField] private float volumeIncreaseSpeed = 0.05f;
 
-    [Header("Efectos Visuales (Alucinaciones)")]
-    [Tooltip("El contenedor o la imagen de la sombra en el Canvas de la UI")]
+    [Header("visuales")]
+    [Tooltip("contenedor de sombras en la ui")]
     [SerializeField] private GameObject uiShadowsContainer;
 
-    [Header("Narrativa")]
-    [SerializeField] private string warningSubtitle = "<i>No me siento muy bien... realmente debería tomar mis pastillas...</i>";
+    [Header("narrativa")]
+    [SerializeField] private string warningSubtitle = "<i>no me siento muy bien... deberia tomar mis pastillas...</i>";
     [SerializeField] private float subtitleDuration = 5f;
 
     private PlayerSanity playerSanity;
@@ -34,7 +34,7 @@ public class PillUrgencyManager : MonoBehaviour
     private bool symptomsActive = false;
     private bool pillsConsumed = false;
 
-    // Variables internas para recordar la misión y refrescar el HUD
+    // guardo la mision activa aca
     private string activeMissionTitle = "";
     private string activeMissionDetails = "";
 
@@ -77,7 +77,7 @@ public class PillUrgencyManager : MonoBehaviour
         {
             isUrgencyActive = true;
 
-            // Guardamos el título y los detalles exactos de la misión de las pastillas
+            // guardo titulo y detalles
             activeMissionTitle = title;
             activeMissionDetails = details;
         }
@@ -107,13 +107,13 @@ public class PillUrgencyManager : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
-            // 1. Mostramos el subtítulo de Ruth
+            // muestro texto
             if (!string.IsNullOrEmpty(warningSubtitle))
             {
                 GameManager.Instance.ShowSubtitle(warningSubtitle, subtitleDuration);
             }
 
-            // 2. Refrescamos la misión en pantalla para recordar al jugador su objetivo
+            // refresco la mision
             if (!string.IsNullOrEmpty(activeMissionTitle))
             {
                 GameManager.Instance.UpdateMission(activeMissionTitle, activeMissionDetails);

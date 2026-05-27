@@ -3,34 +3,34 @@ using System.Collections;
 
 public class WindowUrgencyManager : MonoBehaviour
 {
-    [Header("Activación por Misión")]
-    [Tooltip("Título EXACTO de la misión donde debe asomarse a la ventana")]
+    [Header("activacion por mision")]
+    [Tooltip("titulo exacto de la mision para asomarse a la ventana")]
     [SerializeField] private string windowMissionTitle = "Investiga el ruido";
 
-    [Header("Configuración de Tiempos")]
-    [Tooltip("Segundos que el jugador puede ignorar la ventana antes del susto")]
+    [Header("tiempos")]
+    [Tooltip("segundos antes del susto si ignora la ventana")]
     [SerializeField] private float timeBeforePanic = 60f;
 
-    [Header("Castigo (Sanidad)")]
-    [Tooltip("Cordura perdida por segundo cuando entra en pánico")]
+    [Header("castigo")]
+    [Tooltip("cordura que pierde por segundo en panico")]
     [SerializeField] private float sanityDrainPerSecond = 1f;
 
-    [Header("Efectos Visuales")]
-    [Tooltip("El contenedor de sombras en la UI")]
+    [Header("efectos visuales")]
+    [Tooltip("contenedor de sombras ui")]
     [SerializeField] private GameObject uiShadowsContainer;
 
-    [Header("Audio (Susurros Constantes)")]
-    [Tooltip("El AudioSource para los susurros en la cabeza de Ruth")]
+    [Header("audio susurros")]
+    [Tooltip("audiosource de susurros")]
     [SerializeField] private AudioSource whisperAudioSource;
     [SerializeField, Range(0f, 1f)] private float maxWhisperVolume = 0.8f;
     [SerializeField] private float volumeIncreaseSpeed = 0.05f;
 
-    [Header("Audio y Narrativa (Jump Scare)")]
-    [Tooltip("AudioSource para el susto (idealmente en la ventana real, en 3D)")]
+    [Header("susto ventana")]
+    [Tooltip("audio 3d del susto en la ventana")]
     [SerializeField] private AudioSource windowAudioSource;
-    [Tooltip("Sonido de golpe en el vidrio o arañazo")]
+    [Tooltip("sonido del vidrio o golpe")]
     [SerializeField] private AudioClip scaryWindowSound;
-    [SerializeField] private string warningSubtitle = "<i>¡Ese ruido me está volviendo loca!... Tengo que mirar qué fue.</i>";
+    [SerializeField] private string warningSubtitle = "<i>¡ese ruido me esta volviendo loca!... tengo que mirar que fue.</i>";
     [SerializeField] private float subtitleDuration = 4f;
 
     private PlayerSanity playerSanity;
@@ -40,7 +40,7 @@ public class WindowUrgencyManager : MonoBehaviour
     private bool effectsActive = false;
     private bool windowChecked = false;
 
-    // Variables internas para recordar la misión y refrescar el HUD
+    // guardo la mision activa aca
     private string activeMissionTitle = "";
     private string activeMissionDetails = "";
 
@@ -54,7 +54,7 @@ public class WindowUrgencyManager : MonoBehaviour
             uiShadowsContainer.SetActive(false);
         }
 
-        // Preparamos el audio de los susurros para que empiece silenciado
+        // arranco susurros en silencio
         if (whisperAudioSource != null)
         {
             whisperAudioSource.volume = 0f;
@@ -129,13 +129,13 @@ public class WindowUrgencyManager : MonoBehaviour
             }
         }
 
-        // Reproducimos el "Jump Scare" auditivo de la ventana
+        // jump scare de ventana
         if (windowAudioSource != null && scaryWindowSound != null)
         {
             windowAudioSource.PlayOneShot(scaryWindowSound);
         }
 
-        // Encendemos los susurros progresivos
+        // arranco susurros
         if (whisperAudioSource != null && !whisperAudioSource.isPlaying)
         {
             whisperAudioSource.Play();
@@ -154,7 +154,7 @@ public class WindowUrgencyManager : MonoBehaviour
             playerSanity.LoseSanity(sanityDrainPerSecond * Time.deltaTime);
         }
 
-        // Subimos el volumen de los susurros progresivamente
+        // subo volumen de a poco
         if (whisperAudioSource != null && whisperAudioSource.volume < maxWhisperVolume)
         {
             whisperAudioSource.volume += volumeIncreaseSpeed * Time.deltaTime;
