@@ -5,6 +5,10 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
+    [Header("Conexión del Cuerpo (¡OBLIGATORIO!)")]
+    [Tooltip("Arrastra aquí el modelo 'moustro2 Con rig' desde la Hierarchy")]
+    [SerializeField] private Animator animator;
+
     [Header("Configuración de Persecución")]
     [SerializeField] private float detectionRange = 15f;
     [SerializeField] private float chaseSpeed = 5.5f;
@@ -28,7 +32,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float lightSabotageRadius = 5f;
     [Tooltip("Cuántos segundos dejará la luz apagada (Ej: 60 = 1 minuto)")]
     [SerializeField] private float sabotageDuration = 60f;
-    [Tooltip("Selecciona las capas que representan Paredes, Pisos y Techos (ej: 'Environment' o 'Default')")]
+    [Tooltip("Selecciona las capas que representan Paredes, Pisos y Techos")]
     [SerializeField] private LayerMask occlusionLayers;
 
     [Header("Mecánica de Aturdimiento (Linterna)")]
@@ -63,28 +67,25 @@ public class EnemyAI : MonoBehaviour
     private Transform playerTransform;
     private PlayerSanity playerSanity;
 
-    // Variable para guardar el componente Animator
-    private Animator animator;
-
     private float waitTimer = 0f;
     private float timeSinceLastSeen = 10f;
-
     private float timeSinceLastIlluminated = 999f;
     private float continuousIlluminationTime = 0f;
-
     private bool isVanished = false;
     private bool isInteractingWithDoor = false;
     private float footstepTimer = 0f;
     private bool hasPlayedHuntSound = false;
-
     private float sabotageCheckTimer = 0f;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // Buscamos el Animator en el modelo hijo (moustro2 Con rig)
-        animator = GetComponentInChildren<Animator>();
+        // Solo busca el Animator si olvidaste conectarlo a mano en el Inspector
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -129,7 +130,6 @@ public class EnemyAI : MonoBehaviour
         }
 
         CheckAndSabotageLights();
-
         CheckAndOpenDoorsAhead();
         if (isInteractingWithDoor) return;
 
@@ -163,12 +163,22 @@ public class EnemyAI : MonoBehaviour
         if (timeSinceLastSeen <= memoryTime || isAbsoluteHunting) ChasePlayer(canSee, distanceToPlayerXZ);
         else Patrol();
 
-        // Enviamos la velocidad real del monstruo usando el nombre exacto del parámetro: "Velocidad"
+        // --- LA MAGIA ESTÁ AQUÍ: FORZAMOS LA VELOCIDAD ---
         if (animator != null)
         {
-            animator.SetFloat("Velocidad", agent.velocity.magnitude);
+            float currentSpeed = 0f;
+            // Si el monstruo NO está detenido y le falta camino por recorrer...
+            if (!agent.isStopped && agent.remainingDistance > 0.1f)
+            {
+                // ¡Le metemos la velocidad MÁXIMA que dice el agente (4 o 5.5) a la fuerza!
+                currentSpeed = agent.speed;
+            }
+
+            animator.SetFloat("Velocidad", currentSpeed);
         }
     }
+
+    // --- (El resto de tus funciones exactas están aquí abajo) ---
 
     private void CheckAndSabotageLights()
     {
