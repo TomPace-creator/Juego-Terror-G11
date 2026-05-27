@@ -28,7 +28,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float lightSabotageRadius = 5f;
     [Tooltip("Cuántos segundos dejará la luz apagada (Ej: 60 = 1 minuto)")]
     [SerializeField] private float sabotageDuration = 60f;
-    // --- NUEVO: Capas que bloquean la visión ---
     [Tooltip("Selecciona las capas que representan Paredes, Pisos y Techos (ej: 'Environment' o 'Default')")]
     [SerializeField] private LayerMask occlusionLayers;
 
@@ -64,6 +63,9 @@ public class EnemyAI : MonoBehaviour
     private Transform playerTransform;
     private PlayerSanity playerSanity;
 
+    // Variable para guardar el componente Animator
+    private Animator animator;
+
     private float waitTimer = 0f;
     private float timeSinceLastSeen = 10f;
 
@@ -80,6 +82,9 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        // Buscamos el Animator en el modelo hijo (moustro2 Con rig)
+        animator = GetComponentInChildren<Animator>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -116,7 +121,6 @@ public class EnemyAI : MonoBehaviour
                 if (playerSanity != null) playerSanity.LoseSanity(stunSanityDamage);
                 continuousIlluminationTime = 0f;
             }
-            return;
         }
         else
         {
@@ -158,9 +162,14 @@ public class EnemyAI : MonoBehaviour
 
         if (timeSinceLastSeen <= memoryTime || isAbsoluteHunting) ChasePlayer(canSee, distanceToPlayerXZ);
         else Patrol();
+
+        // Enviamos la velocidad real del monstruo usando el nombre exacto del parámetro: "Velocidad"
+        if (animator != null)
+        {
+            animator.SetFloat("Velocidad", agent.velocity.magnitude);
+        }
     }
 
-    // --- SISTEMA DE SABOTAJE ACTUALIZADO (Evita traspasar paredes/techos) ---
     private void CheckAndSabotageLights()
     {
         sabotageCheckTimer += Time.deltaTime;
@@ -177,29 +186,18 @@ public class EnemyAI : MonoBehaviour
 
                 if (lightSwitch != null && lightSwitch.GetIsOn())
                 {
-                    // --- NUEVO: Chequeo de Oclusión (Línea de visión) ---
-
-                    // Calculamos el origen (centro del monstruo) y destino (interruptor)
-                    Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Levantamos el rayo 1 metro del piso
+                    Vector3 rayOrigin = transform.position + Vector3.up * 1f;
                     Vector3 targetPos = lightSwitch.transform.position;
                     Vector3 direction = targetPos - rayOrigin;
                     float distance = direction.magnitude;
 
-                    // Tiramos un rayo invisible desde el monstruo al interruptor.
-                    // Si choca contra algo en las 'occlusionLayers' ANTES de llegar al interruptor, está tapado.
                     if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, distance, occlusionLayers))
                     {
-                        // Debug visual (solo visible en el editor si la escena está pausada)
                         Debug.DrawLine(rayOrigin, hit.point, Color.red, 1f);
-
-                        // Algo tapa la vista (una pared, el techo), ignoramos este interruptor
                         continue;
                     }
 
-                    // Debug visual: Línea verde si hay visión directa
                     Debug.DrawLine(rayOrigin, targetPos, Color.green, 1f);
-
-                    // Si pasamos el chequeo del Raycast, saboteamos
                     lightSwitch.SabotageByEnemy(sabotageDuration);
                 }
             }

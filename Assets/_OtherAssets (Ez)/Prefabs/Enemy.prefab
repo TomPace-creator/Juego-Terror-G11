@@ -258,7 +258,13 @@ MonoBehaviour:
   eyeHeight: 1.6
   doorReach: 1.5
   doorHesitationTime: 1.5
-  flashlightStunDuration: 2
+  lightSabotageRadius: 5
+  sabotageDuration: 60
+  occlusionLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  timeToDrainSanityWhenStunned: 5
+  stunSanityDamage: 15
   patrolSpeed: 4
   patrolRadius: 20
   waitTimeAtDestination: 0.5
@@ -269,3 +275,5 @@ MonoBehaviour:
   footstepSound: {fileID: 8300000, guid: 06437c6451f9a0b4f9bdef25c06900be, type: 3}
   absoluteHuntSound: {fileID: 8300000, guid: 80684d9010065014d9f0272d4968cf0e, type: 3}
   footstepInterval: 0.2
+  patrolFootstepInterval: 1.2
+  chaseFootstepInterval: 0.8
