@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
+    [SerializeField] private MonoBehaviour controllerScript;
 
     private bool isPaused = false;
 
@@ -33,6 +34,8 @@ public class PauseGame : MonoBehaviour
 
         Time.timeScale = 0f;
 
+        controllerScript.enabled= false;
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -45,12 +48,17 @@ public class PauseGame : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        controllerScript.enabled = true;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     public void BackToMenu()
     {
+        Resume();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("StartMenu");
     }
 }

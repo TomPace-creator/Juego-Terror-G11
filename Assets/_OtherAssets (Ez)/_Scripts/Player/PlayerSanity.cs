@@ -112,7 +112,8 @@ public class PlayerSanity : MonoBehaviour
     {
         Debug.Log("¡CORDURA AL CERO! Cargando escena Lose...");
 
-       
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("Lose");
     }
 
