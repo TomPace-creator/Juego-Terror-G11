@@ -240,18 +240,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cce25f86bc1d34418d35f233716bc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  animator: {fileID: 0}
   detectionRange: 15
-  chaseSpeed: 3
+  chaseSpeed: 2.5
   memoryTime: 20
   timeToAbsoluteHunt: 60
   killDistance: 1.8
-  sanityDrainRange: 10
-  sanityDrainPerSecond: 5
+  sanityDrainRange: 8
+  sanityDrainPerSecond: 3
   eyeHeight: 1.77
   doorReach: 1.5
-  doorHesitationTime: 1
+  doorHesitationTime: 1.5
   lightSabotageRadius: 20
-  sabotageDuration: 60
+  sabotageDuration: 50
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -266,7 +267,6 @@ MonoBehaviour:
   spawnSound: {fileID: 8300000, guid: 6b94c6f08bab13e4cb8e25e6b032a07a, type: 3}
   footstepSound: {fileID: 8300000, guid: 06437c6451f9a0b4f9bdef25c06900be, type: 3}
   absoluteHuntSound: {fileID: 8300000, guid: 80684d9010065014d9f0272d4968cf0e, type: 3}
-  footstepInterval: 500
   patrolFootstepInterval: 0.8
   chaseFootstepInterval: 0.6
 --- !u!1001 &2166253246216699057
