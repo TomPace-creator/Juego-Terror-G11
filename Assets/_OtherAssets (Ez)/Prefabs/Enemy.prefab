@@ -329,6 +329,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8169328638618423081, guid: 5eb2a232e6ceca540bd189d3c79b8b33, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3d5f2a58b96ae0c419a79d22527b6194, type: 2}
     - target: {fileID: 919132149155446097, guid: 5eb2a232e6ceca540bd189d3c79b8b33, type: 3}
       propertyPath: m_Name
       value: moustro2 Con rig

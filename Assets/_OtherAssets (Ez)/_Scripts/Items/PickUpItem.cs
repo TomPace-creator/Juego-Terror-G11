@@ -6,6 +6,12 @@ public class PickUpItem : InteractableObject
     [Header("Configuración del Objeto")]
     [SerializeField] private string itemName = "Linterna";
 
+    [Header("Objeto en la Mano (View Model)")]
+    [SerializeField] private GameObject linternaEnMano;
+
+    // NUEVO: Aquí arrastraremos el script AjustarHueso para activarlo al agarrar
+    [SerializeField] private AjustarHueso ajustadorBrazo;
+
     [Header("Feedback Inicial")]
     [SerializeField] private AudioClip pickUpSound;
     [SerializeField] private string thoughtOnPickUp = "<i>Con esto podré ver en la oscuridad...</i>";
@@ -26,22 +32,30 @@ public class PickUpItem : InteractableObject
 
     private void Start()
     {
-        interactText = "\"Agarrar " + itemName + " [E]\""; 
+        interactText = "\"Agarrar " + itemName + " [E]\"";
     }
 
     public override void Interact()
     {
-        // apag collis
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
 
-        
+        if (linternaEnMano != null)
+        {
+            linternaEnMano.SetActive(true);
+        }
+
+        // NUEVO: Activamos la rotación del brazo izquierdo
+        if (ajustadorBrazo != null)
+        {
+            ajustadorBrazo.enabled = true;
+        }
+
         if (pickUpSound != null)
         {
             AudioSource.PlayClipAtPoint(pickUpSound, transform.position);
         }
 
-    
         StartCoroutine(PickUpSequence());
     }
 
@@ -63,15 +77,11 @@ public class PickUpItem : InteractableObject
                 yield return new WaitForSeconds(4f);
             }
 
-            
-
-            
             if (updateSecondaryMission)
             {
                 GameManager.Instance.UpdateSecondaryMission(secondaryMissionTitle, secondaryMissionDetails);
             }
 
-            
             if (updateTertiaryMission)
             {
                 GameManager.Instance.UpdateTertiaryMission(tertiaryMissionTitle, tertiaryMissionDetails);
