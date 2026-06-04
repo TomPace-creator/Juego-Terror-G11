@@ -103287,7 +103287,7 @@ GameObject:
   - component: {fileID: 843972868}
   - component: {fileID: 843972867}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Truenos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103667,7 +103667,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 0e11ce62eeac985499ab97427d3c299e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.813
   m_Pitch: 1
   Loop: 1
   Mute: 0
