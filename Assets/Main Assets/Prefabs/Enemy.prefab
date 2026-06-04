@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   animator: {fileID: 5727037693251600672}
   detectionRange: 15
-  chaseSpeed: 4
+  chaseSpeed: 3
   memoryTime: 20
   timeToAbsoluteHunt: 60
   killDistance: 1.8
@@ -258,7 +258,7 @@ MonoBehaviour:
     m_Bits: 8
   timeToDrainSanityWhenStunned: 5
   stunSanityDamage: 15
-  patrolSpeed: 6
+  patrolSpeed: 5
   patrolRadius: 20
   waitTimeAtDestination: 0.5
   spawnPointTag: EnemySpawn
