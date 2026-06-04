@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6850866175443832099}
   - component: {fileID: 1510594029253589214}
   - component: {fileID: 7492580542592388871}
+  - component: {fileID: -4460795613396555341}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -269,6 +270,28 @@ MonoBehaviour:
   absoluteHuntSound: {fileID: 8300000, guid: 80684d9010065014d9f0272d4968cf0e, type: 3}
   patrolFootstepInterval: 2.5
   chaseFootstepInterval: 2
+--- !u!95 &-4460795613396555341
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8191696637150248217}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 5eb2a232e6ceca540bd189d3c79b8b33, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0c0d7254f574ad748b13169370f150ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &744964387959496156
 PrefabInstance:
   m_ObjectHideFlags: 0

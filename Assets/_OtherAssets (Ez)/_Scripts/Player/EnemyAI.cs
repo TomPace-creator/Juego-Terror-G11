@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioClip spawnSound;
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private AudioClip absoluteHuntSound;
-  
+
 
     [Header("Audio de Pasos")]
     [Tooltip("Segundos entre cada paso cuando patrulla (Lento)")]
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        
+
         if (animator == null)
         {
             animator = GetComponentInChildren<Animator>();
@@ -163,22 +163,15 @@ public class EnemyAI : MonoBehaviour
         if (timeSinceLastSeen <= memoryTime || isAbsoluteHunting) ChasePlayer(canSee, distanceToPlayerXZ);
         else Patrol();
 
-       
+        // --- SOLUCIÓN DEL ANIMATOR CON DAMP TIME ---
+        // Le pasamos la velocidad física con un suavizado de 0.15 segundos para evitar parpadeos
         if (animator != null)
         {
-            float currentSpeed = 0f;
-          
-            if (!agent.isStopped && agent.remainingDistance > 0.1f)
-            {
-             
-                currentSpeed = agent.speed;
-            }
-
-            animator.SetFloat("Velocidad", currentSpeed);
+            animator.SetFloat("Velocidad", agent.velocity.magnitude, 0.15f, Time.deltaTime);
         }
     }
 
-  
+
 
     private void CheckAndSabotageLights()
     {

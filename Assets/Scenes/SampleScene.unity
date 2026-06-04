@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.3
+  m_AmbientIntensity: 2.44
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 50f34f751c53cd6418769e953895a25f, type: 2}
@@ -148773,7 +148773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336072990de8a524394780a81a35d24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 8191696637150248217, guid: 06df2fc940e177d4f9bc43f9709cf13f, type: 3}
+  enemyPrefab: {fileID: 8990431340297795750, guid: ade8d39fec24ad743a2c1042ffe57cad, type: 3}
   spawnPointTag: EnemySpawn
 --- !u!4 &1147925698
 Transform:
