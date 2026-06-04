@@ -9,6 +9,10 @@ public class Raycast : MonoBehaviour
     [SerializeField] private float interactRange = 2.5f;
     [SerializeField] private Transform cameraTransform;
 
+    // == MODIFICADO: Referencia al script de animación de las manos ==
+    [Header("Referencias de Animación")]
+    [SerializeField] private AnimacionInteraccion animacionManos;
+
     [Header("Interfaz (HUD) - Objetos")]
     [SerializeField] private GameObject crosshairDotObject;
     [SerializeField] private GameObject defaultCrosshairHandObject;
@@ -29,8 +33,6 @@ public class Raycast : MonoBehaviour
         {
             CheckForInteractables();
         }
-
-
     }
 
     private void CheckForInteractables()
@@ -39,14 +41,11 @@ public class Raycast : MonoBehaviour
 
         if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, interactRange))
         {
-         
             IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
 
             if (interactable != null)
             {
-      
                 interactTextComponent.text = interactable.GetInteractText();
-
                 SetCrosshairState(false, true, false, true);
                 return;
             }
@@ -69,7 +68,12 @@ public class Raycast : MonoBehaviour
             {
                 StartCoroutine(HandleInteractingVisuals());
 
-              
+                // == MODIFICADO: Si encuentra un interactuable, le avisa a las manos que se muevan ==
+                if (animacionManos != null)
+                {
+                    animacionManos.EjecutarAnimacionInteraccion();
+                }
+
                 interactable.Interact();
             }
         }
@@ -90,14 +94,12 @@ public class Raycast : MonoBehaviour
         if (interactCrosshairClosedHandObject != null) interactCrosshairClosedHandObject.SetActive(interactHand);
         if (interactTextObject != null) interactTextObject.SetActive(text);
     }
-  
+
     public void OnInteractAction(InputAction.CallbackContext context)
     {
-      
         if (context.started)
         {
             TryInteract();
         }
     }
 }
-

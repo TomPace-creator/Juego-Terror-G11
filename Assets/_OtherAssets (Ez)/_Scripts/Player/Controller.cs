@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class Controller : MonoBehaviour
@@ -32,26 +32,24 @@ public class Controller : MonoBehaviour
     [SerializeField] private Transform cameraContainer;
     private CharacterController characterController;
 
-
     private Vector2 inputVectorMovement;
     private Vector2 inputVectorLook;
     private bool isSprinting;
     private Vector3 moveDirection = Vector3.zero;
 
+    // variables publicas para que las lea el script de estamina
+    public bool IsSprinting => isSprinting;
+    public bool IsMoving => inputVectorMovement.magnitude > 0.1f;
+
     void Awake()
     {
-     
         characterController = GetComponent<CharacterController>();
         defaultYPos = cameraContainer.localPosition.y;
 
-        // Bloqueo de cursor
+        // bloqueo de cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
-     
-
     }
-
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -65,7 +63,7 @@ public class Controller : MonoBehaviour
 
     public void OnSprint(InputAction.CallbackContext context)
     {
-        // Leemos si el btn esta apretado o se solto
+        // leemos si el btn esta apretado o se solto
         isSprinting = context.ReadValueAsButton();
     }
 
@@ -88,22 +86,25 @@ public class Controller : MonoBehaviour
 
     void CharacterMovement()
     {
-        playerCurrentSpeed = isSprinting ? runningSpeed : walkingSpeed;
+        // busco el script de estamina que armamos recien
+        PlayerStamina staminaSystem = GetComponent<PlayerStamina>();
+
+        // chequeo si apreta correr y si la estamina se lo permite
+        bool puedeCorrer = isSprinting && (staminaSystem == null || staminaSystem.CanSprint);
+
+        playerCurrentSpeed = puedeCorrer ? runningSpeed : walkingSpeed;
 
         float movementDirectionY = moveDirection.y;
 
         Vector3 movement = (transform.forward * inputVectorMovement.y) + (transform.right * inputVectorMovement.x);
         moveDirection = movement * playerCurrentSpeed;
 
-        
         if (isGrounded && movementDirectionY < 0)
         {
-            
             moveDirection.y = -2f;
         }
         else
         {
-            
             moveDirection.y = movementDirectionY;
             moveDirection.y += gravityMultiplier * Physics.gravity.y * Time.deltaTime;
         }
@@ -113,7 +114,6 @@ public class Controller : MonoBehaviour
 
     void CameraRotation()
     {
-        
         rotationX -= inputVectorLook.y * lookSensitivity;
         rotationX = Mathf.Clamp(rotationX, -lookVerticalMaxAngle, lookVerticalMaxAngle);
 
@@ -123,7 +123,6 @@ public class Controller : MonoBehaviour
 
     void HandleHeadbob()
     {
-      
         if (inputVectorMovement.sqrMagnitude > 0.1f)
         {
             timer += Time.deltaTime * (isSprinting ? bobSpeed * 1.4f : bobSpeed);
@@ -149,10 +148,8 @@ public class Controller : MonoBehaviour
 
     public void SincronizarRotacionCamara()
     {
-        
         rotationX = cameraContainer.localEulerAngles.x;
 
-       
         if (rotationX > 180f)
         {
             rotationX -= 360f;

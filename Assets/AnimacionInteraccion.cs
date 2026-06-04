@@ -1,16 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AnimacionInteraccion : MonoBehaviour
 {
-    public Animator miAnimator;
+    [Header("Referencias")]
+    [SerializeField] private Animator miAnimator;
 
-    public void DispararAnimacion(InputAction.CallbackContext context)
+    // Eliminamos el InputAction de aquí para que no se dispare solo con la E.
+    // Ahora esta función es pública y la llamaremos desde el script que detecta los objetos.
+    public void EjecutarAnimacionInteraccion()
     {
-        if (context.performed)
+        if (miAnimator != null)
         {
             // Esta línea imprimirá un mensaje en la consola de Unity
-            Debug.Log("¡El script recibió la tecla E!");
+            Debug.Log("¡Animación de interacción disparada con éxito!");
             miAnimator.SetTrigger("Interactuar");
         }
     }
