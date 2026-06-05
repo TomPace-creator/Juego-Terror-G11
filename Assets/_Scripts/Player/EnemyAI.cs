@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Conexión del Cuerpo (¡OBLIGATORIO!)")]
+    [Header("Conexión del Cuerpo")]
     [Tooltip("Arrastra aquí el modelo 'moustro2 Con rig' desde la Hierarchy")]
     [SerializeField] private Animator animator;
 
@@ -14,7 +14,13 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float chaseSpeed = 5.5f;
     [SerializeField] private float memoryTime = 5f;
 
-    [Header("Modo Caza Absoluta")]
+
+    [Header("Configuración de Patrullaje")]
+    [SerializeField] private float patrolSpeed = 4f;
+    [SerializeField] private float patrolRadius = 20f;
+    [SerializeField] private float waitTimeAtDestination = 0.5f;
+
+    [Header("Modo Caza Total")]
     [SerializeField] private float timeToAbsoluteHunt = 60f;
 
     [Header("Daño de Cordura")]
@@ -41,10 +47,6 @@ public class EnemyAI : MonoBehaviour
     [Tooltip("Cantidad de cordura que te quita tras mirarlo esos 5 segundos")]
     [SerializeField] private float stunSanityDamage = 15f;
 
-    [Header("Configuración de Patrullaje")]
-    [SerializeField] private float patrolSpeed = 4f;
-    [SerializeField] private float patrolRadius = 20f;
-    [SerializeField] private float waitTimeAtDestination = 0.5f;
 
     [Header("Desaparición Táctica")]
     [SerializeField] private string spawnPointTag = "EnemySpawn";
