@@ -242,26 +242,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   animator: {fileID: 0}
-  detectionRange: 15
+  detectionRange: 10
   chaseSpeed: 5.5
   memoryTime: 20
+  patrolSpeed: 6
+  patrolRadius: 20
+  waitTimeAtDestination: 0.5
   timeToAbsoluteHunt: 60
-  killDistance: 1.8
-  sanityDrainRange: 8
-  sanityDrainPerSecond: 3
+  killDistance: 1
+  sanityDrainRange: 7
+  sanityDrainPerSecond: 4
   eyeHeight: 1.77
-  doorReach: 1.5
-  doorHesitationTime: 1.5
-  lightSabotageRadius: 20
+  doorReach: 2
+  doorHesitationTime: 1.8
+  lightSabotageRadius: 10
   sabotageDuration: 50
   occlusionLayers:
     serializedVersion: 2
     m_Bits: 8
-  timeToDrainSanityWhenStunned: 5
-  stunSanityDamage: 15
-  patrolSpeed: 6
-  patrolRadius: 20
-  waitTimeAtDestination: 0.5
+  timeToDrainSanityWhenStunned: 10
+  stunSanityDamage: 10
   spawnPointTag: EnemySpawn
   vanishDuration: 5
   audioSource: {fileID: 1510594029253589214}
