@@ -81,7 +81,6 @@ public class EnemyAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-
         if (animator == null)
         {
             animator = GetComponentInChildren<Animator>();
@@ -95,6 +94,9 @@ public class EnemyAI : MonoBehaviour
         }
 
         if (GameManager.Instance != null) GameManager.Instance.OnPillsConsumed += HandlePillsConsumed;
+
+        
+        timeSinceLastSeen = memoryTime + 1f;
 
         SetRandomPatrolDestination();
         PlaySpawnSound();
