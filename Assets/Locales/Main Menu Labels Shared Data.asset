@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Main Menu Labels Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Main Menu Labels
+  m_TableCollectionNameGuidString: a6aa15674b06b9e4986d465e49a6c488
+  m_Entries:
+  - m_Id: 2451743588352
+    m_Key: mainMenu.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3078305497088
+    m_Key: mainMenu.controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9254359416832
+    m_Key: "mainMenu.credits\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9335158489088
+    m_Key: mainMenu.exit
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 6434886692387160282
+  references:
+    version: 2
+    RefIds:
+    - rid: 6434886692387160282
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1781668260446

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Main Menu Labels_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: a6aa15674b06b9e4986d465e49a6c488, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 2451743588352
+    m_Localized: JUGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3078305497088
+    m_Localized: CONTROLES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9254359416832
+    m_Localized: CREDITOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9335158489088
+    m_Localized: SALIR
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
